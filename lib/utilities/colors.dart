@@ -4,7 +4,7 @@ class AppColors {
   static const PRIMARY_COLOR = Color(0xFF455A64);
 
   static const WHITE = Color(0xFFFFFFFF);
-  static const GREY = Color(0xFF9E9E9E);
+  static const GREY = Color(0xFF303030);
   static const RED = Color(0xFFEF5350);
   static const GREEN = Color(0xFF4CAF50);
   static const BLUE = Color(0xFF2196F3);

@@ -104,6 +104,12 @@
       "languageVersion": "2.10"
     },
     {
+      "name": "flutter_vector_icons",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_vector_icons-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.0"
+    },
+    {
       "name": "flutter_web_plugins",
       "rootUri": "file:///C:/src/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
@@ -356,7 +362,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2020-10-14T16:46:43.983965Z",
+  "generated": "2020-10-16T05:46:50.257270Z",
   "generator": "pub",
   "generatorVersion": "2.11.0-213.0.dev"
 }

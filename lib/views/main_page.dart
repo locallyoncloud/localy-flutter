@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
-import 'package:locally_flutter_app/views/main.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:provider/provider.dart';
+import 'home.dart';
+
 
 class MainPage extends StatefulWidget {
   @override
@@ -45,9 +46,9 @@ class _MainPageState extends State<MainPage> {
                     child: Icon(Icons.person, color: AppColors.WHITE),
                   ),
                 ),
-                  decoration: BoxDecoration(
-                    color: AppColors.PRIMARY_COLOR,
-                  )
+                    decoration: BoxDecoration(
+                      color: AppColors.PRIMARY_COLOR,
+                    )
                 ),
                 // body
                 buildListElement('Ana Sayfa', Icons.home, AppColors.PRIMARY_COLOR),
@@ -69,7 +70,7 @@ class _MainPageState extends State<MainPage> {
           body: FadeIndexedStack(
             index: context.watch<MainPageVM>().currentSelectedIndex,
             children: [
-              Main(),
+              Home(),
             ],
           )),
     );
@@ -82,7 +83,7 @@ class _MainPageState extends State<MainPage> {
           case "Ana Sayfa":
             context.read<MainPageVM>().setCurrentSelectedIndex(0);
             break;
-          case "Giriş":
+          case "Giriş Yapın":
             context.read<MainPageVM>().setCurrentSelectedIndex(1);
             break;
         }
