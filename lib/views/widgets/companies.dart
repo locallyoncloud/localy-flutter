@@ -40,15 +40,20 @@ class _CompaniesState extends State<Companies> {
     return GridView.builder(
         itemCount: companyList.length,
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10), itemBuilder: (BuildContext context, int index) {
-          return OvalLogo(
-            isNetworkImage: false,
-            bottomText: companyList[index]["name"],
-            imagePath: companyList[index]["logo"],
-            textStyle: AppFonts.getMainFont(fontWeight: FontWeight.w900, color: AppColors.GREY),
-            onClick: () => Get.to(CompanyDetails(
-              companyDetailName: companyList[index]["name"],
-              companyDetailLogo: companyList[index]["logo"],
-            )),
+          return Hero(
+            tag: "${index}asd",
+            child: Material(
+              child: OvalLogo(
+                isNetworkImage: false,
+                bottomText: companyList[index]["name"],
+                imagePath: companyList[index]["logo"],
+                textStyle: AppFonts.getMainFont(fontWeight: FontWeight.w900, color: AppColors.GREY),
+                onClick: () => Get.to(CompanyDetails(
+                  companyDetailName: companyList[index]["name"],
+                  companyDetailLogo: companyList[index]["logo"],
+                )),
+              ),
+            ),
           );
     });
   }

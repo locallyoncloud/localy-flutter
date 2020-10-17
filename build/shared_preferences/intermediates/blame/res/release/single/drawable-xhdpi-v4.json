@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "E:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_normal.9.png",
+        "source": "C:\\Users\\Levent\\.gradle\\caches\\transforms-2\\files-2.1\\2c8f672ff879eb46d5b97b42e8a106cc\\core-1.1.0\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
+    },
+    {
+        "merged": "E:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\Levent\\.gradle\\caches\\transforms-2\\files-2.1\\2c8f672ff879eb46d5b97b42e8a106cc\\core-1.1.0\\res\\drawable-xhdpi-v4\\notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "E:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png",
+        "source": "C:\\Users\\Levent\\.gradle\\caches\\transforms-2\\files-2.1\\2c8f672ff879eb46d5b97b42e8a106cc\\core-1.1.0\\res\\drawable-xhdpi-v4\\notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "E:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png",
+        "source": "C:\\Users\\Levent\\.gradle\\caches\\transforms-2\\files-2.1\\2c8f672ff879eb46d5b97b42e8a106cc\\core-1.1.0\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "E:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\shared_preferences\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png",
+        "source": "C:\\Users\\Levent\\.gradle\\caches\\transforms-2\\files-2.1\\2c8f672ff879eb46d5b97b42e8a106cc\\core-1.1.0\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+    }
+]

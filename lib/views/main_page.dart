@@ -4,8 +4,8 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:provider/provider.dart';
-import 'home.dart';
 
+import 'home.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -38,23 +38,28 @@ class _MainPageState extends State<MainPage> {
               children: [
                 // header
                 UserAccountsDrawerHeader(
-                    accountName: Text('Kullanıcı', style: AppFonts.getMainFont()),
+                    accountName:
+                        Text('Kullanıcı', style: AppFonts.getMainFont()),
                     accountEmail: Text('kullanici@gmail.com',
-                        style: AppFonts.getMainFont()), currentAccountPicture: GestureDetector(
-                  child: CircleAvatar(
-                    backgroundColor: AppColors.GREY,
-                    child: Icon(Icons.person, color: AppColors.WHITE),
-                  ),
-                ),
+                        style: AppFonts.getMainFont()),
+                    currentAccountPicture: GestureDetector(
+                      child: CircleAvatar(
+                        backgroundColor: AppColors.GREY,
+                        child: Icon(Icons.person, color: AppColors.WHITE),
+                      ),
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.PRIMARY_COLOR,
-                    )
-                ),
+                    )),
                 // body
-                buildListElement('Ana Sayfa', Icons.home, AppColors.PRIMARY_COLOR),
-                buildListElement('Hesabım', Icons.person, AppColors.PRIMARY_COLOR),
-                buildListElement('Siparişlerim', Icons.shopping_basket, AppColors.PRIMARY_COLOR),
-                buildListElement('Kategoriler', Icons.dashboard, AppColors.PRIMARY_COLOR),
+                buildListElement(
+                    'Ana Sayfa', Icons.home, AppColors.PRIMARY_COLOR),
+                buildListElement(
+                    'Hesabım', Icons.person, AppColors.PRIMARY_COLOR),
+                buildListElement('Siparişlerim', Icons.shopping_basket,
+                    AppColors.PRIMARY_COLOR),
+                buildListElement(
+                    'Kategoriler', Icons.dashboard, AppColors.PRIMARY_COLOR),
                 buildListElement("Favorilerim", Icons.favorite, AppColors.RED),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -89,7 +94,8 @@ class _MainPageState extends State<MainPage> {
         }
       },
       child: ListTile(
-          title: Text(text, style: AppFonts.getMainFont()), leading: Icon(icontype, color: iconColor)),
+          title: Text(text, style: AppFonts.getMainFont()),
+          leading: Icon(icontype, color: iconColor)),
     );
   }
 }

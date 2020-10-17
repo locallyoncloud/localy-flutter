@@ -1,4 +1,4 @@
-#Fri Oct 16 19:08:22 TRT 2020
-base.0=C\:\\Users\\onur.disanli\\Documents\\locally_flutter_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-renamed.0=classes.dex
+#Sat Oct 17 18:05:19 EET 2020
+base.0=E\:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
+renamed.0=classes.dex

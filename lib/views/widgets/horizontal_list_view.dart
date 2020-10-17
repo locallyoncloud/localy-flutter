@@ -12,10 +12,9 @@ class HorizontalList extends StatelessWidget {
       height: 100,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: [
-          Category(icon: Icon(FontAwesome.coffee,color: AppColors.WHITE),iconCaption: "Kahve"),
-          Category(icon: Icon(FontAwesome.coffee,color: AppColors.WHITE),iconCaption: "Kahve"),
-        ],
+        children: List.generate(20, (index) =>
+            Category(icon: Icon(FontAwesome.coffee,color: AppColors.WHITE),iconCaption: "Kahve"),
+        )
       ),
     );
   }
