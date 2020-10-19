@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class Carousel extends StatefulWidget {
+  ValueKey key;
+
+  Carousel(this.key);
+
   @override
   _CarouselSliderState createState() => _CarouselSliderState();
 }
@@ -18,6 +22,7 @@ class _CarouselSliderState extends State<Carousel> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
+      key: widget.key,
       options: CarouselOptions(
         height: 200.0,
         autoPlay: true,

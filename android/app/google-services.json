@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "334634274548",
+    "firebase_url": "https://localy-d8280.firebaseio.com",
+    "project_id": "localy-d8280",
+    "storage_bucket": "localy-d8280.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334634274548:android:4a8ca71847b6e5a14558a1",
+        "android_client_info": {
+          "package_name": "com.locally_flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334634274548-1kp3rl7rhui01e2k923oa57nffa02ppg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdpp9u0eiC-bbXNqOxkuz9TAcPInTmUXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334634274548-1kp3rl7rhui01e2k923oa57nffa02ppg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

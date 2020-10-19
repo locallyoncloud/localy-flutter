@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/widgets/login_container.dart';
 import 'package:locally_flutter_app/views/widgets/registration_tabs.dart';
 import 'package:locally_flutter_app/views/widgets/signup_container.dart';
@@ -76,6 +77,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     passiveColor: AppColors.WHITE,
                     activeColor: AppColors.PRIMARY_COLOR,
                     onTabChange: changePage,
+                    isSignInSelected: context.watch<RegistrationPageVM>().isSignInSelected,
                   ),
                   SizedBox(
                     height: 3.hb,
@@ -100,7 +102,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
   changePage(int index) {
-  _pageController.animateToPage(index, curve: Curves.ease, duration: 0.2.seconds);
+    _pageController.animateToPage(index, curve: Curves.ease, duration: 0.2.seconds);
+    context.read<RegistrationPageVM>().setSelectedRegistrationContainer(index == 0 ? false : true);
   }
 
 }

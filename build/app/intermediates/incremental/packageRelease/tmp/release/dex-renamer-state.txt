@@ -1,4 +1,4 @@
-#Sat Oct 17 17:59:26 EET 2020
+#Sat Oct 17 18:08:31 EET 2020
 base.0=E\:\\Flutter_Projects\\localy\\localy_main\\localy-flutter\\build\\app\\intermediates\\transforms\\r8\\release\\0\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

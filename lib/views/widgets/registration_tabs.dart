@@ -14,7 +14,7 @@ class RegistrationTabs extends StatefulWidget {
   @override
   _RegistrationTabsState createState() => _RegistrationTabsState();
 
-  RegistrationTabs({this.tabsWidth ,this.isSignInSelected = true, this.passiveColor = Colors.green, this.activeColor = Colors.red, this.onTabChange});
+  RegistrationTabs({this.tabsWidth ,this.isSignInSelected, this.passiveColor = Colors.green, this.activeColor = Colors.red, this.onTabChange});
 }
 
 class _RegistrationTabsState extends State<RegistrationTabs> {
@@ -44,10 +44,7 @@ class _RegistrationTabsState extends State<RegistrationTabs> {
               GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();
-                  setState(() {
-                    widget.isSignInSelected = false;
                     widget.onTabChange(0);
-                  });
                 },
                 child: Container(
                   width: widget.tabsWidth / 2,
@@ -78,10 +75,8 @@ class _RegistrationTabsState extends State<RegistrationTabs> {
               GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();
-                  setState(() {
-                    widget.isSignInSelected = true;
                     widget.onTabChange(1);
-                  });
+
                 },
                 child: Container(
                   width: widget.tabsWidth / 2,
