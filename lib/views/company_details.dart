@@ -1,9 +1,12 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/views/widgets/expanded_loyalty_card.dart';
+import 'package:locally_flutter_app/views/widgets/loyalty_card_mini.dart';
 
 class CompanyDetails extends StatelessWidget {
   final companyDetailName;
@@ -15,61 +18,60 @@ class CompanyDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.1,
-        backgroundColor: AppColors.PRIMARY_COLOR,
-        title: Text(
-          'Meet Lab Coffee',
-          style: AppFonts.getMainFont(color: AppColors.WHITE),
+      backgroundColor: AppColors.BG_WHITE,
+        appBar: AppBar(
+          elevation: 0.1,
+          backgroundColor: AppColors.PRIMARY_COLOR,
+          title: Text(
+            'Meet Lab Coffee',
+            style: AppFonts.getMainFont(color: AppColors.WHITE),
+          ),
+          actions: [
+            IconButton(
+                icon: Icon(Icons.search, color: AppColors.WHITE),
+                onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.shopping_cart, color: AppColors.WHITE),
+                onPressed: () {})
+          ],
         ),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.search, color: AppColors.WHITE),
-              onPressed: () {}),
-          IconButton(
-              icon: Icon(Icons.shopping_cart, color: AppColors.WHITE),
-              onPressed: () {})
-        ],
-      ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 200,
-              child: Hero(
-                  tag: "0asd",
-                  child: Image.asset(companyDetailLogo, fit: BoxFit.contain))
-            ),
-            SizedBox(
-              height: 3.hb,
-            ),
-            Text(
-              "Meet Lab Coffee",
-              textAlign: TextAlign.center,
-              style: AppFonts.getMainFont(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: AppColors.GREY
+        body: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  height: 200,
+                  width: double.infinity,
+                  child: Hero(
+                      tag: "0asd",
+                      child:
+                          Image.asset(companyDetailLogo, fit: BoxFit.cover))),
+              SizedBox(
+                height: 3.hb,
               ),
-            ),
-            Text(
-                  "Nitelikli kahve dükkanı",
-              textAlign: TextAlign.center,
-              style: AppFonts.getMainFont(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  fontStyle: FontStyle.italic,
-                  color: AppColors.GREY
+              Text(
+                "Meet Lab Coffee",
+                textAlign: TextAlign.left,
+                style: AppFonts.getMainFont(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.GREY),
               ),
-            ),
-            SizedBox(
-              height: 3.hb,
-            ),
-            Container(
+              Text(
+                "Nitelikli kahve dükkanı",
+                textAlign: TextAlign.left,
+                style: AppFonts.getMainFont(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    fontStyle: FontStyle.italic,
+                    color: AppColors.GREY),
+              ),
+              SizedBox(
+                height: 3.hb,
+              ),
+              /* Container(
               child: Column(
                 children: [
                     Row(
@@ -179,10 +181,19 @@ class CompanyDetails extends StatelessWidget {
                   )
                 ],
               ),
-            )
-          ],
-        ),
-      )
-    );
+            )*/
+              Align(
+                alignment: Alignment.center,
+                child: OpenContainer(
+                  tappable: false,
+                  openBuilder: (BuildContext context, closeContainer) =>
+                      ExpandedLoyaltyCard(closeContainer),
+                  closedBuilder: (BuildContext context, openContainer) =>
+                      MiniLoyaltyCard(openContainer),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

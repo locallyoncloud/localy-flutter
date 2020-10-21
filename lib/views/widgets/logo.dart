@@ -23,6 +23,13 @@ class OvalLogo extends StatelessWidget {
       child: Container(
         height: 200,
         decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0x14000000),
+                offset: Offset(-1.0409498114625029e-15, 17),
+                blurRadius: 59,
+              ),
+            ],
           borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
             image: isNetworkImage

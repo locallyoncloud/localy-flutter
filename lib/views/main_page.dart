@@ -17,6 +17,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.BG_WHITE,
           appBar: AppBar(
             elevation: 0.1,
             backgroundColor: AppColors.PRIMARY_COLOR,
