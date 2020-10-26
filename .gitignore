@@ -1,0 +1,5 @@
+.dart_tool/
+build/
+.idea/libraries/Dart_Packages.xml
+.flutter-plugins-dependencies
+.flutter-plugins

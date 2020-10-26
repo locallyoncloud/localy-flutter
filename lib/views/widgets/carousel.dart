@@ -46,7 +46,7 @@ class _CarouselSliderState extends State<Carousel> {
                 aspectRatio: 2.0,
                 child: Container(
                   child: Image.network(card,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                   ),
                 ),
               );
