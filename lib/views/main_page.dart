@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
                     thickness: 1,
                   ),
                 ),
-                context.watch<RegistrationPageVM>().currentUser.type =="admin" ? buildListElement("Admin", MaterialIcons.store_mall_directory, AppColors.BLUE) : Container(),
+                context.watch<RegistrationPageVM>().currentUser.type =="admin" ? buildListElement("Admin", MaterialIcons.store_mall_directory, AppColors.ADMIN_GREY) : Container(),
                 buildListElement("Hakkımızda", Icons.help, AppColors.GREEN),
                 buildListElement("Çıkış", AntDesign.logout, AppColors.ERROR),
               ],

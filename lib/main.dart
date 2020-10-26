@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/service_locator.dart';
+import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
@@ -61,7 +62,10 @@ class AppStartingPoint extends StatelessWidget {
         ChangeNotifierProvider<HomePageVM>(
             create: (context)=>HomePageVM()),
         ChangeNotifierProvider<CompanyDetailsPageVM>(
-            create: (context)=>CompanyDetailsPageVM())
+            create: (context)=>CompanyDetailsPageVM()),
+        ChangeNotifierProvider<AdminPanelVM>(
+            create: (context)=>AdminPanelVM())
+
 
       ],
       child: GetMaterialApp(
