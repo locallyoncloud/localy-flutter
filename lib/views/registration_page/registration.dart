@@ -9,7 +9,9 @@ import 'package:locally_flutter_app/views/widgets/registration_tabs.dart';
 import 'package:provider/provider.dart';
 import 'package:supercharged/supercharged.dart';
 
-import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/registration_page/login_container.dart';
+import 'login_container.dart';
+
+
 
 class RegistrationPage extends StatefulWidget {
   @override

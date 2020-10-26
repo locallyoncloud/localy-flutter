@@ -30,7 +30,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase{
   }
 
   @override
-  Stream getAdminSideLoyaltyCards(String companyId)  {
+  dynamic getAdminSideLoyaltyCards(String companyId)  {
     return getIt<AdminRepository>().getAdminSideLoyaltyCards(companyId);
   }
 }

@@ -8,7 +8,7 @@ final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 class AdminServices implements AdminBase{
 
   @override
-  Stream getAdminSideLoyaltyCards(String companyId)  {
+  dynamic getAdminSideLoyaltyCards(String companyId)  {
 
     return fireStore.collection("loyalties")
         .where("company_id",isEqualTo: companyId)
