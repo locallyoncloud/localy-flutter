@@ -1,7 +1,15 @@
 
+import 'dart:convert';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
+import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import '../main_page.dart';
 
 class SplashScreen extends StatelessWidget {
   final String name;
@@ -122,6 +130,7 @@ class SplashScreen extends StatelessWidget {
         'isLoading and until are null, pick one ;)'),
         super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -151,7 +160,18 @@ class SplashScreen extends StatelessWidget {
     if (next == null) {
       onSuccess(data);
     } else {
+      redirectUser(context);
       Get.off(next,duration: transitionDuration ,transition: transition,curve: Curves.ease);
+    }
+  }
+  redirectUser(BuildContext context) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.get("user")==null){
+      Get.off(next,duration: transitionDuration ,transition: transition,curve: Curves.ease);
+    }else{
+      PublicProfile profile = PublicProfile.fromJson(json.decode(prefs.get("user")));
+      context.read<RegistrationPageVM>().setCurrentUser(profile);
+      Get.off(MainPage(),duration: transitionDuration ,transition: transition,curve: Curves.ease);
     }
   }
 }

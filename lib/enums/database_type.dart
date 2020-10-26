@@ -1,0 +1,3 @@
+enum DatabaseType{
+  FireStore
+}

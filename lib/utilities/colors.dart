@@ -9,7 +9,7 @@ class AppColors {
   static const RED = Color(0xFFEF5350);
   static const GREEN = Color(0xFF4CAF50);
   static const BLUE = Color(0xFF2196F3);
-
+  static const ERROR = Color(0xFFB00020);
 
   static Color hexToColor(String code) {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);

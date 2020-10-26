@@ -7,8 +7,8 @@ import 'package:locally_flutter_app/views/widgets/mini_loyalty_count.dart';
 
 class MiniLoyaltyCard extends StatelessWidget {
   Function onInfoClick;
-
-  MiniLoyaltyCard(this.onInfoClick);
+  int cardType;
+  MiniLoyaltyCard({this.onInfoClick, this.cardType = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class MiniLoyaltyCard extends StatelessWidget {
                         stops: [0.0, 1.0],
                       ),
                       image: DecorationImage(
-                        image: AssetImage("assets/png/meetlab_logo_nobg.png"),
+                        image: AssetImage("assets/png/mini_meetlab_logo.png"),
                         fit: BoxFit.contain
                       ),
                       boxShadow: [
@@ -95,36 +95,7 @@ class MiniLoyaltyCard extends StatelessWidget {
                         SizedBox(
                           height: 6,
                         ),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(color: AppColors.WHITE)
-                            ),
-                            child: Wrap(
-                              spacing: 10,
-                              children: [
-                                MiniLoyaltyCount(),
-                                MiniLoyaltyCount(),
-                                MiniLoyaltyCount(),
-                                MiniLoyaltyCount(),
-                                MiniLoyaltyCount(),
-                                MiniLoyaltyCount(isActive: false,),
-                                MiniLoyaltyCount(isActive: false,),
-                                MiniLoyaltyCount(isActive: false,),
-                              ],
-                            )),
-                        SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          "Hediye için 3 adet kaldı!",
-                          style: AppFonts.getMainFont(
-                              color: AppColors.WHITE,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                        )
-                      ],
+                      ] + renderCardContents(),
                     ),
                   ),
                   InkWell(
@@ -147,5 +118,70 @@ class MiniLoyaltyCard extends StatelessWidget {
         ],
       ),
     );
+  }
+  List<Widget> renderCardContents(){
+  switch (cardType){
+    case 0:
+      return [
+        Container(
+            padding: EdgeInsets.all(2),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: AppColors.WHITE)
+            ),
+            child: Wrap(
+              spacing: 10,
+              children: [
+                MiniLoyaltyCount(),
+                MiniLoyaltyCount(),
+                MiniLoyaltyCount(),
+                MiniLoyaltyCount(),
+                MiniLoyaltyCount(),
+                MiniLoyaltyCount(isActive: false,),
+                MiniLoyaltyCount(isActive: false,),
+                MiniLoyaltyCount(isActive: false,),
+              ],
+            )),
+        SizedBox(
+          height: 6,
+        ),
+        Text(
+          "Hediye için 3 adet kaldı!",
+          style: AppFonts.getMainFont(
+              color: AppColors.WHITE,
+              fontSize: 12,
+              fontWeight: FontWeight.w600),
+        )
+      ];
+    case 1:
+      return [
+        RichText(text: TextSpan(
+          text: "36₺",style: AppFonts.getMainFont(
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+            color: Colors.green
+        ),
+          children: [
+            TextSpan(
+              text: " birikmiş paranız var!",style: AppFonts.getMainFont(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: AppColors.WHITE
+            ),
+            )
+          ]
+        ),)
+/*
+        Text(
+          "36₺ birikmiş paranız var!",
+          style: AppFonts.getMainFont(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: AppColors.WHITE
+          ),
+        )
+*/
+      ];
+  }
   }
 }
