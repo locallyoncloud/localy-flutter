@@ -6,6 +6,7 @@ import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:provider/provider.dart';
@@ -37,47 +38,37 @@ class ExpandedLoyaltyCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.network(company.mini_logo,width: 53, height: 48,),
-                  Container(
-                    child: Column(
-                      children: [
-                        Text(
-                          loyaltyCard.sector.toUpperCase(),
-                          style: AppFonts.getMainFont(
-                            fontSize: 10,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.WHITE
-                          ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.network(company.mini_logo,width: 53, height: 48,),
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        context.watch<AdminPanelVM>().currentSelectedCompany.category.toUpperCase(),
+                        style: AppFonts.getMainFont(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.hexToColor(loyaltyCard.textColor)
                         ),
-                        Text(
-                          "${loyaltyProgress.progress}/${loyaltyCard.target}",
-                          style: AppFonts.getMainFont(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.WHITE
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      ),
+                      Text(
+                        "${loyaltyProgress.progress}/${loyaltyCard.target}",
+                        style: AppFonts.getMainFont(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.hexToColor(loyaltyCard.textColor)
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
             Container(
               height: 122,
               width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(company.logo),
-                    fit: BoxFit.fill,
-                )
-              ),
               child: Stack(
                 children: [
                   Positioned.fill(
@@ -87,19 +78,21 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: double.infinity,
-                        color: Colors.grey.withOpacity(0.9),
+                          padding: EdgeInsets.symmetric(horizontal: 50),
+                        color: Colors.grey.withOpacity(loyaltyCard.imageOpacity),
                         child: Wrap(
-                          spacing: 50,
-                          runSpacing: 20,
+                          spacing: 30,
+                          runSpacing: 10,
                           crossAxisAlignment: WrapCrossAlignment.center,
                           alignment: WrapAlignment.center,
                           runAlignment: WrapAlignment.center,
-                          children: List.generate(8, (index) =>
+                          children: List.generate(loyaltyCard.target, (index) =>
                               Icon(
-                                FontAwesome.coffee,
-                                color: index+1<=loyaltyProgress.progress ? Colors.brown.shade800 : Colors.white,
+                                IconData(loyaltyCard.iconData.codePoint,fontFamily: loyaltyCard.iconData.fontFamily,fontPackage: "flutter_vector_icons"),
+                                color: index+1<=1 ? AppColors.hexToColor(loyaltyCard.iconColor) : Colors.white,
+                                size: loyaltyCard.iconSize,
                               )),
-                      ) )
+                        ) )
                   )],
               ),
             ),
@@ -118,7 +111,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                           style: AppFonts.getMainFont(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.WHITE
+                              color: AppColors.hexToColor(loyaltyCard.textColor)
                           ),
                         ),
                         Text(
@@ -126,7 +119,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                           style: AppFonts.getMainFont(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.WHITE
+                              color: AppColors.hexToColor(loyaltyCard.textColor)
                           ),
                         )
                       ],
@@ -141,7 +134,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                           style: AppFonts.getMainFont(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.WHITE
+                              color: AppColors.hexToColor(loyaltyCard.textColor)
                           ),
                         ),
                         Text(
@@ -149,7 +142,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                           style: AppFonts.getMainFont(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
-                              color: AppColors.WHITE
+                              color: AppColors.hexToColor(loyaltyCard.textColor)
                           ),
                         )
                       ],
@@ -163,7 +156,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: QrImage(
-                    data: context.watch<RegistrationPageVM>().currentUser.uid,
+                    data: context.watch<RegistrationPageVM>().currentUser.email,
                     version: QrVersions.auto,
                     size: 130,
                     backgroundColor: Colors.white,

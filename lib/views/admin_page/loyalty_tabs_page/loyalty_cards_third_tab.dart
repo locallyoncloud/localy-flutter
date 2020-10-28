@@ -7,11 +7,12 @@ import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
-import 'package:locally_flutter_app/views/admin_page/admin_collection_loyalty_card.dart';
+
 import 'package:locally_flutter_app/utilities/extensions/clone_object.dart';
-import 'package:locally_flutter_app/views/admin_page/admin_point_loyalty_card.dart';
-import 'package:locally_flutter_app/views/admin_page/loyalty_edit_button.dart';
-import 'package:locally_flutter_app/views/admin_page/no_card_found.dart';
+import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/admin_point_loyalty_card.dart';
+
+import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_edit_button.dart';
+import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/no_card_found.dart';
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/background_color_dialog.dart';
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/select_icon_dialog.dart';
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/slider_dialog.dart';

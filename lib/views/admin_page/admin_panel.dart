@@ -5,6 +5,7 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
+import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/views/widgets/admin_menu_selection.dart';
@@ -25,6 +26,9 @@ class _AdminPanelState extends State<AdminPanel>
   void initState() {
     super.initState();
     controller = AnimationController(vsync: this,);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<AdminPanelVM>().getCompanyById(context.read<RegistrationPageVM>().currentUser.company_id);
+    });
     declareAnimation();
   }
  @override
@@ -36,6 +40,7 @@ class _AdminPanelState extends State<AdminPanel>
     }
     super.didUpdateWidget(oldWidget);
   }
+
 
   @override
   void dispose() {

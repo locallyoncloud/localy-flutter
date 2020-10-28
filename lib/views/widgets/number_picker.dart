@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
+import 'package:provider/provider.dart';
 
 class NumberPicker extends StatefulWidget {
+
+  int parentCounter;
+
+  NumberPicker({this.parentCounter});
 
   @override
   _NumberPickerState createState() => _NumberPickerState();
@@ -22,11 +28,15 @@ class _NumberPickerState extends State<NumberPicker> {
           Flexible(
               child: InkWell(
                 onTap: (){
-                  setState(() {
-                    if(counter!=1){
-                      counter--;
-                    }
-                  });
+                  if(widget.parentCounter!=null){
+                    context.read<AdminPanelVM>().decrementPickedNumber();
+                  }else{
+                    setState(() {
+                      if(counter!=1){
+                        counter--;
+                      }
+                    });
+                  }
                 },
                 child: Container(
                   width: double.infinity,
@@ -59,7 +69,7 @@ class _NumberPickerState extends State<NumberPicker> {
                 color: AppColors.WHITE,
                 child: Center(
                   child: Text(
-                    counter.toString(),
+                    widget.parentCounter == null ? counter.toString() : widget.parentCounter.toString() ,
                     style: AppFonts.getMainFont(
                       color: AppColors.PRIMARY_COLOR,
                       fontSize: 15,
@@ -72,9 +82,13 @@ class _NumberPickerState extends State<NumberPicker> {
           Flexible(
               child: InkWell(
                 onTap: (){
-                  setState(() {
+                  if(widget.parentCounter!=null){
+                    context.read<AdminPanelVM>().incrementPickedNumber();
+                  }else{
+                    setState(() {
                       counter++;
-                  });
+                    });
+                  }
                 },
                 child: Container(
                   width: double.infinity,

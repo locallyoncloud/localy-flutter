@@ -15,4 +15,10 @@ class AppColors {
   static Color hexToColor(String code) {
     return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
   }
+  static String colorToHex(Color color) {
+    String newColor= color.value.toRadixString(16);
+    String hashTag = "#";
+    newColor = hashTag + newColor.substring(2);
+    return newColor;
+  }
 }
