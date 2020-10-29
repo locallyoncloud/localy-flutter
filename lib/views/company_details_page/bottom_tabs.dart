@@ -66,7 +66,7 @@ class BottomTabButton extends StatelessWidget {
   Widget build(BuildContext context) {
     bool _isSelected = isSelected ?? false;
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () => onPressed(),
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
         decoration: BoxDecoration(

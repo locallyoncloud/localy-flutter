@@ -22,6 +22,12 @@ class CompanyDetails extends StatefulWidget {
 class _CompanyDetailsState extends State<CompanyDetails> {
   PageController tabsPageController = PageController();
 
+  @override
+  void dispose() {
+    tabsPageController.dispose();
+    super.dispose();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
           elevation: 0.1,
           backgroundColor: AppColors.PRIMARY_COLOR,
           title: Text(
-            widget.company.name,
+            context.watch<CompanyDetailsPageVM>().currentCompany.name,
             style: AppFonts.getMainFont(color: AppColors.WHITE),
           ),
           actions: [
@@ -55,7 +61,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   context.read<CompanyDetailsPageVM>().setSelectedTab(num);
                 },
                 children: [
-                  LoyaltyTab(company: widget.company,),
+                  LoyaltyTab(),
                   MenuTab(),
                 ],
               ),

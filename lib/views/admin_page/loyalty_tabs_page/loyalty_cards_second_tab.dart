@@ -52,11 +52,7 @@ class _LoyaltyCardsSecondTabState extends State<LoyaltyCardsSecondTab> {
       });
     }
   }
-@override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    print("CHANGE GİRDİ!!");
-  }
+
   @override
   Widget build(BuildContext context) {
     return Container(

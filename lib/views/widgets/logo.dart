@@ -19,7 +19,7 @@ class OvalLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onClick,
+      onTap: ()=> onClick(),
       child: Container(
         height: 200,
         decoration: BoxDecoration(

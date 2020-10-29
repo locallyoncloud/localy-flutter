@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -9,20 +10,23 @@ import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
+import 'package:locally_flutter_app/views/widgets/expanded_loyalty_card.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:provider/provider.dart';
 import 'mini_loyalty_count.dart';
 
 class GradientExpandingButton extends StatefulWidget {
-  Function onInfoClick;
+
   LoyaltyProgress loyaltyProgress;
   bool isExpanded;
   LoyaltyCard loyaltyCard;
-  Company company;
 
-  GradientExpandingButton({this.onInfoClick, this.loyaltyProgress, this.isExpanded, this.loyaltyCard, this.company});
+
+  GradientExpandingButton({this.loyaltyProgress, this.isExpanded, this.loyaltyCard,});
 
   @override
   _GradientExpandingButtonState createState() =>
@@ -69,7 +73,9 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
       ..addListener(() {
         setState(() {});
       });
+
   }
+
 
   @override
   void dispose() {
@@ -80,6 +86,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.recalculate(context);
     return AnimatedBuilder(
       animation: sequenceAnimationController,
       builder: (BuildContext context, Widget child) {
@@ -148,7 +155,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
                                stops: [0.0, 1.0],
                              ),
                              image: DecorationImage(
-                                 image: NetworkImage(widget.company.mini_logo),
+                                 image: NetworkImage(context.watch<CompanyDetailsPageVM>().currentCompany.mini_logo),
                                  fit: BoxFit.contain
                              ),
                              boxShadow: [
@@ -166,7 +173,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                Text(
-                                 widget.company.name,
+                                 context.watch<CompanyDetailsPageVM>().currentCompany.name,
                                  style: AppFonts.getMainFont(
                                      color: AppColors.WHITE,
                                      fontSize: 18,
@@ -179,7 +186,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
                            ),
                          ),
                          InkWell(
-                           onTap: () => widget.onInfoClick(widget.company, widget.loyaltyProgress, widget.loyaltyCard),
+                           onTap: () => onClick(),
                            child: Icon(
                              AntDesign.infocirlceo,
                              color: AppColors.WHITE,
@@ -258,6 +265,14 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
           ),)
         ];
     }
+  }
+
+  onClick() {
+      showDialog(context: context,
+          builder: (_) => ExpandedLoyaltyCard(
+            loyaltyCard: widget.loyaltyCard,
+          )
+      );
   }
 
 }
