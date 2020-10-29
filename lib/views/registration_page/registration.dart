@@ -92,6 +92,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       height: 50.hb,
                       child: PageView(
                           controller: _pageController,
+                        physics: NeverScrollableScrollPhysics(),
                         children: [
                           SignUpContainer(),
                           LoginContainer()

@@ -9,6 +9,8 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/utilities/extensions/clone_object.dart';
 import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/admin_collection_loyalty_card.dart';
+import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/admin_money_loyalty_card.dart';
+import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/admin_point_loyalty_card.dart';
 import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_edit_button.dart';
 import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/no_card_found.dart';
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/background_color_dialog.dart';
@@ -16,17 +18,18 @@ import 'package:locally_flutter_app/views/admin_page/tab_dialogs/select_icon_dia
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/slider_dialog.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
+import 'package:supercharged/supercharged.dart';
 
-class LoyaltyCardsFirstTab extends StatefulWidget {
+class LoyaltyCardsTabs extends StatefulWidget {
   List<LoyaltyCard> loyaltyCardList;
 
-  LoyaltyCardsFirstTab({this.loyaltyCardList});
+  LoyaltyCardsTabs({this.loyaltyCardList});
 
   @override
-  _LoyaltyCardsFirstTabState createState() => _LoyaltyCardsFirstTabState();
+  LoyaltyCardsTabsState createState() => LoyaltyCardsTabsState();
 }
 
-class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
+class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
   LoyaltyCard loyaltyCardFromDB;
   final picker = ImagePicker();
   bool editingEnabled = false;
@@ -41,7 +44,7 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
   }
 
   @override
-  void didUpdateWidget(covariant LoyaltyCardsFirstTab oldWidget) {
+  void didUpdateWidget(covariant LoyaltyCardsTabs oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.loyaltyCardList.length != oldWidget.loyaltyCardList.length) {
       setState(() {
@@ -55,6 +58,7 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 40),
+      color: AppColors.BG_WHITE,
       child: loyaltyCardFromDB != null
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,67 +69,55 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: editingEnabled
                       ? [
-                          InkWell(
-                            onTap: () => showSimpleDialog(
+                          RaisedButton(
+                            onPressed: () => showSimpleDialog(
                                 "Değişiklik Sıfırlama",
                                 "Yaptığınız değişiklikleri sıfırlamak istediğinize eminmisiniz?",
-                                (){
-                                  setState(() {
-                                    loyaltyCardFromDB = LoyaltyCard.fromJsonMap(
-                                        widget.loyaltyCardList[0].toJson().clone);
-                                  });
-                                },
-                                (){
-                                  Get.back();
-                                }
-                            ),
-                            child: Container(
-                              width: 85,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color: AppColors.ERROR, width: 2)),
-                              child: Center(
-                                child: Text(
-                                  "Sıfırla",
-                                  style: AppFonts.getMainFont(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.ERROR),
-                                ),
-                              ),
+                                () {
+                              setState(() {
+                                loyaltyCardFromDB = LoyaltyCard.fromJsonMap(widget.loyaltyCardList[0].toJson().clone);
+                                editingEnabled = false;
+                              });
+                            }, () {
+                              Get.back();
+                            }),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                    color: AppColors.ERROR, width: 2)),
+                            color: AppColors.WHITE,
+                            elevation: 15,
+                            child: Text(
+                              "Sıfırla",
+                              style: AppFonts.getMainFont(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                  color: AppColors.ERROR),
                             ),
                           ),
-                          InkWell(
-                            onTap: () => showSimpleDialog(
+                          RaisedButton(
+                            onPressed: () => showSimpleDialog(
                                 "Değişiklik Onayı",
                                 "Yaptığınız değişiklikleri onaylıyormusunuz?",
-                                  (){
-                                    updateCard();
-                            },
-                                (){
-                                  Get.back();
-                                }
+                                () {
+                              updateCard();
+                            }, () {
+                              Get.back();
+                            }),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: BorderSide(
+                                    color: AppColors.GREEN, width: 2)),
+                            color: AppColors.WHITE,
+                            elevation: 15,
+                            child: Text(
+                              "Onayla",
+                              style: AppFonts.getMainFont(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w900,
+                                  color: AppColors.GREEN),
                             ),
-                            child: Container(
-                              width: 85,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color: AppColors.GREEN, width: 2)),
-                              child: Center(
-                                child: Text(
-                                  "Onayla",
-                                  style: AppFonts.getMainFont(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.GREEN),
-                                ),
-                              ),
-                            ),
-                          )
+                          ),
                         ]
                       : [
                           Row(
@@ -137,98 +129,117 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
                                     ? "Kart aktif"
                                     : "Kart aktif değil",
                                 style: AppFonts.getMainFont(
-                                    fontSize: 14,
+                                    fontSize: 18,
                                     color: loyaltyCardFromDB.isActive
-                                        ? AppColors.GREEN
+                                        ? Color(0xff046A22)
                                         : AppColors.ERROR,
-                                    fontWeight: FontWeight.w700),
+                                    fontWeight: FontWeight.w900),
                               ),
                               Checkbox(
+                                activeColor:
+                                    AppColors.PRIMARY_COLOR.withOpacity(0.4),
                                 value:
                                     loyaltyCardFromDB.isActive ? true : false,
                                 checkColor: loyaltyCardFromDB.isActive
-                                    ? AppColors.GREEN
+                                    ? Color(0xff046A22)
                                     : AppColors.ERROR,
                                 onChanged: (bool value) {
                                   showSimpleDialog(
                                       "Kart Durumu",
-                                      loyaltyCardFromDB.isActive ? "Kartı deaktif duruma getirmek istediğinize eminmisiniz?"
+                                      loyaltyCardFromDB.isActive
+                                          ? "Kartı deaktif duruma getirmek istediğinize eminmisiniz?"
                                           : "Kartı aktif duruma getirmek istediğinize eminmisiniz?",
-                                      ()=>toggleCardStatus(value),
-                                      ()=>Get.back()
-                                  );
+                                      () => toggleCardStatus(value),
+                                      () => Get.back());
                                 },
                               )
                             ],
                           ),
-                    RaisedButton(
-                      onPressed: (){
-                        setState(() {
-                          editingEnabled = true;
-                        });
-                      },
-                      color: AppColors.PRIMARY_COLOR,
-                      child: Text(
-                        "Değiştir",
-                        style: AppFonts.getMainFont(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.WHITE
-                        ),
-                      ),
-                    )
+                          RaisedButton(
+                            onPressed: () {
+                              setState(() {
+                                editingEnabled = true;
+                              });
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            color: AppColors.WHITE,
+                            elevation: 15,
+                            child: Text(
+                              "Düzenle",
+                              style: AppFonts.getMainFont(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.PRIMARY_COLOR),
+                            ),
+                          )
+                        ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
 
-                  ],
-                ),
+                ///Kart tipine göre kartı renderlıyoruz.
+                renderCardAccordingly(),
+
                 SizedBox(
                   height: 20,
                 ),
-                AdminCollectionLoyaltyCard(loyaltyCardFromDB),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  child: Wrap(
-                    runSpacing: 10,
-                    children: [
-                      LoyaltyEditButton(
-                        iconData: Foundation.background_color,
-                        text: "Arka Plan Rengi",
-                        onClick: () => openBgColorDialog(context, "background"),
-                      ),
-                      LoyaltyEditButton(
-                        iconData: Platform.isIOS
-                            ? Ionicons.logo_apple
-                            : Ionicons.logo_android,
-                        text: "Mini Logo",
-                        onClick: () => pickNewImage(true),
-                      ),
-                      LoyaltyEditButton(
-                        iconData: Ionicons.md_image,
-                        text: "Arka Plan Resim",
-                        onClick: () => pickNewImage(false),
-                      ),
-                      LoyaltyEditButton(
-                        iconData: AntDesign.select1,
-                        text: "Sembol",
-                        onClick: () => selectIconDialog(context),
-                      ),
-                      LoyaltyEditButton(
-                        iconData: MaterialCommunityIcons.format_color_fill,
-                        text: "Sembol Rengi",
-                        onClick: () => openBgColorDialog(context, "icon"),
-                      ),
-                      LoyaltyEditButton(
-                        iconData: MaterialCommunityIcons.format_text,
-                        text: "Yazı Rengi",
-                        onClick: () => openBgColorDialog(context, "text"),
-                      ),
-                      LoyaltyEditButton(
-                        iconData: AntDesign.setting,
-                        text: "Diğer Ayarlar",
-                        onClick: () => openSliderDialog(context),
-                      ),
-                    ],
+                AnimatedOpacity(
+                  duration: 0.3.seconds,
+                  opacity: editingEnabled ? 1 : 0,
+                  child: Container(
+                    child: Wrap(
+                      runSpacing: 10,
+                      children: [
+                        LoyaltyEditButton(
+                          iconData: Foundation.background_color,
+                          text: "Arka Plan Rengi",
+                          onClick: () =>
+                              openBgColorDialog(context, "background"),
+                        ),
+                        LoyaltyEditButton(
+                          iconData: Platform.isIOS
+                              ? Ionicons.logo_apple
+                              : Ionicons.logo_android,
+                          text: "Mini Logo",
+                          onClick: () => pickNewImage(true),
+                        ),
+                        LoyaltyEditButton(
+                          iconData: Ionicons.md_image,
+                          text: "Arka Plan Resim",
+                          onClick: () => pickNewImage(false),
+                        ),
+
+                        ///Para biriktirme kartında bu ayar yok
+
+                        Visibility(
+                          visible: loyaltyCardFromDB.type != 1 ? true : false,
+                          child: LoyaltyEditButton(
+                            iconData: AntDesign.select1,
+                            text: "Sembol",
+                            onClick: () => selectIconDialog(context),
+                          ),
+                        ),
+
+                        LoyaltyEditButton(
+                          iconData: MaterialCommunityIcons.format_color_fill,
+                          text: "Sembol Rengi",
+                          onClick: () => openBgColorDialog(context, "icon"),
+                        ),
+                        LoyaltyEditButton(
+                          iconData: MaterialCommunityIcons.format_text,
+                          text: "Yazı Rengi",
+                          onClick: () => openBgColorDialog(context, "text"),
+                        ),
+                        LoyaltyEditButton(
+                          iconData: AntDesign.setting,
+                          text: "Diğer Ayarlar",
+                          onClick: () => openSliderDialog(context),
+                        ),
+                      ],
+                    ),
                   ),
                 )
               ],
@@ -237,7 +248,18 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
     );
   }
 
-  toggleCardStatus(value){
+  renderCardAccordingly() {
+    switch (loyaltyCardFromDB.type) {
+      case 0:
+        return AdminCollectionLoyaltyCard(loyaltyCardFromDB);
+      case 1:
+        return AdminMoneyLoyaltyCard(loyaltyCardFromDB);
+      case 2:
+        return AdminPointLoyaltyCard(loyaltyCardFromDB);
+    }
+  }
+
+  toggleCardStatus(value) {
     context.read<AdminPanelVM>().toggleCardStatus(loyaltyCardFromDB);
     setState(() {
       loyaltyCardFromDB.isActive = value;
@@ -313,6 +335,7 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
               initialIconSize: loyaltyCardFromDB.iconSize,
               initialImageOpacity: loyaltyCardFromDB.imageOpacity,
               initialTarget: loyaltyCardFromDB.target.toDouble(),
+              cardType: loyaltyCardFromDB.type,
             )).then((value) {
       if (value != null) {
         setState(() {
@@ -420,6 +443,4 @@ class _LoyaltyCardsFirstTabState extends State<LoyaltyCardsFirstTab> {
       editingEnabled = false;
     });
   }
-
-
 }

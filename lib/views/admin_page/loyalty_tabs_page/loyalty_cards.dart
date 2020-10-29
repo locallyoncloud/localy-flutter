@@ -6,9 +6,7 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/loyalty_cards_first_tab.dart';
-import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/loyalty_cards_second_tab.dart';
-import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/loyalty_cards_third_tab.dart';
+import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_cards_tabs.dart';
 import 'package:provider/provider.dart';
 
 class LoyaltyCards extends StatefulWidget {
@@ -53,9 +51,9 @@ class _LoyaltyCardsState extends State<LoyaltyCards> {
                   });
                   return TabBarView(
                       children: [
-                        LoyaltyCardsFirstTab(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==0).toList(),),
-                        LoyaltyCardsSecondTab(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==1).toList(),),
-                        LoyaltyCardsThirdTab(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==2).toList(),),
+                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==0).toList(),),
+                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==1).toList(),),
+                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==2).toList(),),
                       ]
                   );
                 }
