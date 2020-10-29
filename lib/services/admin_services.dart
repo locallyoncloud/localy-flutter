@@ -60,7 +60,7 @@ class AdminServices implements AdminBase{
         .collection("loyalties").doc(loyaltyCard.uid).update({
       "isActive" : loyaltyCard.isActive ? false : true
     });
-    if(!loyaltyCard.isActive){
+    if(loyaltyCard.isActive){
       QuerySnapshot snapshot = await fireStore
           .collection("loyalties").where("company_id",isEqualTo: loyaltyCard.company_id).get();
       snapshot.docs.forEach((doc) {

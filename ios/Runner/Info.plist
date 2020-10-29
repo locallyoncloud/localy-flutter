@@ -27,7 +27,7 @@
 	<key>NSCameraUsageDescription</key>
     <string>Used to read QR code</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>Used to read QR code<</string>
+    <string>Used to read QR code</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>Used to get images</string>
 	<key>UILaunchStoryboardName</key>
