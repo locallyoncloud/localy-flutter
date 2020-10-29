@@ -6,24 +6,32 @@ import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-import 'package:locally_flutter_app/views/widgets/expanded_loyalty_card.dart';
 import 'package:locally_flutter_app/views/widgets/gradient_expanding_button.dart';
 import 'package:provider/provider.dart';
 
-class LoyaltyTab extends StatelessWidget {
+class LoyaltyTab extends StatefulWidget {
 
-  Company company;
 
-  LoyaltyTab({this.company});
+  @override
+  _LoyaltyTabState createState() => _LoyaltyTabState();
+}
+
+class _LoyaltyTabState extends State<LoyaltyTab> {
+
+  var myFuture;
+  @override
+  void initState() {
+    super.initState();
+    myFuture = context.read<HomePageVM>().getClientSideLoyaltyCard(context.read<CompanyDetailsPageVM>().currentCompany.company_id);
+  }
 
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
     return Container(
-      width: double.infinity,
-      height: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -33,12 +41,12 @@ class LoyaltyTab extends StatelessWidget {
               child: Hero(
                   tag: "0asd",
                   child:
-                  Image.network(company.logo, fit: BoxFit.cover))),
+                  Image.network(context.watch<CompanyDetailsPageVM>().currentCompany.logo, fit: BoxFit.cover))),
           SizedBox(
             height: 2.hb,
           ),
           Text(
-            company.name,
+            context.watch<CompanyDetailsPageVM>().currentCompany.name,
             textAlign: TextAlign.center,
             style: AppFonts.getMainFont(
                 fontSize: 16,
@@ -46,7 +54,7 @@ class LoyaltyTab extends StatelessWidget {
                 color: AppColors.GREY),
           ),
           Text(
-            company.slogan,
+            context.watch<CompanyDetailsPageVM>().currentCompany.slogan,
             textAlign: TextAlign.center,
             style: AppFonts.getMainFont(
                 fontSize: 16,
@@ -58,21 +66,11 @@ class LoyaltyTab extends StatelessWidget {
             height: 3.hb,
           ),
           FutureBuilder(
-            future: context.watch<HomePageVM>().getClientSideLoyaltyCard(company.company_id),
+            future:  myFuture,
             builder: (BuildContext context, AsyncSnapshot<LoyaltyCard> snapshot) => renderLoyalties(context, snapshot)
           ),
         ],
       ),
-    );
-  }
-
-  openLoyalty(BuildContext context, Company company, LoyaltyProgress progress, LoyaltyCard loyaltyCard){
-    showDialog(context: context,
-        builder: (_) => ExpandedLoyaltyCard(
-          company: company,
-          loyaltyProgress: progress,
-          loyaltyCard: loyaltyCard,
-        )
     );
   }
 
@@ -95,7 +93,7 @@ class LoyaltyTab extends StatelessWidget {
       );
     }else if(snapshot.connectionState== ConnectionState.done && snapshot.hasData){
       return StreamBuilder<DocumentSnapshot>(
-        stream: context.watch<HomePageVM>().getLoyaltyProgress(snapshot.data.uid, context.watch<RegistrationPageVM>().currentUser.email),
+        stream:  context.watch<HomePageVM>().getLoyaltyProgress(snapshot.data.uid, context.watch<RegistrationPageVM>().currentUser.email),
           builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshotTwo) => renderLoyaltyProgress(context, snapshotTwo,snapshot.data)
       );
     }else if(snapshot.connectionState== ConnectionState.waiting){
@@ -108,12 +106,12 @@ class LoyaltyTab extends StatelessWidget {
       if(snapshot.data.exists){
         return Align(
             alignment: Alignment.center,
-            child: GradientExpandingButton( company: company, loyaltyCard: loyaltyCard,isExpanded: true ,loyaltyProgress: LoyaltyProgress.fromJsonMap(snapshot.data.data()),onInfoClick: (Company company, LoyaltyProgress progress, LoyaltyCard loyaltyCard )=>openLoyalty(context,company,progress,loyaltyCard))
+            child: GradientExpandingButton(loyaltyCard: loyaltyCard,isExpanded: true ,loyaltyProgress: LoyaltyProgress.fromJsonMap(snapshot.data.data()),)
         );
       }else{
         return Align(
             alignment: Alignment.center,
-            child: GradientExpandingButton( company: company, loyaltyCard: loyaltyCard,isExpanded: false ,loyaltyProgress: LoyaltyProgress(0,0,[]),onInfoClick: (Company company, LoyaltyProgress progress, LoyaltyCard loyaltyCard )=>openLoyalty(context,company,progress,loyaltyCard))
+            child: GradientExpandingButton( loyaltyCard: loyaltyCard,isExpanded: false ,loyaltyProgress: LoyaltyProgress(0,0,[]))
         );
 
       }
