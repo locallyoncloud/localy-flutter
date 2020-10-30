@@ -22,26 +22,29 @@ class AdminPointLoyaltyCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 5),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.network(
-                  loyaltyCard.miniLogo,
-                  width: 53,
-                  height: 48,
-                ),
-                Text(
-                  context
-                      .watch<AdminPanelVM>()
-                      .currentSelectedCompany
-                      .category
-                      .toUpperCase(),
-                  style: AppFonts.getMainFont(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.hexToColor(loyaltyCard.textColor)),
-                )
-              ],
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.network(
+                    loyaltyCard.miniLogo,
+                    width: 53,
+                    height: 48,
+                  ),
+                  Text(
+                    context
+                        .watch<AdminPanelVM>()
+                        .currentSelectedCompany
+                        .category
+                        .toUpperCase(),
+                    style: AppFonts.getMainFont(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.hexToColor(loyaltyCard.textColor)),
+                  )
+                ],
+              ),
             ),
             Container(
               height: 122,

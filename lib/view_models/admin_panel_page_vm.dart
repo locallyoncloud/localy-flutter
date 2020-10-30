@@ -6,9 +6,11 @@ import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/repositories/admin_repository.dart';
 import 'package:locally_flutter_app/views/admin_page/customers.dart';
-import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/loyalty_tabs_page/loyalty_cards.dart';
+import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_cards.dart';
+
 import 'package:locally_flutter_app/views/admin_page/notifications.dart';
-import 'file:///E:/Flutter_Projects/localy/localy_main/lib/views/admin_page/qr_code_scan_page/qr_code_scan.dart';
+import 'package:locally_flutter_app/views/admin_page/qr_code_scan_page/qr_code_scan.dart';
+
 import 'package:supercharged/supercharged.dart';
 
 class AdminPanelVM extends ChangeNotifier with AdminBase {
