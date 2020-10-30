@@ -22,11 +22,10 @@ import 'mini_loyalty_count.dart';
 class GradientExpandingButton extends StatefulWidget {
 
   LoyaltyProgress loyaltyProgress;
-  bool isExpanded;
   LoyaltyCard loyaltyCard;
 
 
-  GradientExpandingButton({this.loyaltyProgress, this.isExpanded, this.loyaltyCard,});
+  GradientExpandingButton({this.loyaltyProgress, this.loyaltyCard,});
 
   @override
   _GradientExpandingButtonState createState() =>
@@ -41,31 +40,29 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
   Animation animation;
   double containerWidth = 264;
   double containerHeight = 48;
-  bool isExpanded;
-  ValueKey expandedKey, unExpandedKey;
 
+  ValueKey expandedKey, unExpandedKey;
 
   @override
   void initState() {
     super.initState();
-    isExpanded= widget.isExpanded;
     expandedKey = ValueKey(1);
     unExpandedKey = ValueKey(0);
     sequenceAnimationController = AnimationController(vsync: this);
-    sequenceAnimation = SequenceAnimationBuilder()
+    /*sequenceAnimation = SequenceAnimationBuilder()
         .addAnimatable(
-            animatable: Tween<double>(begin: isExpanded ? 346 : 264, end: 346),
+            animatable: Tween<double>(begin: context.read<CompanyDetailsPageVM>().currentProgress!=null ? 346 : 264, end: 346),
             from: 0.seconds,
             to: 0.5.seconds,
             curve: Curves.easeInOutCirc,
             tag: "width")
         .addAnimatable(
-            animatable: Tween<double>(begin: isExpanded ? 136 : 48, end: 136),
+            animatable: Tween<double>(begin: context.read<CompanyDetailsPageVM>().currentProgress!=null ? 136 : 48, end: 136),
             from: 0.seconds,
             to: 0.5.seconds,
             curve: Curves.easeInOutCirc,
             tag: "height")
-        .animate(sequenceAnimationController);
+        .animate(sequenceAnimationController);*/
     animationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 3000));
     animationController.repeat(reverse: true);
@@ -87,21 +84,30 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
+    sequenceAnimation = SequenceAnimationBuilder()
+        .addAnimatable(
+        animatable: Tween<double>(begin: context.watch<CompanyDetailsPageVM>().currentProgress!=null ? 346 : 264, end: 346),
+        from: 0.seconds,
+        to: 0.5.seconds,
+        curve: Curves.easeInOutCirc,
+        tag: "width")
+        .addAnimatable(
+        animatable: Tween<double>(begin: context.watch<CompanyDetailsPageVM>().currentProgress!=null ? 136 : 48, end: 136),
+        from: 0.seconds,
+        to: 0.5.seconds,
+        curve: Curves.easeInOutCirc,
+        tag: "height")
+        .animate(sequenceAnimationController);
     return AnimatedBuilder(
       animation: sequenceAnimationController,
       builder: (BuildContext context, Widget child) {
        return InkWell(
-         onTap: () {
-           if(!isExpanded){
+         onTap:context.watch<CompanyDetailsPageVM>().currentProgress==null ? () {
              sequenceAnimationController.forward();
              Timer(0.8.seconds, () {
-               setState(() {
-                 isExpanded = true;
                  context.read<HomePageVM>().openLoyaltyCardForUser(widget.loyaltyCard.uid, context.read<RegistrationPageVM>().currentUser.email);
-               });
              });
-           }
-         },
+         } : null,
          child: Container(
            width: sequenceAnimation["width"].value,
            height: sequenceAnimation["height"].value,
@@ -117,7 +123,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
                    ])),
            child: AnimatedSwitcher(
              duration: 0.5.seconds,
-             child: isExpanded ?
+             child: context.watch<CompanyDetailsPageVM>().currentProgress!=null ?
              Column(
                key: expandedKey,
                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -221,7 +227,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
     );
   }
   List<Widget> renderCardContents(){
-    switch (0){
+    switch (widget.loyaltyCard.type){
       case 0:
         return [
           Container(
@@ -248,14 +254,14 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
       case 1:
         return [
           RichText(text: TextSpan(
-              text: widget.loyaltyProgress.progress.toString() ,style: AppFonts.getMainFont(
+              text: "${widget.loyaltyProgress.progress.toString()}₺" ,style: AppFonts.getMainFont(
               fontSize: 20,
               fontWeight: FontWeight.w900,
               color: Colors.green
           ),
               children: [
                 TextSpan(
-                  text: "₺ birikmiş paranız var!",style: AppFonts.getMainFont(
+                  text: " birikmiş paranız var!",style: AppFonts.getMainFont(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppColors.WHITE
@@ -264,6 +270,26 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
               ]
           ),)
         ];
+      case 2:
+        return [
+          RichText(text: TextSpan(
+              text: "Birikmiş puanınız:  " ,style: AppFonts.getMainFont(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: AppColors.WHITE
+          ),
+              children: [
+                TextSpan(
+                  text: "${widget.loyaltyProgress.progress.toString()}",style: AppFonts.getMainFont(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w900,
+                    color: AppColors.POINT_COLOR
+                ),
+                )
+              ]
+          ),)
+        ];
+
     }
   }
 

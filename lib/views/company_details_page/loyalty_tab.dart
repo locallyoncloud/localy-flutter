@@ -1,15 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
-import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
-import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-import 'package:locally_flutter_app/views/widgets/gradient_expanding_button.dart';
+import 'package:locally_flutter_app/views/company_details_page/active_loyalty_card.dart';
 import 'package:provider/provider.dart';
 
 class LoyaltyTab extends StatefulWidget {
@@ -75,6 +71,7 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
   }
 
   renderLoyalties(BuildContext context,AsyncSnapshot<LoyaltyCard> snapshot){
+    print(snapshot.hasData);
     if(snapshot.connectionState== ConnectionState.done && !snapshot.hasData){
       return Container(
           width: 346,
@@ -91,32 +88,11 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
           ),
         ),
       );
-    }else if(snapshot.connectionState== ConnectionState.done && snapshot.hasData){
-      return StreamBuilder<DocumentSnapshot>(
-        stream:  context.watch<HomePageVM>().getLoyaltyProgress(snapshot.data.uid, context.watch<RegistrationPageVM>().currentUser.email),
-          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshotTwo) => renderLoyaltyProgress(context, snapshotTwo,snapshot.data)
-      );
+    }else if(snapshot.hasData){
+      return ActiveLoyaltyCard(snapshot.data);
     }else if(snapshot.connectionState== ConnectionState.waiting){
       return CircularProgressIndicator(backgroundColor: AppColors.PRIMARY_COLOR,);
     }
   }
 
-  renderLoyaltyProgress(BuildContext context,AsyncSnapshot<DocumentSnapshot> snapshot, LoyaltyCard loyaltyCard){
-    if(snapshot.connectionState == ConnectionState.active){
-      if(snapshot.data.exists){
-        return Align(
-            alignment: Alignment.center,
-            child: GradientExpandingButton(loyaltyCard: loyaltyCard,isExpanded: true ,loyaltyProgress: LoyaltyProgress.fromJsonMap(snapshot.data.data()),)
-        );
-      }else{
-        return Align(
-            alignment: Alignment.center,
-            child: GradientExpandingButton( loyaltyCard: loyaltyCard,isExpanded: false ,loyaltyProgress: LoyaltyProgress(0,0,[]))
-        );
-
-      }
-    }else{
-      return CircularProgressIndicator();
-    }
-  }
 }

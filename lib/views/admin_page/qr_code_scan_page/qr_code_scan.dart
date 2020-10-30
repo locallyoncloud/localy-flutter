@@ -41,7 +41,7 @@ class _ScanQRState extends State<ScanQR> {
           ),
           Expanded(
             child: Center(
-              child: Text('Lütfen QR kodu okutunuz'
+              child: Text('Lütfen QR kodu okutunuz plzzzzz'
               ,style: AppFonts.getMainFont(
                   color: AppColors.PRIMARY_COLOR,
                   fontSize: 16,
@@ -63,12 +63,12 @@ class _ScanQRState extends State<ScanQR> {
         setState(() {
           qrText = scanData;
         });
-        openAddPointDialog();
+        openAddPointDialog(context);
       }
     });
   }
 
-  openAddPointDialog(){
+  openAddPointDialog(BuildContext context){
     showDialog(context: context,
       builder: (_) =>
           Dialog(
@@ -97,7 +97,7 @@ class _ScanQRState extends State<ScanQR> {
                     SizedBox(
                       height: 10,
                     ),
-                    NumberPicker(parentCounter: context.watch<AdminPanelVM>().pickedNumber,),
+                    NumberPicker(),
                     SizedBox(
                       height: 10,
                     ),
@@ -113,7 +113,6 @@ class _ScanQRState extends State<ScanQR> {
                         ),
                       ),
                     )
-
                   ],
                 )),
           )

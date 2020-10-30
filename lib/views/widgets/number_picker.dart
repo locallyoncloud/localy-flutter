@@ -7,9 +7,6 @@ import 'package:provider/provider.dart';
 
 class NumberPicker extends StatefulWidget {
 
-  int parentCounter;
-
-  NumberPicker({this.parentCounter});
 
   @override
   _NumberPickerState createState() => _NumberPickerState();
@@ -28,7 +25,7 @@ class _NumberPickerState extends State<NumberPicker> {
           Flexible(
               child: InkWell(
                 onTap: (){
-                  if(widget.parentCounter!=null){
+                  if(context.read<AdminPanelVM>().pickedNumber!=null){
                     context.read<AdminPanelVM>().decrementPickedNumber();
                   }else{
                     setState(() {
@@ -69,7 +66,7 @@ class _NumberPickerState extends State<NumberPicker> {
                 color: AppColors.WHITE,
                 child: Center(
                   child: Text(
-                    widget.parentCounter == null ? counter.toString() : widget.parentCounter.toString() ,
+                    context.watch<AdminPanelVM>().pickedNumber == null ? counter.toString() : context.watch<AdminPanelVM>().pickedNumber.toString() ,
                     style: AppFonts.getMainFont(
                       color: AppColors.PRIMARY_COLOR,
                       fontSize: 15,
@@ -82,7 +79,7 @@ class _NumberPickerState extends State<NumberPicker> {
           Flexible(
               child: InkWell(
                 onTap: (){
-                  if(widget.parentCounter!=null){
+                  if(context.read<AdminPanelVM>().pickedNumber!=null){
                     context.read<AdminPanelVM>().incrementPickedNumber();
                   }else{
                     setState(() {
