@@ -3,6 +3,7 @@ import 'package:locally_flutter_app/base_classes/home_base.dart';
 import 'package:locally_flutter_app/enums/database_type.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/product.dart';
 import 'package:locally_flutter_app/services/home_services.dart';
 
 final getIt = GetIt.instance;
@@ -35,6 +36,13 @@ class HomeRepository implements HomeBase {
   Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail) async {
     if(currentDatabase == DatabaseType.FireStore) {
       return await getIt<HomeServices>().openLoyaltyCardForUser(loyaltyCardUid, userMail);
+    }
+  }
+
+  @override
+  Future<List<Product>> getAllProducts(String companyId) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<HomeServices>().getAllProducts(companyId);
     }
   }
 

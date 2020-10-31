@@ -4,38 +4,37 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:locally_flutter_app/base_classes/admin_base.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/gift_cards.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 
 final FirebaseFirestore fireStore = FirebaseFirestore.instance;
-firebase_storage.FirebaseStorage storage =  firebase_storage.FirebaseStorage.instance;
+firebase_storage.FirebaseStorage storage =
+    firebase_storage.FirebaseStorage.instance;
 
-class AdminServices implements AdminBase{
-
+class AdminServices implements AdminBase {
   @override
-  dynamic getAdminSideLoyaltyCards(String companyId)  {
-
-    return fireStore.collection("loyalties")
-        .where("company_id",isEqualTo: companyId)
+  dynamic getAdminSideLoyaltyCards(String companyId) {
+    return fireStore
+        .collection("loyalties")
+        .where("company_id", isEqualTo: companyId)
         .snapshots();
   }
 
   @override
-  Future<String> uploadFile(String filePath, String fileName) async{
+  Future<String> uploadFile(String filePath, String fileName) async {
     File file = File(filePath);
 
-    TaskSnapshot task = await storage
-        .ref('company_logos/$fileName')
-        .putFile(file);
-    if(task.state == TaskState.success){
+    TaskSnapshot task =
+        await storage.ref('company_logos/$fileName').putFile(file);
+    if (task.state == TaskState.success) {
       return await task.ref.getDownloadURL();
     }
   }
 
   @override
   Future<void> addLoyaltyCard(LoyaltyCard loyaltyCard) async {
-
     await fireStore
         .collection("loyalties")
         .doc(loyaltyCard.uid)
@@ -45,10 +44,12 @@ class AdminServices implements AdminBase{
   @override
   Future<Company> getCompanyById(String companyId) async {
     QuerySnapshot snapshot = await fireStore
-        .collection("companies").where("company_id", isEqualTo: companyId).get();
-    if(snapshot.docs.length>0){
+        .collection("companies")
+        .where("company_id", isEqualTo: companyId)
+        .get();
+    if (snapshot.docs.length > 0) {
       return Company.fromJsonMap(snapshot.docs[0].data());
-    }else{
+    } else {
       return null;
     }
   }
@@ -57,16 +58,19 @@ class AdminServices implements AdminBase{
   Future<void> toggleCardStatus(LoyaltyCard loyaltyCard) async {
     WriteBatch batch = FirebaseFirestore.instance.batch();
     await fireStore
-        .collection("loyalties").doc(loyaltyCard.uid).update({
-      "isActive" : loyaltyCard.isActive ? false : true
-    });
-    if(loyaltyCard.isActive){
+        .collection("loyalties")
+        .doc(loyaltyCard.uid)
+        .update({"isActive": loyaltyCard.isActive ? false : true});
+    if (loyaltyCard.isActive) {
       QuerySnapshot snapshot = await fireStore
-          .collection("loyalties").where("company_id",isEqualTo: loyaltyCard.company_id).get();
+          .collection("loyalties")
+          .where("company_id", isEqualTo: loyaltyCard.company_id)
+          .get();
       snapshot.docs.forEach((doc) {
         LoyaltyCard iterableLoyaltyCard = LoyaltyCard.fromJsonMap(doc.data());
-        if(iterableLoyaltyCard.uid != loyaltyCard.uid && iterableLoyaltyCard.isActive){
-          batch.update(doc.reference, {"isActive" : false});
+        if (iterableLoyaltyCard.uid != loyaltyCard.uid &&
+            iterableLoyaltyCard.isActive) {
+          batch.update(doc.reference, {"isActive": false});
         }
       });
       return batch.commit();
@@ -74,25 +78,29 @@ class AdminServices implements AdminBase{
   }
 
   @override
-  Future<void> addLoyalty(String userMail, String companyId, int incrementNumber,) async {
-    QuerySnapshot snapshot =  await fireStore
+  Future<void> addLoyalty(String loyaltyInfo, String companyId,  int incrementNumber, ) async {
+    print(loyaltyInfo);
+    DateTime date = DateTime.now();
+    String todayDate = date.toString().replaceRange(date.toString().length-7, date.toString().length, "");
+    List<String> loyaltyCardInfoArray = loyaltyInfo.split("/");
+    String userMail = loyaltyCardInfoArray[0];
+    int loyaltyCardType = int.parse(loyaltyCardInfoArray[1]);
+    int loyaltyCardTarget = int.parse(loyaltyCardInfoArray[2]);
+    String loyaltyCardUid = loyaltyCardInfoArray[3];
+    DocumentSnapshot documentSnapshot = await fireStore
         .collection("loyalties")
-        .where("company_id",isEqualTo: companyId)
-        .where("isActive",isEqualTo: true)
+        .doc(loyaltyCardUid)
+        .collection("gift_cards")
+        .doc(userMail)
         .get();
-    LoyaltyCard loyaltyCard = LoyaltyCard.fromJsonMap(snapshot.docs[0].data());
-    DocumentSnapshot documentSnapshot = await snapshot.docs[0].reference.collection("gift_cards").doc(userMail)
-        .get();
-    GiftCards giftCards = GiftCards.fromJsonMap(documentSnapshot.data());
-    giftCards.progress +=incrementNumber;
-    while(giftCards.progress>loyaltyCard.target){
-      giftCards.progress = giftCards.progress - loyaltyCard.target;
-      giftCards.gifts+=1;
+
+    LoyaltyProgress giftCards = LoyaltyProgress.fromJsonMap(documentSnapshot.data());
+    giftCards.progress += incrementNumber;
+    while (giftCards.progress > loyaltyCardTarget) {
+      giftCards.progress = giftCards.progress - loyaltyCardTarget;
+      giftCards.gifts += 1;
     }
-    await documentSnapshot.reference.set(
-      giftCards.toJson()
-    );
+    giftCards.pushDates.add(todayDate);
+    await documentSnapshot.reference.set(giftCards.toJson());
   }
-
-
 }

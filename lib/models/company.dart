@@ -1,10 +1,7 @@
 
-
-import 'package:locally_flutter_app/models/address.dart';
-
 class Company {
 
-  Address address;
+  String address;
   String category;
   String company_id;
   String logo;
@@ -14,7 +11,7 @@ class Company {
   int rating;
 
 	Company.fromJsonMap(Map<String, dynamic> map):
-		address = Address.fromJsonMap(map["address"]),
+		address = map["address"],
 		category = map["category"],
 		company_id = map["company_id"],
 		logo = map["logo"],
@@ -25,7 +22,7 @@ class Company {
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
-		data['address'] = address == null ? null : address.toJson();
+		data['address'] = address;
 		data['category'] = category;
 		data['company_id'] = company_id;
 		data['logo'] = logo;

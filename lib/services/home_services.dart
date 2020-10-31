@@ -4,6 +4,7 @@ import 'package:locally_flutter_app/base_classes/home_base.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/product.dart';
 
 final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
@@ -40,6 +41,20 @@ class HomeServices implements HomeBase{
   Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail) async{
     LoyaltyProgress loyaltyProgress = LoyaltyProgress(0,0,[]);
     return await fireStore.collection("loyalties").doc(loyaltyCardUid).collection("gift_cards").doc(userMail).set(loyaltyProgress.toJson());
+  }
+
+  @override
+  Future<List<Product>> getAllProducts(String companyId) async {
+    QuerySnapshot snapshot =  await fireStore.collection("companies").doc(companyId).collection("products").get();
+
+    List<Product> productList = [];
+
+    snapshot.docs.forEach((doc) {
+      print(doc.data().toString());
+      productList.add(Product.fromJsonMap(doc.data()));
+
+    });
+    return productList;
   }
 
 

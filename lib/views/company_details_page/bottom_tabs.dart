@@ -5,10 +5,16 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:provider/provider.dart';
 
-class BottomTabs extends StatelessWidget {
-  final PageController tabsPageController;
+class BottomTabs extends StatefulWidget {
+Function animatePage;
 
-  BottomTabs(this.tabsPageController);
+BottomTabs({this.animatePage});
+
+  @override
+  _BottomTabsState createState() => _BottomTabsState();
+}
+
+class _BottomTabsState extends State<BottomTabs> {
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,7 @@ class BottomTabs extends StatelessWidget {
               isSelected: context.watch<CompanyDetailsPageVM>().selectedTab == 0 ? true : false,
               onPressed: () {
                 context.read<CompanyDetailsPageVM>().setSelectedTab(0);
-                tabsPageController.animateToPage(0, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                widget.animatePage(0);
               }),
           BottomTabButton(
             icon: MaterialIcons.library_books,
@@ -44,7 +50,7 @@ class BottomTabs extends StatelessWidget {
             isSelected: context.watch<CompanyDetailsPageVM>().selectedTab == 1 ? true : false,
             onPressed: () {
               context.read<CompanyDetailsPageVM>().setSelectedTab(1);
-              tabsPageController.animateToPage(1, duration: Duration(milliseconds: 500),curve: Curves.ease);
+              widget.animatePage(1);
             },
           ),
         ],

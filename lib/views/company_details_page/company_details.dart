@@ -7,7 +7,8 @@ import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/bottom_tabs.dart';
 import 'package:locally_flutter_app/views/company_details_page/loyalty_tab.dart';
-import 'package:locally_flutter_app/views/company_details_page/menu_tab.dart';
+import 'package:locally_flutter_app/views/company_details_page/menu_tab/menu_tab.dart';
+
 import 'package:provider/provider.dart';
 
 class CompanyDetails extends StatefulWidget {
@@ -62,13 +63,16 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 },
                 children: [
                   LoyaltyTab(),
-                  MenuTab(),
+                  MenuTab(company: widget.company,),
                 ],
               ),
             ),
-            BottomTabs(tabsPageController)
+            BottomTabs(animatePage:(index)=>animateToPage(index) ,)
           ],
         )
     );
+  }
+  animateToPage(int index){
+    tabsPageController.animateToPage(index, duration: Duration(milliseconds: 500),curve: Curves.ease);
   }
 }
