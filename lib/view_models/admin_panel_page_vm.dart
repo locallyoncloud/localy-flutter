@@ -81,7 +81,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
 
   @override
-  Future<void> addLoyalty(String userMail, String companyId, int incrementNumber) async {
-    return await getIt<AdminRepository>().addLoyalty(userMail, companyId, incrementNumber);
+  Future<void> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
+    return await getIt<AdminRepository>().addLoyalty(loyaltyInfo, companyId, incrementNumber);
   }
 }

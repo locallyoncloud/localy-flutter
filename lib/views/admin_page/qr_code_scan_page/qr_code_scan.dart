@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
@@ -41,7 +42,7 @@ class _ScanQRState extends State<ScanQR> {
           ),
           Expanded(
             child: Center(
-              child: Text('Lütfen QR kodu okutunuz plzzzzz'
+              child: Text('Lütfen QR kodu okutunuz'
               ,style: AppFonts.getMainFont(
                   color: AppColors.PRIMARY_COLOR,
                   fontSize: 16,
@@ -58,7 +59,6 @@ class _ScanQRState extends State<ScanQR> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      print(scanData);
       if( scanData!=null ){
         setState(() {
           qrText = scanData;
@@ -69,7 +69,9 @@ class _ScanQRState extends State<ScanQR> {
   }
 
   openAddPointDialog(BuildContext context){
+    controller.pauseCamera();
     showDialog(context: context,
+      barrierDismissible: false,
       builder: (_) =>
           Dialog(
             shape: RoundedRectangleBorder(
@@ -77,7 +79,7 @@ class _ScanQRState extends State<ScanQR> {
             ),
             child: Container(
                 width: 300,
-                height: 420,
+                height: 300,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
@@ -102,7 +104,7 @@ class _ScanQRState extends State<ScanQR> {
                       height: 10,
                     ),
                     RaisedButton(
-                      onPressed: ()=>add(),
+                      onPressed: ()=>Get.back(),
                       color: AppColors.PRIMARY_COLOR,
                       child: Text(
                         "Ekle",
@@ -116,11 +118,15 @@ class _ScanQRState extends State<ScanQR> {
                   ],
                 )),
           )
+    ).then((value) {
+    controller.resumeCamera();
+    add();
+    }
     );
   }
 
-  add() async {
-    await context.read<AdminPanelVM>().addLoyalty(qrText, context.read<RegistrationPageVM>().currentUser.company_id, context.read<AdminPanelVM>().pickedNumber);
+  add()  {
+    context.read<AdminPanelVM>().addLoyalty(qrText, context.read<RegistrationPageVM>().currentUser.company_id, context.read<AdminPanelVM>().pickedNumber);
   }
 
 

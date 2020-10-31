@@ -9,5 +9,5 @@ abstract class AdminBase {
   Future<void> addLoyaltyCard(LoyaltyCard loyaltyCard);
   Future<Company>getCompanyById(String companyId);
   Future<void> toggleCardStatus(LoyaltyCard loyaltyCard);
-  Future<void> addLoyalty(String userMail, String companyId,int incrementNumber);
+  Future<void> addLoyalty(String loyaltyInfo, String companyId,int incrementNumber);
 }

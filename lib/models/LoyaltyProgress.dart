@@ -3,14 +3,14 @@ class LoyaltyProgress {
 
   int gifts;
   int progress;
-  List<Object> pushDates;
+  List<String> pushDates;
 
 	LoyaltyProgress(this.gifts, this.progress, this.pushDates);
 
   LoyaltyProgress.fromJsonMap(Map<String, dynamic> map):
 		gifts = map["gifts"],
 		progress = map["progress"],
-		pushDates = map["pushDates"];
+		pushDates = List<String>.from(map["pushDates"]);
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();

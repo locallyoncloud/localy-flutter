@@ -47,9 +47,9 @@ class AdminRepository implements AdminBase {
   }
 
   @override
-  Future<void> addLoyalty(String userMail, String companyId, int incrementNumber) async {
+  Future<void> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
     if(currentDatabase == DatabaseType.FireStore) {
-      return await getIt<AdminServices>().addLoyalty(userMail, companyId, incrementNumber);
+      return await getIt<AdminServices>().addLoyalty(loyaltyInfo, companyId, incrementNumber);
     }
   }
 

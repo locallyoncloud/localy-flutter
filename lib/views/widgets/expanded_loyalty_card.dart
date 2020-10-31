@@ -146,7 +146,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: QrImage(
-                    data: context.watch<RegistrationPageVM>().currentUser.email,
+                    data: "${context.watch<RegistrationPageVM>().currentUser.email}/${loyaltyCard.type}/${loyaltyCard.target}/${loyaltyCard.uid}",
                     version: QrVersions.auto,
                     size: 130,
                     backgroundColor: Colors.white,

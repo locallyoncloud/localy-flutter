@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 
@@ -38,6 +39,7 @@ class _CompaniesState extends State<Companies> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenSize.recalculate(context);
     return FutureBuilder(
       future: companyFuture,
       builder: (BuildContext context, AsyncSnapshot<List<Company>> snapshot) {
