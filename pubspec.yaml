@@ -36,6 +36,7 @@ dependencies:
   flutter_svg: ^0.19.1
   uuid: ^2.2.2
   qr_code_scanner: ^0.0.13
+  cached_network_image: ^2.3.3
 
 
 dev_dependencies:
@@ -53,3 +54,4 @@ flutter:
     - assets/logos/
     - assets/animations/
     - assets/png/
+    - assets/gif/

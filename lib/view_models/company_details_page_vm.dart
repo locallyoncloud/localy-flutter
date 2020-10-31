@@ -17,7 +17,6 @@ class CompanyDetailsPageVM extends ChangeNotifier {
     notifyListeners();
   }
   setCurrentCompany(Company company){
-    print(company.toString());
     currentCompany = company;
   notifyListeners();
   }

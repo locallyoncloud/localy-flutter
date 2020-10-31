@@ -19,4 +19,5 @@ class LoyaltyProgress {
 		data['pushDates'] = pushDates;
 		return data;
 	}
+
 }

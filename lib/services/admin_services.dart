@@ -78,8 +78,7 @@ class AdminServices implements AdminBase {
   }
 
   @override
-  Future<void> addLoyalty(String loyaltyInfo, String companyId,  int incrementNumber, ) async {
-    print(loyaltyInfo);
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId,  int incrementNumber, ) async {
     DateTime date = DateTime.now();
     String todayDate = date.toString().replaceRange(date.toString().length-7, date.toString().length, "");
     List<String> loyaltyCardInfoArray = loyaltyInfo.split("/");
@@ -96,11 +95,22 @@ class AdminServices implements AdminBase {
 
     LoyaltyProgress giftCards = LoyaltyProgress.fromJsonMap(documentSnapshot.data());
     giftCards.progress += incrementNumber;
-    while (giftCards.progress > loyaltyCardTarget) {
+    while (giftCards.progress >= loyaltyCardTarget) {
       giftCards.progress = giftCards.progress - loyaltyCardTarget;
       giftCards.gifts += 1;
     }
     giftCards.pushDates.add(todayDate);
     await documentSnapshot.reference.set(giftCards.toJson());
+    return giftCards;
+  }
+
+  @override
+  Stream getLoyaltyProgressStatus(String loyaltyInfo) {
+    List<String> loyaltyCardInfoArray = loyaltyInfo.split("/");
+    String userMail = loyaltyCardInfoArray[0];
+    int loyaltyCardType = int.parse(loyaltyCardInfoArray[1]);
+    int loyaltyCardTarget = int.parse(loyaltyCardInfoArray[2]);
+    String loyaltyCardUid = loyaltyCardInfoArray[3];
+    return fireStore.collection("loyalties").doc(loyaltyCardUid).collection("gift_cards").doc(userMail).snapshots();
   }
 }

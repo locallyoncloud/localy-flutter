@@ -1,4 +1,5 @@
 
+import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 
@@ -9,5 +10,6 @@ abstract class AdminBase {
   Future<void> addLoyaltyCard(LoyaltyCard loyaltyCard);
   Future<Company>getCompanyById(String companyId);
   Future<void> toggleCardStatus(LoyaltyCard loyaltyCard);
-  Future<void> addLoyalty(String loyaltyInfo, String companyId,int incrementNumber);
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId,int incrementNumber);
+  Stream getLoyaltyProgressStatus(String loyaltyInfo);
 }

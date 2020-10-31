@@ -23,8 +23,9 @@ import 'package:supercharged/supercharged.dart';
 
 class LoyaltyCardsTabs extends StatefulWidget {
   List<LoyaltyCard> loyaltyCardList;
+  int index;
 
-  LoyaltyCardsTabs({this.loyaltyCardList});
+  LoyaltyCardsTabs({this.loyaltyCardList, this.index});
 
   @override
   LoyaltyCardsTabsState createState() => LoyaltyCardsTabsState();
@@ -245,7 +246,7 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
                 )
               ],
             )
-          : NoCardFound(0),
+          : NoCardFound(widget.index),
     );
   }
 

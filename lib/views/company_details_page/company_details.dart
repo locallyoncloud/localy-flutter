@@ -13,8 +13,9 @@ import 'package:provider/provider.dart';
 
 class CompanyDetails extends StatefulWidget {
   Company company;
+  int index;
 
-  CompanyDetails({this.company});
+  CompanyDetails({this.company, this.index});
 
   @override
   _CompanyDetailsState createState() => _CompanyDetailsState();
@@ -62,7 +63,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   context.read<CompanyDetailsPageVM>().setSelectedTab(num);
                 },
                 children: [
-                  LoyaltyTab(),
+                  LoyaltyTab(widget.index),
                   MenuTab(company: widget.company,),
                 ],
               ),
