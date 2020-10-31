@@ -14,7 +14,7 @@ class AuthenticationServices implements AuthBase {
   Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password) async {
     PublicProfile profile;
     var result = await fAuth.createUserWithEmailAndPassword(email: mail, password: password);
-    profile = PublicProfile(uid: result.user.uid, email: result.user.email, type: "admin", company_id: "1");
+    profile = PublicProfile(uid: result.user.uid, email: result.user.email, type: "user", company_id: "");
 
     await fireStore
         .collection("accounts")

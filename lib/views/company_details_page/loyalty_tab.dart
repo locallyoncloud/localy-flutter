@@ -9,7 +9,9 @@ import 'package:locally_flutter_app/views/company_details_page/active_loyalty_ca
 import 'package:provider/provider.dart';
 
 class LoyaltyTab extends StatefulWidget {
+  int index;
 
+  LoyaltyTab(this.index);
 
   @override
   _LoyaltyTabState createState() => _LoyaltyTabState();
@@ -35,7 +37,7 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
               height: 200,
               width: double.infinity,
               child: Hero(
-                  tag: "0asd",
+                  tag: "${widget.index}asd",
                   child:
                   Image.network(context.watch<CompanyDetailsPageVM>().currentCompany.logo, fit: BoxFit.cover))),
           SizedBox(

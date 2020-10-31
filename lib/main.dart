@@ -2,6 +2,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/service_locator.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
@@ -16,12 +17,16 @@ import 'package:provider/provider.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setUpLocator();
-  runApp(
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]).then((value) =>   runApp(
       MyApp()
-      /*DevicePreview(
+    /*DevicePreview(
         enabled: !kReleaseMode,
         builder: (context) => MyApp(),
       )*/
+  )
   );
 }
 final FirebaseAuth fAuth = FirebaseAuth.instance;

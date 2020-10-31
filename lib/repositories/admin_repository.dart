@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:locally_flutter_app/base_classes/admin_base.dart';
 import 'package:locally_flutter_app/enums/database_type.dart';
+import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/services/admin_services.dart';
@@ -47,9 +48,16 @@ class AdminRepository implements AdminBase {
   }
 
   @override
-  Future<void> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
     if(currentDatabase == DatabaseType.FireStore) {
       return await getIt<AdminServices>().addLoyalty(loyaltyInfo, companyId, incrementNumber);
+    }
+  }
+
+  @override
+  Stream getLoyaltyProgressStatus(String loyaltyInfo) {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return getIt<AdminServices>().getLoyaltyProgressStatus(loyaltyInfo);
     }
   }
 

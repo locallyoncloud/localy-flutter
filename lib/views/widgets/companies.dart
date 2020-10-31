@@ -6,6 +6,7 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
+import 'package:locally_flutter_app/views/company_details_page/company_logo.dart';
 
 import 'package:locally_flutter_app/views/widgets/logo.dart';
 import 'package:provider/provider.dart';
@@ -55,13 +56,14 @@ class _CompaniesState extends State<Companies> {
             return Hero(
               tag: "${index}asd",
               child: Material(
-                child: OvalLogo(
+                child: CompanyLogo(
                   isNetworkImage: true,
                   bottomText: snapshot.data[index].name,
                   imagePath: snapshot.data[index].logo,
                   textStyle: AppFonts.getMainFont(fontWeight: FontWeight.w900, color: AppColors.GREY),
                   onClick: () => goCompanyDetails(
                     snapshot.data[index],
+                    index
                   ),
                 ),
               ),
@@ -71,8 +73,8 @@ class _CompaniesState extends State<Companies> {
       },
     );
   }
-  goCompanyDetails(Company company){
+  goCompanyDetails(Company company, int index){
     context.read<CompanyDetailsPageVM>().setCurrentCompany(company);
-    Get.to(CompanyDetails(company: context.read<CompanyDetailsPageVM>().currentCompany,));
+    Get.to(CompanyDetails(company: context.read<CompanyDetailsPageVM>().currentCompany,index: index,));
   }
 }

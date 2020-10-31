@@ -47,8 +47,8 @@ class _MainPageState extends State<MainPage> {
                 // header
                 UserAccountsDrawerHeader(
                     accountName:
-                        Text('Kullanıcı', style: AppFonts.getMainFont()),
-                    accountEmail: Text('kullanici@gmail.com',
+                        Text(context.watch<RegistrationPageVM>().currentUser.name ?? '', style: AppFonts.getMainFont()),
+                    accountEmail: Text(context.watch<RegistrationPageVM>().currentUser.email,
                         style: AppFonts.getMainFont()),
                     currentAccountPicture: GestureDetector(
                       child: CircleAvatar(

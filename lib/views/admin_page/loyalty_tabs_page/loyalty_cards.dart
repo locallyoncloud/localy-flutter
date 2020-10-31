@@ -51,9 +51,9 @@ class _LoyaltyCardsState extends State<LoyaltyCards> {
                   });
                   return TabBarView(
                       children: [
-                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==0).toList(),),
-                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==1).toList(),),
-                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==2).toList(),),
+                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==0).toList(),index: 0,),
+                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==1).toList(),index: 1),
+                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==2).toList(),index: 2),
                       ]
                   );
                 }

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/base_classes/admin_base.dart';
+import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/repositories/admin_repository.dart';
@@ -16,6 +19,7 @@ import 'package:supercharged/supercharged.dart';
 class AdminPanelVM extends ChangeNotifier with AdminBase {
   Company currentSelectedCompany;
   int pickedNumber = 1;
+  LoyaltyProgress currentScannedProgress;
 
   goToPage(String text) {
     switch (text) {
@@ -51,6 +55,10 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
       }
     }
   }
+  setCurrentScannedProgress(LoyaltyProgress loyaltyProgress){
+    currentScannedProgress = loyaltyProgress;
+    notifyListeners();
+  }
 
   @override
   dynamic getAdminSideLoyaltyCards(String companyId) {
@@ -81,7 +89,12 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
 
   @override
-  Future<void> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
     return await getIt<AdminRepository>().addLoyalty(loyaltyInfo, companyId, incrementNumber);
+  }
+
+  @override
+  Stream getLoyaltyProgressStatus(String loyaltyInfo) {
+    return getIt<AdminRepository>().getLoyaltyProgressStatus(loyaltyInfo);
   }
 }
