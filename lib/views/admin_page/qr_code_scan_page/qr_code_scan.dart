@@ -42,6 +42,14 @@ class _ScanQRState extends State<ScanQR> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.BG_WHITE,
+          appBar: AppBar(
+            elevation: 0.1,
+            backgroundColor: AppColors.PRIMARY_COLOR,
+            title: Text(
+              "QR Kod Okut",
+              style: AppFonts.getMainFont(color: AppColors.WHITE),
+            ),
+          ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.wb),
           child: Column(
