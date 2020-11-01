@@ -3,7 +3,6 @@ import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
-import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +42,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                     child: Column(
                       children: [
                          Text(
-                          context.watch<AdminPanelVM>().currentSelectedCompany.category.toUpperCase(),
+                          context.watch<CompanyDetailsPageVM>().currentCompany.category.toUpperCase(),
                           style: AppFonts.getMainFont(
                               fontSize: loyaltyCard.type == 0 ? 10 : 14 ,
                               fontWeight: FontWeight.w700,

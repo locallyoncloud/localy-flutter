@@ -77,8 +77,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
 
   @override
   Future<Company> getCompanyById(String companyId) async {
-    currentSelectedCompany =
-        await getIt<AdminRepository>().getCompanyById(companyId);
+    currentSelectedCompany = await getIt<AdminRepository>().getCompanyById(companyId);
     notifyListeners();
     return await getIt<AdminRepository>().getCompanyById(companyId);
   }
