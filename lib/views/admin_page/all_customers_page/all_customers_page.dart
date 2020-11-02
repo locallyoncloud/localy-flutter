@@ -4,9 +4,8 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/views/admin_page/all_customers_page/customer_list_tab.dart';
 
-class Customers extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+class AllCustomersPage extends StatelessWidget {
+  @override  Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
         length: 3,

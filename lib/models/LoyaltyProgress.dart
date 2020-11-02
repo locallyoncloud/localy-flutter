@@ -2,14 +2,16 @@
 class LoyaltyProgress {
 
   int gifts;
-  int progress;
+  double progress;
   List<String> pushDates;
+  String mail;
 
-	LoyaltyProgress(this.gifts, this.progress, this.pushDates);
+	LoyaltyProgress(this.gifts, this.progress, this.pushDates, this.mail);
 
   LoyaltyProgress.fromJsonMap(Map<String, dynamic> map):
 		gifts = map["gifts"],
-		progress = map["progress"],
+		mail = map["mail"],
+		progress = double.parse(map["progress"].toString()),
 		pushDates = List<String>.from(map["pushDates"]);
 
 	Map<String, dynamic> toJson() {
@@ -17,6 +19,7 @@ class LoyaltyProgress {
 		data['gifts'] = gifts;
 		data['progress'] = progress;
 		data['pushDates'] = pushDates;
+		data['mail'] = mail;
 		return data;
 	}
 

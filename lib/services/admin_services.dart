@@ -78,14 +78,18 @@ class AdminServices implements AdminBase {
   }
 
   @override
-  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId,  int incrementNumber, ) async {
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId,
+      int incrementNumber, double totalPrice) async {
     DateTime date = DateTime.now();
-    String todayDate = date.toString().replaceRange(date.toString().length-7, date.toString().length, "");
+    String todayDate = date
+        .toString()
+        .replaceRange(date.toString().length - 7, date.toString().length, "");
     List<String> loyaltyCardInfoArray = loyaltyInfo.split("/");
     String userMail = loyaltyCardInfoArray[0];
     int loyaltyCardType = int.parse(loyaltyCardInfoArray[1]);
     int loyaltyCardTarget = int.parse(loyaltyCardInfoArray[2]);
     String loyaltyCardUid = loyaltyCardInfoArray[3];
+    double loyaltyCardPercentage = double.parse(loyaltyCardInfoArray[4]);
     DocumentSnapshot documentSnapshot = await fireStore
         .collection("loyalties")
         .doc(loyaltyCardUid)
@@ -93,12 +97,19 @@ class AdminServices implements AdminBase {
         .doc(userMail)
         .get();
 
-    LoyaltyProgress giftCards = LoyaltyProgress.fromJsonMap(documentSnapshot.data());
-    giftCards.progress += incrementNumber;
-    while (giftCards.progress >= loyaltyCardTarget) {
-      giftCards.progress = giftCards.progress - loyaltyCardTarget;
-      giftCards.gifts += 1;
+    LoyaltyProgress giftCards =
+        LoyaltyProgress.fromJsonMap(documentSnapshot.data());
+    if (loyaltyCardType == 0) {
+      giftCards.progress += incrementNumber;
+      while (giftCards.progress >= loyaltyCardTarget) {
+        giftCards.progress = giftCards.progress - loyaltyCardTarget;
+        giftCards.gifts += 1;
+      }
+    } else {
+      giftCards.progress = (giftCards.progress +
+          (giftCards.progress * (loyaltyCardPercentage / 100)));
     }
+
     giftCards.pushDates.add(todayDate);
     await documentSnapshot.reference.set(giftCards.toJson());
     return giftCards;
@@ -111,6 +122,45 @@ class AdminServices implements AdminBase {
     int loyaltyCardType = int.parse(loyaltyCardInfoArray[1]);
     int loyaltyCardTarget = int.parse(loyaltyCardInfoArray[2]);
     String loyaltyCardUid = loyaltyCardInfoArray[3];
-    return fireStore.collection("loyalties").doc(loyaltyCardUid).collection("gift_cards").doc(userMail).snapshots();
+    return fireStore
+        .collection("loyalties")
+        .doc(loyaltyCardUid)
+        .collection("gift_cards")
+        .doc(userMail)
+        .snapshots();
+  }
+
+  @override
+  Future<List<LoyaltyProgress>> getAllCustomersForCard( String companyId, int cardType) async {
+    List<LoyaltyProgress> progressList = [];
+
+    QuerySnapshot snapshot = await fireStore
+        .collection("loyalties")
+        .where("company_id", isEqualTo: companyId)
+        .where("type", isEqualTo: cardType)
+        .get();
+
+    QuerySnapshot giftCardSnapshot = await snapshot.docs[0].reference.collection("gift_cards").get();
+
+    giftCardSnapshot.docs.forEach((doc) {
+      LoyaltyProgress loyaltyProgress = LoyaltyProgress.fromJsonMap(doc.data());
+      progressList.add(loyaltyProgress);
+    });
+
+    return progressList;
+  }
+
+  @override
+  Future<void> sendGift(int count, String companyId, int cardType, String userMail) async {
+
+    QuerySnapshot snapshot =  await fireStore.collection("loyalties")
+        .where("company_id", isEqualTo: companyId)
+        .where("type", isEqualTo: cardType)
+        .get();
+
+
+   await snapshot.docs[0].reference.collection("gift_cards").doc(userMail.trim()).update({
+     "gifts": count
+   });
   }
 }

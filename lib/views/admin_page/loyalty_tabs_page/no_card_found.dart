@@ -56,7 +56,8 @@ class NoCardFound extends StatelessWidget {
         target: 8,
         type: cardType,
         iconSize: 24,
-        imageOpacity: 0.8
+        imageOpacity: 0.8,
+        percentage: 0
     );
     await context.read<AdminPanelVM>().addLoyaltyCard(newLoyaltyCard);
   }

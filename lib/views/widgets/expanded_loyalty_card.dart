@@ -50,7 +50,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                           ),
                         ) ,
                         loyaltyCard.type == 0 ? Text(
-                          "${context.watch<CompanyDetailsPageVM>().currentProgress.progress}/${loyaltyCard.target}",
+                          "${context.watch<CompanyDetailsPageVM>().currentProgress.progress.round()}/${loyaltyCard.target}",
                           style: AppFonts.getMainFont(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -145,7 +145,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: QrImage(
-                    data: "${context.watch<RegistrationPageVM>().currentUser.email}/${loyaltyCard.type}/${loyaltyCard.target}/${loyaltyCard.uid}",
+                    data: "${context.watch<RegistrationPageVM>().currentUser.email}/${loyaltyCard.type}/${loyaltyCard.target}/${loyaltyCard.uid}/${loyaltyCard.percentage.toString()}",
                     version: QrVersions.auto,
                     size: 130,
                     backgroundColor: Colors.white,
@@ -221,7 +221,5 @@ class ExpandedLoyaltyCard extends StatelessWidget {
           ],
         );
     }
-
   }
-
 }

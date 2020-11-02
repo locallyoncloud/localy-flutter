@@ -37,7 +37,7 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
               height: 200,
               width: double.infinity,
               child: Hero(
-                  tag: "${widget.index}asd",
+                  tag: "${widget.index}",
                   child:
                   Image.network(context.watch<CompanyDetailsPageVM>().currentCompany.logo, fit: BoxFit.cover))),
           SizedBox(
@@ -73,7 +73,6 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
   }
 
   renderLoyalties(BuildContext context,AsyncSnapshot<LoyaltyCard> snapshot){
-    print(snapshot.hasData);
     if(snapshot.connectionState== ConnectionState.done && !snapshot.hasData){
       return Container(
           width: 346,

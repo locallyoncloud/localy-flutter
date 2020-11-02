@@ -28,7 +28,6 @@ class HomeServices implements HomeBase{
         .where("isActive", isEqualTo: true).get();
 
     LoyaltyCard loyaltyCard = LoyaltyCard.fromJsonMap(querySnapshot.docs[0].data());
-    print(loyaltyCard.toJson().toString());
     return loyaltyCard;
   }
 
@@ -39,7 +38,7 @@ class HomeServices implements HomeBase{
 
   @override
   Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail) async{
-    LoyaltyProgress loyaltyProgress = LoyaltyProgress(0,0,[]);
+    LoyaltyProgress loyaltyProgress = LoyaltyProgress(0,0,[],userMail);
     return await fireStore.collection("loyalties").doc(loyaltyCardUid).collection("gift_cards").doc(userMail).set(loyaltyProgress.toJson());
   }
 
@@ -50,9 +49,7 @@ class HomeServices implements HomeBase{
     List<Product> productList = [];
 
     snapshot.docs.forEach((doc) {
-      print(doc.data().toString());
       productList.add(Product.fromJsonMap(doc.data()));
-
     });
     return productList;
   }

@@ -48,9 +48,9 @@ class AdminRepository implements AdminBase {
   }
 
   @override
-  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber, double totalPrice) async {
     if(currentDatabase == DatabaseType.FireStore) {
-      return await getIt<AdminServices>().addLoyalty(loyaltyInfo, companyId, incrementNumber);
+      return await getIt<AdminServices>().addLoyalty(loyaltyInfo, companyId, incrementNumber,totalPrice);
     }
   }
 
@@ -61,7 +61,19 @@ class AdminRepository implements AdminBase {
     }
   }
 
+  @override
+  Future<List<LoyaltyProgress>> getAllCustomersForCard(String companyId, int cardType) {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return getIt<AdminServices>().getAllCustomersForCard(companyId,cardType);
+    }
 
+  }
 
+  @override
+  Future<void> sendGift(int count, String companyId, int cardType, String userMail) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AdminServices>().sendGift(count, companyId, cardType, userMail);
+    }
+  }
 
 }

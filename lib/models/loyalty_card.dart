@@ -14,6 +14,7 @@ class LoyaltyCard {
   int type;
   double iconSize;
   double imageOpacity;
+  double percentage;
 
   LoyaltyCard(
       {this.uid,
@@ -30,7 +31,9 @@ class LoyaltyCard {
       this.target,
       this.type,
       this.iconSize,
-      this.imageOpacity});
+      this.imageOpacity,
+      this.percentage
+      });
 
   LoyaltyCard.fromJsonMap(Map<String, dynamic> map)
       : uid = map["uid"],
@@ -47,6 +50,7 @@ class LoyaltyCard {
         target = map["target"],
         type = map["type"],
         iconSize = map["iconSize"],
+        percentage = double.parse(map["percentage"].toString()),
         imageOpacity = map["imageOpacity"];
 
   Map<String, dynamic> toJson() {
@@ -65,6 +69,7 @@ class LoyaltyCard {
     data['target'] = target;
     data['type'] = type;
     data['iconSize'] = iconSize;
+    data['percentage'] = percentage;
     data['imageOpacity'] = imageOpacity;
     return data;
   }
