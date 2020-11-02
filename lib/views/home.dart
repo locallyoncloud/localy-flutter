@@ -3,11 +3,9 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
-import 'package:locally_flutter_app/view_models/main_page_vm.dart';
 import 'package:locally_flutter_app/views/widgets/carousel.dart';
 import 'package:locally_flutter_app/views/widgets/companies.dart';
 import 'package:locally_flutter_app/views/widgets/horizontal_list_view.dart';
-import 'package:locally_flutter_app/views/widgets/number_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:supercharged/supercharged.dart';
 

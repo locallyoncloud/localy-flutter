@@ -29,7 +29,6 @@ class _CompaniesState extends State<Companies> {
       context.read<HomePageVM>().setCarouselVisibility(_controller.offset>70 ? true : false );
     });
     companyFuture = context.read<HomePageVM>().getCompanyList();
-
   }
 
   @override
@@ -54,7 +53,7 @@ class _CompaniesState extends State<Companies> {
               controller: _controller,
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10), itemBuilder: (BuildContext context, int index) {
             return Hero(
-              tag: "${index}asd",
+              tag: "${index}",
               child: Material(
                 child: CompanyLogo(
                   isNetworkImage: true,
@@ -74,6 +73,7 @@ class _CompaniesState extends State<Companies> {
     );
   }
   goCompanyDetails(Company company, int index){
+    context.read<CompanyDetailsPageVM>().setSelectedTab(0);
     context.read<CompanyDetailsPageVM>().setCurrentCompany(company);
     Get.to(CompanyDetails(company: context.read<CompanyDetailsPageVM>().currentCompany,index: index,));
   }

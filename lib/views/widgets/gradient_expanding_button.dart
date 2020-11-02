@@ -49,20 +49,6 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
     expandedKey = ValueKey(1);
     unExpandedKey = ValueKey(0);
     sequenceAnimationController = AnimationController(vsync: this);
-    /*sequenceAnimation = SequenceAnimationBuilder()
-        .addAnimatable(
-            animatable: Tween<double>(begin: context.read<CompanyDetailsPageVM>().currentProgress!=null ? 346 : 264, end: 346),
-            from: 0.seconds,
-            to: 0.5.seconds,
-            curve: Curves.easeInOutCirc,
-            tag: "width")
-        .addAnimatable(
-            animatable: Tween<double>(begin: context.read<CompanyDetailsPageVM>().currentProgress!=null ? 136 : 48, end: 136),
-            from: 0.seconds,
-            to: 0.5.seconds,
-            curve: Curves.easeInOutCirc,
-            tag: "height")
-        .animate(sequenceAnimationController);*/
     animationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 3000));
     animationController.repeat(reverse: true);
@@ -239,12 +225,13 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
               child: Wrap(
                 spacing: 10,
                 children:  List.generate(widget.loyaltyCard.target, (index) => MiniLoyaltyCount(isActive: index+1<=widget.loyaltyProgress.progress,))
-              )),
+              )
+          ),
           SizedBox(
             height: 6,
           ),
           Text(
-            "Hediye için ${widget.loyaltyCard.target - widget.loyaltyProgress.progress} adet kaldı!",
+            "Hediye için ${widget.loyaltyCard.target - widget.loyaltyProgress.progress.round()} adet kaldı!",
             style: AppFonts.getMainFont(
                 color: AppColors.WHITE,
                 fontSize: 12,
@@ -289,7 +276,6 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
               ]
           ),)
         ];
-
     }
   }
 

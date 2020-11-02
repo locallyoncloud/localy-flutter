@@ -55,6 +55,10 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
       }
     }
   }
+  setPickedNumber(int number){
+    pickedNumber = number;
+    notifyListeners();
+  }
   setCurrentScannedProgress(LoyaltyProgress loyaltyProgress){
     currentScannedProgress = loyaltyProgress;
     notifyListeners();
@@ -88,12 +92,23 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
 
   @override
-  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber) async {
-    return await getIt<AdminRepository>().addLoyalty(loyaltyInfo, companyId, incrementNumber);
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId, int incrementNumber, double totalPrice) async {
+    return await getIt<AdminRepository>().addLoyalty(loyaltyInfo, companyId, incrementNumber,totalPrice);
   }
 
   @override
   Stream getLoyaltyProgressStatus(String loyaltyInfo) {
     return getIt<AdminRepository>().getLoyaltyProgressStatus(loyaltyInfo);
   }
+
+  @override
+  Future<List<LoyaltyProgress>> getAllCustomersForCard(String companyId, int cardType) {
+    return getIt<AdminRepository>().getAllCustomersForCard(companyId,cardType);
+  }
+
+  @override
+  Future<void> sendGift(int count, String companyId, int cardType, String userMail) {
+    return getIt<AdminRepository>().sendGift(count, companyId, cardType, userMail);
+  }
+
 }

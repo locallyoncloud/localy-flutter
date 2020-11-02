@@ -7,6 +7,9 @@ import 'package:provider/provider.dart';
 
 class NumberPicker extends StatefulWidget {
 
+  int maxCount;
+
+  NumberPicker({this.maxCount = 99999});
 
   @override
   _NumberPickerState createState() => _NumberPickerState();
@@ -79,12 +82,13 @@ class _NumberPickerState extends State<NumberPicker> {
           Flexible(
               child: InkWell(
                 onTap: (){
-                  if(context.read<AdminPanelVM>().pickedNumber!=null){
+                  print(widget.maxCount);
+                  if(context.read<AdminPanelVM>().pickedNumber!=null && context.read<AdminPanelVM>().pickedNumber<widget.maxCount){
                     context.read<AdminPanelVM>().incrementPickedNumber();
                   }else{
-                    setState(() {
-                      counter++;
-                    });
+                      setState(() {
+                        counter++;
+                      });
                   }
                 },
                 child: Container(

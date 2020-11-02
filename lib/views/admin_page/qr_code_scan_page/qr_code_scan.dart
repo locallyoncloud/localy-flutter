@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/widgets/number_picker.dart';
+import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +22,7 @@ class _ScanQRState extends State<ScanQR> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   var qrText = "";
   QRViewController controller;
+  TextEditingController priceTextController;
   bool isFlashOpen;
   bool showUserInfo;
 
@@ -27,7 +30,8 @@ class _ScanQRState extends State<ScanQR> {
   void initState() {
     super.initState();
     isFlashOpen = false;
-    showUserInfo= false;
+    showUserInfo = false;
+    priceTextController = TextEditingController(text: "");
   }
 
   @override
@@ -42,14 +46,14 @@ class _ScanQRState extends State<ScanQR> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.BG_WHITE,
-          appBar: AppBar(
-            elevation: 0.1,
-            backgroundColor: AppColors.PRIMARY_COLOR,
-            title: Text(
-              "QR Kod Okut",
-              style: AppFonts.getMainFont(color: AppColors.WHITE),
-            ),
+        appBar: AppBar(
+          elevation: 0.1,
+          backgroundColor: AppColors.PRIMARY_COLOR,
+          title: Text(
+            "QR Kod Okut",
+            style: AppFonts.getMainFont(color: AppColors.WHITE),
           ),
+        ),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.wb),
           child: Column(
@@ -82,69 +86,78 @@ class _ScanQRState extends State<ScanQR> {
               SizedBox(
                 height: 20,
               ),
-              qrText.length>0 ?
-              StreamBuilder<DocumentSnapshot>(
-                  stream: context.watch<AdminPanelVM>().getLoyaltyProgressStatus(qrText),
-                  builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
-                    if(snapshot.connectionState == ConnectionState.active){
-                      if(!snapshot.hasData){
-                        return Text('Lütfen QR kodu okutunuz',
-                            style: AppFonts.getMainFont(
-                                color: AppColors.PRIMARY_COLOR,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700));
-                      }else{
-                        return Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Müşteri mail adresi: ${qrText.split("/")[0]}",
+              qrText.length > 0
+                  ? StreamBuilder<DocumentSnapshot>(
+                      stream: context
+                          .watch<AdminPanelVM>()
+                          .getLoyaltyProgressStatus(qrText),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.active) {
+                          if (!snapshot.hasData) {
+                            return Text('Lütfen QR kodu okutunuz',
                                 style: AppFonts.getMainFont(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.PRIMARY_COLOR),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Mevcut durum: ${snapshot.data.data()["progress"].toString()}",
-                                style: AppFonts.getMainFont(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.PRIMARY_COLOR),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Hediye sayısı: ${snapshot.data.data()["gifts"].toString()}",
-                                style: AppFonts.getMainFont(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColors.PRIMARY_COLOR),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Önceki QR okutma tarihleri:",
-                                style: AppFonts.getMainFont(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
                                     color: AppColors.PRIMARY_COLOR,
-                                    textDecoration: TextDecoration.underline),
-                              ),
-                              Expanded(
-                                  child: ListView.builder(
-                                    itemCount: snapshot.data.data()["pushDates"].length,
-                                    itemBuilder: (BuildContext context, int index) {
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700));
+                          } else {
+                            return Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Müşteri mail adresi: ${qrText.split("/")[0]}",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.PRIMARY_COLOR),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "Mevcut durum: ${snapshot.data.data()["progress"].toString()}",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.PRIMARY_COLOR),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "Hediye sayısı: ${snapshot.data.data()["gifts"].toString()}",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.PRIMARY_COLOR),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    "Önceki QR okutma tarihleri:",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.PRIMARY_COLOR,
+                                        textDecoration:
+                                            TextDecoration.underline),
+                                  ),
+                                  Expanded(
+                                      child: ListView.builder(
+                                    itemCount: snapshot.data
+                                        .data()["pushDates"]
+                                        .length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
                                       return Container(
                                         margin: EdgeInsets.only(top: 5),
                                         child: Text(
-                                          snapshot.data.data()["pushDates"][index],
+                                          snapshot.data.data()["pushDates"]
+                                              [index],
                                           style: AppFonts.getMainFont(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w700,
@@ -153,15 +166,15 @@ class _ScanQRState extends State<ScanQR> {
                                       );
                                     },
                                   ))
-                            ],
-                          ),
-                        );
-                      }
-                    }else{
-                      return CircularProgressIndicator();
-                    }
-                  }
-              ) : Container()
+                                ],
+                              ),
+                            );
+                          }
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      })
+                  : Container()
             ],
           ),
         ),
@@ -173,10 +186,14 @@ class _ScanQRState extends State<ScanQR> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       if (scanData != null) {
-        setState(() {
-          qrText = scanData;
-        });
-        openAddPointDialog(context);
+        if(scanData.split("/").length>3 && scanData.split("/")[0].isEmail){
+          setState(() {
+            qrText = scanData;
+          });
+          openAddPointDialog(context);
+        }else{
+          Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Lütfen geçerli bir QR kod okutunuz!",context));
+        }
       }
     });
   }
@@ -212,12 +229,28 @@ class _ScanQRState extends State<ScanQR> {
                       SizedBox(
                         height: 10,
                       ),
-                      NumberPicker(),
+                      int.parse(qrText.split("/")[1]) == 0 ? NumberPicker()
+                      : Container(
+                          width: 100,
+                          child: TextField(
+                            controller: priceTextController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              suffixIcon: Text(
+                                "₺",
+                                style: AppFonts.getMainFont(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.PRIMARY_COLOR
+                                ),
+                              ),
+                            ),
+                          )),
                       SizedBox(
                         height: 10,
                       ),
                       RaisedButton(
-                        onPressed: () => Get.back(),
+                        onPressed: () => Get.back(result: true),
                         color: AppColors.PRIMARY_COLOR,
                         child: Text(
                           "Ekle",
@@ -231,15 +264,19 @@ class _ScanQRState extends State<ScanQR> {
                   )),
             )).then((value) {
       controller.resumeCamera();
-      add();
+      if (value) {
+        add();
+      }
     });
   }
 
   add() async {
-   await context.read<AdminPanelVM>().addLoyalty(
+    await context.read<AdminPanelVM>().addLoyalty(
         qrText,
         context.read<RegistrationPageVM>().currentUser.company_id,
-        context.read<AdminPanelVM>().pickedNumber);
+        context.read<AdminPanelVM>().pickedNumber,
+        double.parse(priceTextController.value.text)
+    );
   }
 
   cameraAction(IconData iconData, bool isFlip) {

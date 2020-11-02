@@ -10,6 +10,8 @@ abstract class AdminBase {
   Future<void> addLoyaltyCard(LoyaltyCard loyaltyCard);
   Future<Company>getCompanyById(String companyId);
   Future<void> toggleCardStatus(LoyaltyCard loyaltyCard);
-  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId,int incrementNumber);
+  Future<LoyaltyProgress> addLoyalty(String loyaltyInfo, String companyId,int incrementNumber, double totalPrice);
   Stream getLoyaltyProgressStatus(String loyaltyInfo);
+  Future<List<LoyaltyProgress>> getAllCustomersForCard(String companyId, int cardType);
+  Future<void> sendGift(int count, String companyId, int cardType, String userMail);
 }

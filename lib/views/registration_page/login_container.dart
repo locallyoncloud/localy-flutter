@@ -42,7 +42,24 @@ class LoginContainer extends StatelessWidget {
             hasSuffixEyeIcon: true,
           ),
           SizedBox(
-            height: 3.hb,
+            height: 2.hb,
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: InkWell(
+              onTap: ()=>resetPassword(context),
+              child: Text(
+                "Şifremi Unuttum",
+                style: AppFonts.getMainFont(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.WHITE
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 2.hb,
           ),
           InkWell(
             onTap: () =>  loginUser(context),
@@ -115,5 +132,15 @@ class LoginContainer extends StatelessWidget {
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
       Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, e.message,context));
     }
+  }
+
+  resetPassword(BuildContext context) {
+    String mail = context.read<RegistrationPageVM>().signinMail;
+      if(mail.length>3 && mail.isEmail){
+        context.read<RegistrationPageVM>().resetPassword(mail);
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.GREEN, "Şifre sıfırlama mailı gönderilmiştir",context));
+      }else{
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Lütfen geçerli bir mail adresi giriniz",context));
+      }
   }
 }
