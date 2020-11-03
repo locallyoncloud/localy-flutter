@@ -20,6 +20,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   Company currentSelectedCompany;
   int pickedNumber = 1;
   LoyaltyProgress currentScannedProgress;
+  List<LoyaltyProgress> customerLoyaltyList = [];
 
   goToPage(String text) {
     switch (text) {
@@ -63,6 +64,10 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
     currentScannedProgress = loyaltyProgress;
     notifyListeners();
   }
+   setCustomerLoyaltyList(list){
+    customerLoyaltyList = List.from(list);
+    notifyListeners();
+  }
 
   @override
   dynamic getAdminSideLoyaltyCards(String companyId) {
@@ -102,7 +107,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
 
   @override
-  Future<List<LoyaltyProgress>> getAllCustomersForCard(String companyId, int cardType) {
+  Stream getAllCustomersForCard(String companyId, int cardType) {
     return getIt<AdminRepository>().getAllCustomersForCard(companyId,cardType);
   }
 

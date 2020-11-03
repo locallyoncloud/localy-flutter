@@ -37,18 +37,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
-        // Check for errors
         if (snapshot.hasError) {
           return CircularProgressIndicator();
         }
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return AppStartingPoint();
         }
-        // Otherwise, show something whilst waiting for initialization to complete
         return CircularProgressIndicator();
       },
     );

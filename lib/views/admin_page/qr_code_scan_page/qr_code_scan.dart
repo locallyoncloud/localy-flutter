@@ -31,7 +31,7 @@ class _ScanQRState extends State<ScanQR> {
     super.initState();
     isFlashOpen = false;
     showUserInfo = false;
-    priceTextController = TextEditingController(text: "");
+    priceTextController = TextEditingController(text: "0");
   }
 
   @override
@@ -118,7 +118,7 @@ class _ScanQRState extends State<ScanQR> {
                                     height: 5,
                                   ),
                                   Text(
-                                    "Mevcut durum: ${snapshot.data.data()["progress"].toString()}",
+                                    "Mevcut durum: ${snapshot.data.data()["progress"].round().toString()}",
                                     style: AppFonts.getMainFont(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700,

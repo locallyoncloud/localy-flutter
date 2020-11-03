@@ -62,7 +62,7 @@ class AdminRepository implements AdminBase {
   }
 
   @override
-  Future<List<LoyaltyProgress>> getAllCustomersForCard(String companyId, int cardType) {
+  Stream getAllCustomersForCard(String companyId, int cardType) {
     if(currentDatabase == DatabaseType.FireStore) {
       return getIt<AdminServices>().getAllCustomersForCard(companyId,cardType);
     }

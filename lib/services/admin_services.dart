@@ -131,23 +131,19 @@ class AdminServices implements AdminBase {
   }
 
   @override
-  Future<List<LoyaltyProgress>> getAllCustomersForCard( String companyId, int cardType) async {
-    List<LoyaltyProgress> progressList = [];
+  Stream getAllCustomersForCard( String companyId, int cardType) async* {
 
-    QuerySnapshot snapshot = await fireStore
+    String uid = "";
+
+    QuerySnapshot snapshot =  await fireStore
         .collection("loyalties")
         .where("company_id", isEqualTo: companyId)
         .where("type", isEqualTo: cardType)
         .get();
+    uid =snapshot.docs[0].id;
 
-    QuerySnapshot giftCardSnapshot = await snapshot.docs[0].reference.collection("gift_cards").get();
+    yield*  fireStore.collection("loyalties").doc(uid).collection("gift_cards").snapshots();
 
-    giftCardSnapshot.docs.forEach((doc) {
-      LoyaltyProgress loyaltyProgress = LoyaltyProgress.fromJsonMap(doc.data());
-      progressList.add(loyaltyProgress);
-    });
-
-    return progressList;
   }
 
   @override
