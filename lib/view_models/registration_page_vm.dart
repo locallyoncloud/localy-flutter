@@ -64,7 +64,7 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
 
   @override
   signOut() async {
-    await getIt<AuthRepository>().signOut();
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await getIt<AuthRepository>().signOut();
     prefs.remove("user");
   }}

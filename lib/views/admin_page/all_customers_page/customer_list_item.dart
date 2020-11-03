@@ -7,7 +7,7 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-import 'package:locally_flutter_app/views/admin_page/give_gift_dialog.dart';
+import 'package:locally_flutter_app/views/widgets/switching_button.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +24,7 @@ class CustomerListItem extends StatefulWidget {
 class _CustomerListItemState extends State<CustomerListItem> {
   double itemHeight;
   double listOpacity = 0;
+  int textValue = 0;
 
   @override
   void initState() {
@@ -97,19 +98,13 @@ class _CustomerListItemState extends State<CustomerListItem> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      RaisedButton(
-                        onPressed: widget.loyaltyProgress.gifts>0 ? () => showGiveGiftDialog(context)
-                            : null,
-                        color: AppColors.GREEN,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Text(
-                          "Hediye Ver",
-                          style: AppFonts.getMainFont(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: AppColors.WHITE),
-                        ),
+                      ChangingButton(
+                        primaryColor: AppColors.PRIMARY_COLOR,
+                        isDisabled: widget.loyaltyProgress.gifts>0 ? false : true,
+                        approveFunction: () => giveGifts(),
+                        textOnchange: (value){
+                          textValue = int.parse(value);
+                        },
                       ),
                       Visibility(
                         visible: widget.loyaltyProgress.pushDates.length>0 ? true : false,
@@ -179,7 +174,11 @@ class _CustomerListItemState extends State<CustomerListItem> {
     }
   }
 
-  showGiveGiftDialog(BuildContext context) {
+  giveGifts(){
+    context.read<AdminPanelVM>().sendGift((widget.loyaltyProgress.gifts -textValue), context.read<RegistrationPageVM>().currentUser.company_id, widget.cardType, widget.loyaltyProgress.mail,);
+  }
+
+/*  showGiveGiftDialog(BuildContext context) {
     context.read<AdminPanelVM>().setPickedNumber(widget.loyaltyProgress.gifts);
     showDialog(context: context,
         builder: (_) => GiveGiftDialog(widget.loyaltyProgress.gifts)
@@ -189,5 +188,5 @@ class _CustomerListItemState extends State<CustomerListItem> {
       }
     });
 
-  }
+  }*/
 }
