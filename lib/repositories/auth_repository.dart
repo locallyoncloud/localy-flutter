@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/enums/database_type.dart';
@@ -35,6 +36,13 @@ class AuthRepository implements AuthBase {
   signOut() async {
     if(currentDatabase == DatabaseType.FireStore) {
       return await getIt<AuthenticationServices>().signOut();
+    }
+  }
+
+  @override
+  Future<PublicProfile> signInWithGoogle() async{
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AuthenticationServices>().signInWithGoogle();
     }
   }
   

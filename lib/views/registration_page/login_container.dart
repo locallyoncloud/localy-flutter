@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:locally_flutter_app/enums/login_type.dart';
 import 'package:locally_flutter_app/enums/text_type.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
@@ -62,7 +63,7 @@ class LoginContainer extends StatelessWidget {
             height: 2.hb,
           ),
           InkWell(
-            onTap: () =>  loginUser(context),
+            onTap: () =>  loginUser(context, LoginType.Standard),
             child: Container(
                 width: 139,
                 height: 44,
@@ -99,15 +100,17 @@ class LoginContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
+                IconButton(icon: Icon(
                   AntDesign.facebook_square,
                   color: AppColors.WHITE,
                   size: 40,
-                ),
-                Icon(
+                ), onPressed: () {
+                }),
+                IconButton(icon: Icon(
                   AntDesign.google,
                   color: AppColors.WHITE,
                   size: 40,
+                ), onPressed: () => loginUser(context,LoginType.Google)
                 )
               ],
             ),
@@ -116,12 +119,23 @@ class LoginContainer extends StatelessWidget {
       ),
     );
   }
-  loginUser(BuildContext context) async{
+  loginUser(BuildContext context, LoginType loginType) async{
     context.read<RegistrationPageVM>().setLoadingVisibility(true);
     try {
-      PublicProfile publicProfile = await context.read<RegistrationPageVM>().signInWithEmailAndPassword(
-          context.read<RegistrationPageVM>().signinMail,
-          context.read<RegistrationPageVM>().signinPassword);
+      PublicProfile publicProfile;
+      switch(loginType) {
+        case LoginType.Standard:
+          publicProfile = await context.read<RegistrationPageVM>().signInWithEmailAndPassword(
+              context.read<RegistrationPageVM>().signinMail,
+              context.read<RegistrationPageVM>().signinPassword);
+          break;
+        case LoginType.Google:
+          publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle();
+          break;
+        case LoginType.Facebook:
+          // TODO: Handle this case.
+          break;
+      }
       if(publicProfile!=null){
         context.read<RegistrationPageVM>().setCurrentUser(publicProfile);
         context.read<RegistrationPageVM>().setLoadingVisibility(false);

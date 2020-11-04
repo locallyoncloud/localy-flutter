@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 
 abstract class AuthBase {
@@ -8,7 +9,7 @@ abstract class AuthBase {
 
   Future resetPassword(String mail);
 
-  /*Future getUser();*/
-
   signOut();
+
+  Future<PublicProfile> signInWithGoogle();
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e5ba9d8f-a2aa-4099-ad44-bec6145568b4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/hs_err_pid22104.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid35748.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/replay_pid22104.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/replay_pid35748.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_Packages.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.packages" beforeDir="false" afterPath="$PROJECT_DIR$/../.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/base_classes/authentication_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/base_classes/authentication_base.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/repositories/auth_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/repositories/auth_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/services/authentication_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/services/authentication_services.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/view_models/registration_page_vm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/view_models/registration_page_vm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/views/registration_page/login_container.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/views/registration_page/login_container.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1jmMdpBVK8HiEDECDMdRKDadzL5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e5ba9d8f-a2aa-4099-ad44-bec6145568b4" name="Default Changelist" comment="" />
+      <created>1604404903163</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604404903163</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="94" key="#Project_Structure" timestamp="1604404945721">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="#Project_Structure/0.0.1920.1040/1920.0.2560.1400@0.0.1920.1040" timestamp="1604404945721" />
+  </component>
+</project>
