@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/enums/text_type.dart';
@@ -67,4 +68,9 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     await getIt<AuthRepository>().signOut();
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove("user");
+  }
+
+  @override
+  Future<PublicProfile> signInWithGoogle() async {
+    return await getIt<AuthRepository>().signInWithGoogle();
   }}

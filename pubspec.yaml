@@ -37,6 +37,7 @@ dependencies:
   uuid: ^2.2.2
   qr_code_scanner: ^0.0.13
   cached_network_image: ^2.3.3
+  google_sign_in: "^4.5.1"
 
 
 dev_dependencies:
