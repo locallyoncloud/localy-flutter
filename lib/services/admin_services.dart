@@ -116,18 +116,17 @@ class AdminServices implements AdminBase {
   }
 
   @override
-  Stream getLoyaltyProgressStatus(String loyaltyInfo) {
+  Stream<LoyaltyProgress> getLoyaltyProgressStatus(String loyaltyInfo) {
     List<String> loyaltyCardInfoArray = loyaltyInfo.split("/");
     String userMail = loyaltyCardInfoArray[0];
-    int loyaltyCardType = int.parse(loyaltyCardInfoArray[1]);
-    int loyaltyCardTarget = int.parse(loyaltyCardInfoArray[2]);
     String loyaltyCardUid = loyaltyCardInfoArray[3];
     return fireStore
         .collection("loyalties")
         .doc(loyaltyCardUid)
         .collection("gift_cards")
         .doc(userMail)
-        .snapshots();
+        .snapshots()
+        .map((snap) => LoyaltyProgress.fromJsonMap(snap.data()));
   }
 
   @override
@@ -148,7 +147,6 @@ class AdminServices implements AdminBase {
 
   @override
   Future<void> sendGift(int count, String companyId, int cardType, String userMail) async {
-
     QuerySnapshot snapshot =  await fireStore.collection("loyalties")
         .where("company_id", isEqualTo: companyId)
         .where("type", isEqualTo: cardType)
@@ -159,4 +157,5 @@ class AdminServices implements AdminBase {
      "gifts": count
    });
   }
+
 }

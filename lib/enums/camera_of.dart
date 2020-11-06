@@ -1,0 +1,4 @@
+enum CameraOf{
+  Admin,
+  Menu
+}

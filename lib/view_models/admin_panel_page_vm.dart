@@ -12,7 +12,7 @@ import 'package:locally_flutter_app/views/admin_page/customers.dart';
 import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_cards.dart';
 
 import 'package:locally_flutter_app/views/admin_page/notifications.dart';
-import 'package:locally_flutter_app/views/admin_page/qr_code_scan_page/qr_code_scan.dart';
+import 'package:locally_flutter_app/views/admin_page/qr_code_scan_page/loyalty_scan.dart';
 
 import 'package:supercharged/supercharged.dart';
 
@@ -21,6 +21,8 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   int pickedNumber = 1;
   LoyaltyProgress currentScannedProgress;
   List<LoyaltyProgress> customerLoyaltyList = [];
+  String lastReadAdminQrCode = "";
+  String lastReadCustomerQrCode = "";
 
   goToPage(String text) {
     switch (text) {
@@ -29,7 +31,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
             transition: Transition.rightToLeft, duration: 0.3.seconds);
         break;
       case "QR Kod Okut":
-        Get.to(ScanQR(),
+        Get.to(LoyaltyScan(),
             transition: Transition.leftToRight, duration: 0.3.seconds);
         break;
       case "Müşterilerim":
@@ -66,6 +68,14 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
    setCustomerLoyaltyList(list){
     customerLoyaltyList = List.from(list);
+    notifyListeners();
+  }
+  setAdminQrCode(String newQrCode){
+    lastReadAdminQrCode = newQrCode;
+    notifyListeners();
+  }
+  setCustomerQrCode(String newQrCode){
+    lastReadCustomerQrCode = newQrCode;
     notifyListeners();
   }
 
