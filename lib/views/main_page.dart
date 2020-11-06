@@ -8,6 +8,7 @@ import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_panel.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
+import 'package:locally_flutter_app/views/widgets/main_bottom_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'home.dart';
@@ -35,9 +36,6 @@ class _MainPageState extends State<MainPage> {
               IconButton(
                   icon: Icon(Icons.search, color: AppColors.WHITE),
                   onPressed: () {}),
-              IconButton(
-                  icon: Icon(Icons.shopping_cart, color: AppColors.WHITE),
-                  onPressed: () {})
             ],
           ),
           drawer: Drawer(
@@ -58,35 +56,28 @@ class _MainPageState extends State<MainPage> {
                     decoration: BoxDecoration(
                       color: AppColors.PRIMARY_COLOR,
                     )),
-                // body
-                buildListElement(
-                    'Ana Sayfa', Icons.home, AppColors.PRIMARY_COLOR),
-                buildListElement(
-                    'Hesabım', Icons.person, AppColors.PRIMARY_COLOR),
-                buildListElement('Siparişlerim', Icons.shopping_basket,
-                    AppColors.PRIMARY_COLOR),
-                buildListElement(
-                    'Kategoriler', Icons.dashboard, AppColors.PRIMARY_COLOR),
-                buildListElement("Favorilerim", Icons.favorite, AppColors.RED),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(
-                    thickness: 1,
-                  ),
-                ),
                 context.watch<RegistrationPageVM>().currentUser.type =="admin" ? buildListElement("Admin", MaterialIcons.store_mall_directory, AppColors.ADMIN_GREY) : Container(),
-                buildListElement("Hakkımızda", Icons.help, AppColors.GREEN),
                 buildListElement("Çıkış", AntDesign.logout, AppColors.ERROR),
               ],
             ),
           ),
-          body: FadeIndexedStack(
-            index: context.watch<MainPageVM>().currentSelectedIndex,
+          body: Column(
             children: [
-              Home(),
-              AdminPanel(),
+              Expanded(
+                child: FadeIndexedStack(
+                  index: context.watch<MainPageVM>().currentSelectedIndex,
+                  children: [
+                    Home(),
+                    AdminPanel(),
+                    Container(),
+                    Container(),
+                  ],
+                ),
+              ),
+              GetirBottomNavigation()
             ],
-          )),
+          )
+      ),
     );
   }
 

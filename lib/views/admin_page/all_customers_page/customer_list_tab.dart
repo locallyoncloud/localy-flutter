@@ -27,7 +27,7 @@ class _CustomerListTabState extends State<CustomerListTab> {
             widget.tabIndex),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           } else {
             if (snapshot.connectionState == ConnectionState.active ) {
               return ListView.builder(

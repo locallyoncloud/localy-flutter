@@ -6,8 +6,9 @@ class ChangingButton extends StatefulWidget {
   Color primaryColor;
   Function  approveFunction, textOnchange;
   bool isDisabled;
+  int cardType;
 
-  ChangingButton({this.primaryColor, this.approveFunction, this.textOnchange, this.isDisabled});
+  ChangingButton({this.primaryColor, this.approveFunction, this.textOnchange, this.isDisabled, this.cardType = 0});
 
   @override
   _ChangingButtonState createState() => _ChangingButtonState();
@@ -118,7 +119,7 @@ class _ChangingButtonState extends State<ChangingButton> {
                 borderRadius: BorderRadius.circular(12)),
             child: Center(
               child: Text(
-                "Hediye ver",
+                widget.cardType == 0 ? "Hediye ver" : widget.cardType == 1 ? "TL ver" : "Puan ver",
                 style: AppFonts.getMainFont(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,

@@ -6,10 +6,10 @@ import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:provider/provider.dart';
 
 class NumberPicker extends StatefulWidget {
-
   int maxCount;
+  Function onChange;
 
-  NumberPicker({this.maxCount = 99999});
+  NumberPicker({this.maxCount = 99999, this.onChange});
 
   @override
   _NumberPickerState createState() => _NumberPickerState();
@@ -27,94 +27,89 @@ class _NumberPickerState extends State<NumberPicker> {
         children: [
           Flexible(
               child: InkWell(
-                onTap: (){
-                  if(context.read<AdminPanelVM>().pickedNumber!=null){
-                    context.read<AdminPanelVM>().decrementPickedNumber();
-                  }else{
-                    setState(() {
-                      if(counter!=1){
-                        counter--;
-                      }
-                    });
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(30), bottomLeft: Radius.circular(30)),
-                    color: AppColors.PRIMARY_COLOR,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0x29000000),
-                        offset: Offset(7, 6),
-                        blurRadius: 6,
-                      ),
-                    ],
+            onTap: () {
+              if (counter != 1) {
+                setState(() {
+                  counter--;
+                });
+                widget.onChange(counter);
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    bottomLeft: Radius.circular(30)),
+                color: AppColors.PRIMARY_COLOR,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0x29000000),
+                    offset: Offset(7, 6),
+                    blurRadius: 6,
                   ),
-                  child: Center(
-                    child: Icon(
-                      AntDesign.minus,
-                      color: AppColors.WHITE,
-                      size: 19,
-                    ),
-                  ),
+                ],
+              ),
+              child: Center(
+                child: Icon(
+                  AntDesign.minus,
+                  color: AppColors.WHITE,
+                  size: 19,
                 ),
-              )
-          ),
+              ),
+            ),
+          )),
           Flexible(
               child: Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: AppColors.WHITE,
-                child: Center(
-                  child: Text(
-                    context.watch<AdminPanelVM>().pickedNumber == null ? counter.toString() : context.watch<AdminPanelVM>().pickedNumber.toString() ,
-                    style: AppFonts.getMainFont(
-                      color: AppColors.PRIMARY_COLOR,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700
-                    ),
-                  ),
-                ),
-              )
-          ),
+            width: double.infinity,
+            height: double.infinity,
+            color: AppColors.WHITE,
+            child: Center(
+              child: Text(
+                counter.toString(),
+                style: AppFonts.getMainFont(
+                    color: AppColors.PRIMARY_COLOR,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700),
+              ),
+            ),
+          )),
           Flexible(
               child: InkWell(
-                onTap: (){
-                  print(widget.maxCount);
-                  if(context.read<AdminPanelVM>().pickedNumber!=null && context.read<AdminPanelVM>().pickedNumber<widget.maxCount){
-                    context.read<AdminPanelVM>().incrementPickedNumber();
-                  }else{
-                      setState(() {
-                        counter++;
-                      });
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
-                      color: AppColors.PRIMARY_COLOR,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0x29000000),
-                        offset: Offset(7, 6),
-                        blurRadius: 6,
-                      ),
-                    ],
+            onTap: () {
+              if (counter < widget.maxCount) {
+                setState(() {
+                  counter++;
+                });
+                widget.onChange(counter);
+              }
+            },
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+                color: AppColors.PRIMARY_COLOR,
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0x29000000),
+                    offset: Offset(7, 6),
+                    blurRadius: 6,
                   ),
-                  child: Center(
-                    child: Icon(
-                      AntDesign.plus,
-                      color: AppColors.WHITE,
-                      size: 19,
-                    ),
-                  ),
+                ],
+              ),
+              child: Center(
+                child: Icon(
+                  AntDesign.plus,
+                  color: AppColors.WHITE,
+                  size: 19,
                 ),
-              )
-          )
+              ),
+            ),
+          ))
         ],
       ),
     );
