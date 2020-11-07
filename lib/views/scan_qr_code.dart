@@ -95,13 +95,11 @@ class _ScanQRCodeState extends State<ScanQRCode> {
     controller.scannedDataStream.listen((scanData) {
       if (scanData != null) {
         count+=1;
-        if (scanData.split("/").length > 4 && scanData.split("/")[5]=="localy") {
+        if (scanData.split("/").length > 4 && scanData.split("/")[5]=="localy" && count == 1) {
           switch (widget.cameraOf){
             case CameraOf.Admin:
-              if(count==1){
                 context.read<AdminPanelVM>().setAdminQrCode(scanData);
                 Get.back();
-              }
               break;
             case CameraOf.Menu:
               // TODO: Handle this case.
