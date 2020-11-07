@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,8 @@ import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/repositories/admin_repository.dart';
-import 'package:locally_flutter_app/views/admin_page/customers.dart';
+import 'package:locally_flutter_app/views/admin_page/all_customers_page/customers.dart';
+
 import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_cards.dart';
 
 import 'package:locally_flutter_app/views/admin_page/notifications.dart';
