@@ -3,6 +3,7 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
+import 'package:locally_flutter_app/views/cart_page/cart_item.dart';
 import 'package:provider/provider.dart';
 
 class CartList extends StatelessWidget {
@@ -20,9 +21,16 @@ class CartList extends StatelessWidget {
           style: AppFonts.getMainFont(
               fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.GREY),
         ),
+        SizedBox(
+          height: 10,
+        ),
         Expanded(
-          child: Container(
-            color: AppColors.BG_WHITE,
+          child: ListView.builder(
+            itemCount: context.watch<CartPageVM>().productsInCartList.length,
+            primary: false,
+            itemBuilder: (BuildContext context, int index) {
+              return CartItem(context.watch<CartPageVM>().productsInCartList[index]);
+            },
           ),
         ),
         Align(
@@ -51,7 +59,7 @@ class CartList extends StatelessWidget {
                       height: 3,
                     ),
                     Text(
-                     "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺" ,
+                      "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺",
                       style: AppFonts.getMainFont(
                           fontSize: 16,
                           fontWeight: FontWeight.w900,
@@ -75,10 +83,9 @@ class CartList extends StatelessWidget {
                         Text(
                           "Onay",
                           style: AppFonts.getMainFont(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.WHITE
-                          ),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.WHITE),
                         ),
                         Icon(
                           Icons.arrow_forward,

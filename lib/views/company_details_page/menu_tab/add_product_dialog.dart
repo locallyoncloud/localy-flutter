@@ -115,7 +115,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
 
   addProductToCart() {
     CartProduct newProduct = CartProduct(widget.product, itemCount, widget.product.price[selectedIndex], widget.product.size.length>0 ? widget.product.size[selectedIndex] :  "normal");
-    context.read<CartPageVM>().addToCard(newProduct);
+    context.read<CartPageVM>().addToCart(newProduct);
     Get.back();
   }
 }

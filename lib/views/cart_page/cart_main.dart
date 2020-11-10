@@ -18,6 +18,7 @@ class CartMain extends StatelessWidget {
     ScreenSize.recalculate(context);
     return TabBarView(
       controller: tabController,
+        physics: NeverScrollableScrollPhysics(),
         children: [
         Container(
         color: AppColors.BG_WHITE,
