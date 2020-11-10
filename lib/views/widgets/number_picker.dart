@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
-import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
-import 'package:provider/provider.dart';
 
 class NumberPicker extends StatefulWidget {
   int maxCount;
