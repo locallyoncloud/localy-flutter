@@ -4,6 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/admin_page/loyalty_tabs_page/loyalty_cards_tabs.dart';
@@ -22,18 +23,19 @@ class _LoyaltyCardsState extends State<LoyaltyCards> {
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
-            appBar: AppBar(
-              elevation: 0.1,
-              backgroundColor: AppColors.PRIMARY_COLOR,
-              title: Text(
+            appBar: UtilityWidgets.CustomAppBar(
+              Text(
                 "Tüm Loyalty Kartlarım",
-                style: AppFonts.getMainFont(color: AppColors.WHITE),
+                style: AppFonts.getMainFont(
+                    color: AppColors.PRIMARY_COLOR,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700),
               ),
-              bottom: TabBar(
+              TabBar(
                 tabs: [
-                  Tab(icon: Icon(AntDesign.gift)),
-                  Tab(icon: Icon(Foundation.dollar_bill)),
-                  Tab(icon: Icon(Ionicons.md_star)),
+                  Tab(icon: Icon(AntDesign.gift,color: AppColors.PRIMARY_COLOR,)),
+                  Tab(icon: Icon(Foundation.dollar_bill,color: AppColors.PRIMARY_COLOR,)),
+                  Tab(icon: Icon(Ionicons.md_star,color: AppColors.PRIMARY_COLOR,)),
                 ],
               ),
             ),

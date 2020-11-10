@@ -2,16 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/enums/camera_of.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
+import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
+import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
+import 'package:locally_flutter_app/views/company_details_page/company_details.dart';
+import 'package:locally_flutter_app/views/company_details_page/item_count.dart';
 import 'package:locally_flutter_app/views/scan_qr_code.dart';
 import 'package:provider/provider.dart';
+import 'package:animate_do/animate_do.dart';
 
 class GetirBottomNavigation extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,8 +39,19 @@ class GetirBottomNavigation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GrowingIcon(AntDesign.home,0),
-                    GrowingIcon(AntDesign.shoppingcart,1),
+                    GrowingIcon(AntDesign.home, 0),
+                    Stack(
+                      children: [
+                        GrowingIcon(AntDesign.shoppingcart, 1),
+                        Positioned(
+                          right:0,
+                          top:0,
+                          child: Visibility(
+                              visible: context.watch<CartPageVM>().productsInCartList.length > 0 ? true : false,
+                              child: ItemCount(size: 15,)),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -49,8 +65,8 @@ class GetirBottomNavigation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    GrowingIcon(AntDesign.user,2),
-                    GrowingIcon(AntDesign.infocirlceo,3),
+                    GrowingIcon(AntDesign.user, 2),
+                    GrowingIcon(AntDesign.infocirlceo, 3),
                   ],
                 ),
               )
@@ -59,7 +75,15 @@ class GetirBottomNavigation extends StatelessWidget {
           Positioned(
             bottom: -10,
             child: InkWell(
-              onTap: () => Get.to(ScanQRCode(CameraOf.Menu)),
+              onTap: () {
+                if(context.read<CartPageVM>().productsInCartList.length>0){
+                  context.read<CompanyDetailsPageVM>().setCurrentCompany(context.read<CompanyDetailsPageVM>().currentCompany, true);
+                  context.read<CompanyDetailsPageVM>().setSelectedTab(1);
+                  Get.to(CompanyDetails());
+                }else{
+                  Get.to(ScanQRCode(CameraOf.Menu));
+                }
+              } ,
               child: Container(
                 width: 72,
                 height: 72,
@@ -75,11 +99,20 @@ class GetirBottomNavigation extends StatelessWidget {
                   ],
                 ),
                 child: Center(
-                  child: Icon(
-                    Icons.qr_code_sharp,
-                    size: 30,
-                    color: Color(0xFF455A64),
-                  ),
+                  child:
+                      context.watch<CartPageVM>().productsInCartList.length == 0
+                          ? Icon(
+                              Icons.qr_code_scanner,
+                              size: 35,
+                              color: Colors.black,
+                            )
+                          : Pulse(
+                        infinite: true,
+                              child: SvgPicture.asset(
+                              "assets/svg/continue_shopping.svg",
+                              width: 33,
+                              fit: BoxFit.contain,
+                            )),
                 ),
               ),
             ),
@@ -90,10 +123,9 @@ class GetirBottomNavigation extends StatelessWidget {
   }
 }
 
-
 class GrowingIcon extends StatefulWidget {
   IconData iconData;
-  int  normalIndex;
+  int normalIndex;
 
   GrowingIcon(this.iconData, this.normalIndex);
 
@@ -101,7 +133,8 @@ class GrowingIcon extends StatefulWidget {
   _GrowingIconState createState() => _GrowingIconState();
 }
 
-class _GrowingIconState extends State<GrowingIcon> with SingleTickerProviderStateMixin {
+class _GrowingIconState extends State<GrowingIcon>
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
   SequenceAnimation sequenceAnimation;
 
@@ -112,14 +145,13 @@ class _GrowingIconState extends State<GrowingIcon> with SingleTickerProviderStat
 
     sequenceAnimation = SequenceAnimationBuilder()
         .addAnimatable(
-        animatable: Tween<double>(begin: 27, end: 32),
-        from: Duration(milliseconds: 0),
-        to: Duration(milliseconds: 200),
-        curve: Curves.easeInOutCirc,
-        tag: "size")
+            animatable: Tween<double>(begin: 27, end: 32),
+            from: Duration(milliseconds: 0),
+            to: Duration(milliseconds: 200),
+            curve: Curves.easeInOutCirc,
+            tag: "size")
         .animate(controller);
   }
-
 
   @override
   void dispose() {
@@ -131,13 +163,16 @@ class _GrowingIconState extends State<GrowingIcon> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: controller,
-      builder: (BuildContext context, Widget child){
+      builder: (BuildContext context, Widget child) {
         return InkWell(
-          onTap: (){
-            if(context.read<MainPageVM>().currentSelectedIndex != widget.normalIndex){
-              context.read<MainPageVM>().setCurrentSelectedIndex(widget.normalIndex);
+          onTap: () {
+            if (context.read<MainPageVM>().currentSelectedIndex !=
+                widget.normalIndex) {
+              context
+                  .read<MainPageVM>()
+                  .setCurrentSelectedIndex(widget.normalIndex);
               controller.forward();
-              Timer(Duration(milliseconds: 300), (){
+              Timer(Duration(milliseconds: 300), () {
                 controller.reverse();
               });
             }
@@ -148,7 +183,10 @@ class _GrowingIconState extends State<GrowingIcon> with SingleTickerProviderStat
             child: Icon(
               widget.iconData,
               size: sequenceAnimation["size"].value,
-              color: context.watch<MainPageVM>().currentSelectedIndex == widget.normalIndex  ? AppColors.PRIMARY_COLOR : Color(0xffA5A5A5),
+              color: context.watch<MainPageVM>().currentSelectedIndex ==
+                      widget.normalIndex
+                  ? AppColors.PRIMARY_COLOR
+                  : Color(0xffA5A5A5),
             ),
           ),
         );

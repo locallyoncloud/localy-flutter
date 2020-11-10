@@ -2,6 +2,7 @@ import 'dart:ui';
 
 class AppColors {
   static const PRIMARY_COLOR = Color(0xFF455A64);
+  static const SECONDARY_COLOR = Color(0xFF9DC5BB);
 
   static const WHITE = Color(0xFFFFFFFF);
   static const BG_WHITE = Color(0xFFF7F6FB);
@@ -11,6 +12,7 @@ class AppColors {
   static const BLUE = Color(0xFF2196F3);
   static const ERROR = Color(0xFFB00020);
   static const ADMIN_GREY = Color(0xFF30333A);
+  static const DISABLED_GREY = Color(0xffA5A5A5);
   static const POINT_COLOR = Color(0xffCDFF57);
 
   static Color hexToColor(String code) {

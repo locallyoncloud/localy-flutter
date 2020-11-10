@@ -55,5 +55,10 @@ class HomePageVM extends ChangeNotifier with HomeBase{
     return productList;
   }
 
+  @override
+  Future<Company> getCompanyDetails(String companyId) async {
+    return await getIt<HomeRepository>().getCompanyDetails(companyId);
+  }
+
 
 }

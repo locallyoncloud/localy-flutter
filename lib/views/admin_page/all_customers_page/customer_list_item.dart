@@ -175,7 +175,7 @@ class _CustomerListItemState extends State<CustomerListItem> {
   }
 
   giveGifts(){
-    context.read<AdminPanelVM>().sendGift((widget.loyaltyProgress.gifts -textValue), context.read<RegistrationPageVM>().currentUser.company_id, widget.cardType, widget.loyaltyProgress.mail,);
+    context.read<AdminPanelVM>().sendGift((widget.loyaltyProgress.gifts - textValue < 0 ? 0 : widget.loyaltyProgress.gifts - textValue), context.read<RegistrationPageVM>().currentUser.company_id, widget.cardType, widget.loyaltyProgress.mail,);
   }
 
 }

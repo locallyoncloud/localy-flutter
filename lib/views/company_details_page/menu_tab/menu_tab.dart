@@ -9,9 +9,7 @@ import 'package:locally_flutter_app/views/widgets/animated_menu_item.dart';
 import 'package:provider/provider.dart';
 
 class MenuTab extends StatefulWidget {
-  Company company;
 
-  MenuTab({this.company});
 
   @override
   _MenuTabState createState() => _MenuTabState();
@@ -28,7 +26,7 @@ class _MenuTabState extends State<MenuTab> {
     super.initState();
     categoryScrollController = ScrollController();
     productsScrollController = ScrollController();
-    productListFuture =  context.read<HomePageVM>().getAllProducts(widget.company.company_id);
+    productListFuture =  context.read<HomePageVM>().getAllProducts(context.read<CompanyDetailsPageVM>().currentCompany.company_id);
     filters = [];
   }
 

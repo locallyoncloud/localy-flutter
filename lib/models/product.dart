@@ -6,7 +6,7 @@ class Product {
   String id;
   List<String> images;
   String name;
-  double price;
+  List<double> price;
   int rating;
   List<String> size;
 
@@ -20,7 +20,7 @@ class Product {
 		id = map["id"],
 		images = List<String>.from(map["images"]),
 		name = map["name"],
-		price =  double.parse(map["price"].toString()),
+		price =  map["price"] != null ? map["price"].map((e)=>double.parse(e.toString())).toList().cast<double>() : [],
 		rating = map["rating"],
 		size = List<String>.from(map["size"]);
 

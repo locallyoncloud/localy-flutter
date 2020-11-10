@@ -8,6 +8,7 @@ import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/views/admin_page/qr_code_scan_page/customer_info.dart';
 import 'package:locally_flutter_app/views/scan_qr_code.dart';
@@ -22,18 +23,13 @@ class LoyaltyScan extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.BG_WHITE,
-        appBar: AppBar(
-          elevation: 0.1,
-          backgroundColor: AppColors.PRIMARY_COLOR,
-          centerTitle: true,
-          title: Text(
-            "Loyalty Okut",
-            style: AppFonts.getMainFont(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: AppColors.WHITE),
-          ),
-        ),
+        appBar: UtilityWidgets.CustomAppBar(Text(
+          "Loyalty Okut",
+          style: AppFonts.getMainFont(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: AppColors.WHITE),
+        ), null),
         body: Stack(
           children: [
             context.watch<AdminPanelVM>().lastReadAdminQrCode.length > 0
@@ -118,7 +114,6 @@ class LoyaltyScan extends StatelessWidget {
                       return InkWell(
                         onTap: () {
                           action();
-                          print(Navigator.defaultRouteName);
                         },
                         child: Container(
                           width: 63,

@@ -4,6 +4,7 @@ import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/bottom_tabs.dart';
 import 'package:locally_flutter_app/views/company_details_page/loyalty_tab.dart';
@@ -12,23 +13,28 @@ import 'package:locally_flutter_app/views/company_details_page/menu_tab/menu_tab
 import 'package:provider/provider.dart';
 
 class CompanyDetails extends StatefulWidget {
-  Company company;
+
   int index;
 
-  CompanyDetails({this.company, this.index});
+  CompanyDetails({this.index});
 
   @override
   _CompanyDetailsState createState() => _CompanyDetailsState();
 }
 
 class _CompanyDetailsState extends State<CompanyDetails> {
-  PageController tabsPageController = PageController();
+  PageController tabsPageController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabsPageController = PageController(initialPage: context.read<CompanyDetailsPageVM>().selectedTab);
+  }
 
   @override
   void dispose() {
     tabsPageController.dispose();
     super.dispose();
-
   }
 
   @override
@@ -37,22 +43,14 @@ class _CompanyDetailsState extends State<CompanyDetails> {
     ScreenSize.recalculate(context);
     return Scaffold(
       backgroundColor: AppColors.BG_WHITE,
-        appBar: AppBar(
-          elevation: 0.1,
-          backgroundColor: AppColors.PRIMARY_COLOR,
-          title: Text(
-            context.watch<CompanyDetailsPageVM>().currentCompany.name,
-            style: AppFonts.getMainFont(color: AppColors.WHITE),
+        appBar:UtilityWidgets.CustomAppBar(Text(
+          context.watch<CompanyDetailsPageVM>().currentCompany.name,
+          style: AppFonts.getMainFont(
+            color: AppColors.PRIMARY_COLOR,
+            fontSize: 17,
+            fontWeight: FontWeight.w700
           ),
-          actions: [
-            IconButton(
-                icon: Icon(Icons.search, color: AppColors.WHITE),
-                onPressed: () {}),
-            IconButton(
-                icon: Icon(Icons.shopping_cart, color: AppColors.WHITE),
-                onPressed: () {})
-          ],
-        ),
+        ), null),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -64,7 +62,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                 },
                 children: [
                   LoyaltyTab(widget.index),
-                  MenuTab(company: widget.company,),
+                  MenuTab(),
                 ],
               ),
             ),

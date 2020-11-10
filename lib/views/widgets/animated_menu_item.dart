@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/models/product.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/utilities/measure_size.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
-
+import 'package:locally_flutter_app/views/company_details_page/menu_tab/choose_product_size.dart';
+import 'package:locally_flutter_app/views/company_details_page/menu_tab/price_text.dart';
+import 'package:supercharged/supercharged.dart';
 
 class AnimatedListItem extends StatefulWidget {
   final int index;
@@ -17,6 +20,8 @@ class AnimatedListItem extends StatefulWidget {
 
 class _AnimatedListItemState extends State<AnimatedListItem> {
   bool _animate = false;
+  int selectedIndex = 0;
+  double width = 0, height = 0;
 
   static bool _isStart = true;
 
@@ -41,96 +46,133 @@ class _AnimatedListItemState extends State<AnimatedListItem> {
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
-    return AnimatedOpacity(
-      duration: Duration(milliseconds: 1000),
-      opacity: _animate ? 1 : 0,
-      curve: Curves.easeInOutQuart,
-      child: Container(
-        height: 70,
-        child: Card(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                child: Row(
-                  children: [
-                    Image.network(
-                      "https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/placeholder_image.jpg?alt=media&token=60820f73-af25-43a4-89a7-f9027dd3523c",
-                      width: 60,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      widget.product.name,
-                      style: AppFonts.getMainFont(
-                          fontSize: 14,
-                          color: AppColors.PRIMARY_COLOR,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      width: 4.wb,
-                    ),
-                    Visibility(
-                      visible: widget.product.size.length > 0 ? true : false,
-                      child: Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            widget.product.size.contains("küçük")
-                                ? Container(
-                                    width: 22,
-                                    child: AspectRatio(
-                                        aspectRatio: 0.64,
-                                        child: Image.asset(
-                                          "assets/png/coffee_cup.png",
-                                        )),
-                                  )
-                                : Container(),
-                            widget.product.size.contains("orta")
-                                ? Padding(
-                                    padding: const EdgeInsets.only(left: 4),
-                                    child: Container(
-                                      width: 27,
-                                      child: AspectRatio(
-                                          aspectRatio: 0.64,
-                                          child: Image.asset(
-                                            "assets/png/coffee_cup.png",
-                                          )),
-                                    ),
-                                  )
-                                : Container(),
-                            widget.product.size.contains("büyük")
-                                ? Padding(
-                                    padding: const EdgeInsets.only(left: 4),
-                                    child: Container(
-                                      width: 32,
-                                      child: AspectRatio(
-                                          aspectRatio: 0.64,
-                                          child: Image.asset(
-                                              "assets/png/coffee_cup.png")),
-                                    ),
-                                  )
-                                : Container()
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+    return Draggable<Product>(
+      dragAnchor: DragAnchor.pointer,
+      affinity: Axis.horizontal,
+      data: widget.product,
+      feedback: Transform.translate(
+        offset: Offset(-100,-30),
+        child: Container(
+          width: 200,
+          height: 60,
+          child: Card(
+            color: AppColors.PRIMARY_COLOR,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50)
+            ),
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  widget.product.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppFonts.getMainFont(
+                      fontSize: 14,
+                      color: AppColors.WHITE,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
-              Text(
-                "${widget.product.price.toString()}₺",
-                style: AppFonts.getMainFont(
-                    fontSize: 14,
-                    color: AppColors.PRIMARY_COLOR,
-                    fontWeight: FontWeight.w700),
-              )
-            ],
+            ),
           ),
         ),
+      ),
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 1000),
+        opacity: _animate ? 1 : 0,
+        curve: Curves.easeInOutQuart,
+        child: Container(
+          height: 90,
+          child: Card(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/placeholder_image.jpg?alt=media&token=60820f73-af25-43a4-89a7-f9027dd3523c",
+                        width: 60,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        widget.product.name,
+                        style: AppFonts.getMainFont(
+                            fontSize: 14,
+                            color: AppColors.PRIMARY_COLOR,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Row(
+                    children: [
+                      Visibility(
+                        visible: widget.product.size.length > 0 ? true : false,
+                        child: Container(
+                          child: ChooseProductSize([27,32,37],
+                            onChange:(value){
+                              setState(() {
+                                selectedIndex = value;
+                              });
+                            } ,),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 4.wb,
+                      ),
+                      Container(
+                        width: 50,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            PriceText(selectedIndex == 0 ? true : false,
+                                widget.product.price[0]),
+                            widget.product.size.contains("orta")
+                                ? PriceText(selectedIndex == 1 ? true : false,
+                                    widget.product.price[1])
+                                : Container(),
+                            widget.product.size.contains("büyük")
+                                ? PriceText(selectedIndex == 2 ? true : false,
+                                    widget.product.price[2])
+                                : Container(),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  renderProductCategorizationImages(double width, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: AnimatedContainer(
+        duration: 300.milliseconds,
+        width: width,
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: selectedIndex == index
+                    ? AppColors.PRIMARY_COLOR
+                    : Colors.transparent)),
+        child: AspectRatio(
+            aspectRatio: 0.64, child: Image.asset("assets/png/coffee_cup.png")),
       ),
     );
   }
