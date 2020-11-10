@@ -41,7 +41,7 @@ class AdminCollectionLoyaltyCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "1/8",
+                          "1/${loyaltyCard.target}",
                           style: AppFonts.getMainFont(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,

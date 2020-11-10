@@ -54,6 +54,12 @@ class HomeServices implements HomeBase{
     return productList;
   }
 
+  @override
+  Future<Company> getCompanyDetails(String companyId) async {
+    DocumentSnapshot snapshot = await fireStore.collection("companies").doc(companyId).get();
+    return Company.fromJsonMap(snapshot.data());
+  }
+
 
 
 }

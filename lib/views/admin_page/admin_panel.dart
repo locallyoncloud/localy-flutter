@@ -33,14 +33,13 @@ class _AdminPanelState extends State<AdminPanel>
   }
  @override
   void didUpdateWidget(covariant AdminPanel oldWidget) {
-    if(context.read<MainPageVM>().currentSelectedIndex==1){
+    if(context.read<MainPageVM>().currentSelectedIndex==2){
       controller.forward();
     } else{
       controller.reset();
     }
     super.didUpdateWidget(oldWidget);
   }
-
 
   @override
   void dispose() {

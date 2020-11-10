@@ -7,6 +7,7 @@ class CompanyDetailsPageVM extends ChangeNotifier {
   PageController tabsPageController = PageController();
   LoyaltyProgress currentProgress;
   Company currentCompany;
+  bool isCartModeOn = false;
 
   setSelectedTab(int index) {
     selectedTab = index;
@@ -16,9 +17,14 @@ class CompanyDetailsPageVM extends ChangeNotifier {
     currentProgress = loyaltyProgress;
     notifyListeners();
   }
-  setCurrentCompany(Company company){
+  setCurrentCompany(Company company, bool cartMode){
     currentCompany = company;
+    isCartModeOn = cartMode;
   notifyListeners();
+  }
+  setCartMode(bool cartModeStatus){
+    isCartModeOn = cartModeStatus;
+    notifyListeners();
   }
 
 }

@@ -46,4 +46,11 @@ class HomeRepository implements HomeBase {
     }
   }
 
+  @override
+  Future<Company> getCompanyDetails(String companyId) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<HomeServices>().getCompanyDetails(companyId);
+    }
+  }
+
 }

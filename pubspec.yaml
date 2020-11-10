@@ -41,6 +41,8 @@ dependencies:
   animations: ^1.1.2
   delayed_display: ^1.0.3
   sa_stateless_animation: ^1.0.3
+  lottie: ^0.7.0+1
+  animate_do: ^1.7.3
 
 dev_dependencies:
   flutter_test:
@@ -58,3 +60,4 @@ flutter:
     - assets/animations/
     - assets/png/
     - assets/gif/
+    - assets/svg/

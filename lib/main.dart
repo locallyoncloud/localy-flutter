@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/service_locator.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
+import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
@@ -65,9 +66,9 @@ class AppStartingPoint extends StatelessWidget {
         ChangeNotifierProvider<CompanyDetailsPageVM>(
             create: (context)=>CompanyDetailsPageVM()),
         ChangeNotifierProvider<AdminPanelVM>(
-            create: (context)=>AdminPanelVM())
-
-
+            create: (context)=>AdminPanelVM()),
+        ChangeNotifierProvider<CartPageVM>(
+            create: (context)=>CartPageVM())
       ],
       child: GetMaterialApp(
         //locale: DevicePreview.of(context).locale, // <--- /!\ Add the locale

@@ -74,7 +74,7 @@ class _CompaniesState extends State<Companies> {
   }
   goCompanyDetails(Company company, int index){
     context.read<CompanyDetailsPageVM>().setSelectedTab(0);
-    context.read<CompanyDetailsPageVM>().setCurrentCompany(company);
-    Get.to(CompanyDetails(company: context.read<CompanyDetailsPageVM>().currentCompany,index: index,));
+    context.read<CompanyDetailsPageVM>().setCurrentCompany(company, false);
+    Get.to(CompanyDetails(index: index,));
   }
 }

@@ -103,7 +103,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                         Text(
                           context.watch<RegistrationPageVM>().currentUser.name ?? context.watch<RegistrationPageVM>().currentUser.email,
                           style: AppFonts.getMainFont(
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)
                           ),
