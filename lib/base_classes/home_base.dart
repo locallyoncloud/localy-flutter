@@ -26,4 +26,6 @@ abstract class HomeBase {
   Stream<List<Order>> getActiveOrders(String userMail);
 
   Future<List<Order>> getAllCustomerPreviousOrders(String userMail);
+
+  Stream<List<Order>> getAllAdminSideOrders(String companyId);
 }

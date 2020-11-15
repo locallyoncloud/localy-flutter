@@ -1,8 +1,9 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'cart_product.dart';
 
 class Order {
+  String uid;
   String userMail;
   double totalPrice;
   String paymentType;
@@ -11,13 +12,13 @@ class Order {
   String companyId;
   String companyName;
   String address;
-  String orderTime;
+  Timestamp orderTime;
   int orderStatus;
   List<CartProduct> cartProduct;
 
-
   Order(
-      {this.userMail,
+      {this.uid,
+      this.userMail,
       this.totalPrice,
       this.paymentType,
       this.extraNote,
@@ -25,11 +26,12 @@ class Order {
       this.companyId,
       this.companyName,
       this.address,
-        this.orderTime,
+      this.orderTime,
       this.orderStatus,
       this.cartProduct});
 
   Order.fromJson(dynamic json) {
+    uid = json["uid"];
     userMail = json["userMail"];
     totalPrice = json["totalPrice"];
     paymentType = json["paymentType"];
@@ -50,6 +52,7 @@ class Order {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
+    map["uid"] = uid;
     map["userMail"] = userMail;
     map["totalPrice"] = totalPrice;
     map["paymentType"] = paymentType;
@@ -65,6 +68,4 @@ class Order {
     }
     return map;
   }
-
 }
-

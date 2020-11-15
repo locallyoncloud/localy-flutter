@@ -158,4 +158,12 @@ class AdminServices implements AdminBase {
    });
   }
 
+  @override
+  Future<void> incrementOrderStatus(String orderUid) async {
+    await fireStore.collection("orders")
+        .doc(orderUid)
+        .update({
+      "orderStatus":FieldValue.increment(1)
+    });
+  }
 }
