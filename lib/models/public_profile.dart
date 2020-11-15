@@ -12,6 +12,7 @@ class PublicProfile {
   String _phone;
   String _type;
   String _company_id;
+  List<String> _notificationIds;
   List<String> _favorites;
   String _profilePicture;
 
@@ -22,6 +23,7 @@ class PublicProfile {
   String get type => _type;
   String get company_id => _company_id;
   List<String> get favorites => _favorites;
+  List<String> get notificationIds => _notificationIds;
   String get profilePicture => _profilePicture;
 
   PublicProfile({
@@ -31,8 +33,9 @@ class PublicProfile {
       String phone,
       String type,
       String company_id,
-      List<String> favorites, 
-      String profilePicture}){
+      List<String> favorites,
+    List<String> notificationIds,
+    String profilePicture}){
     _uid = uid;
     _name = name;
     _email = email;
@@ -40,6 +43,7 @@ class PublicProfile {
     _type = type;
     _company_id = company_id;
     _favorites = favorites;
+    _notificationIds= notificationIds;
     _profilePicture = profilePicture;
 }
 
@@ -50,6 +54,7 @@ class PublicProfile {
     _phone = json["phone"];
     _type = json["type"];
     _company_id = json["company_id"];
+    _notificationIds = json["notificationIds"] != null ? json["notificationIds"].cast<String>() : [];
     _favorites = json["favorites"] != null ? json["favorites"].cast<String>() : [];
     _profilePicture = json["profilePicture"];
   }
@@ -62,6 +67,7 @@ class PublicProfile {
     map["phone"] = _phone;
     map["type"] = _type;
     map["company_id"] = _company_id;
+    map["notificationIds"] = _notificationIds;
     map["favorites"] = _favorites;
     map["profilePicture"] = _profilePicture;
     return map;

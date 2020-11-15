@@ -14,10 +14,9 @@ class Carousel extends StatefulWidget {
 class _CarouselSliderState extends State<Carousel> {
   int _currentIndex=0;
   List cardList=[
-    "https://previews.123rf.com/images/blankstock/blankstock2006/blankstock200603093/150287612-sale-50-off-badge-clouds-banner-template-discount-banner-shape-coupon-bubble-icon-online-shopping-ba.jpg",
-    "https://previews.123rf.com/images/vectorgift/vectorgift1608/vectorgift160800109/61622829-sale-discount-background-for-the-online-store-shop-promotional-leaflet-promotion-poster-banner-vecto.jpg",
-    "https://previews.123rf.com/images/blankstock/blankstock2006/blankstock200601813/149591759-special-offer-badge-discount-banner-template-discount-banner-shape-sale-coupon-bubble-icon-creative-.jpg",
-    "https://previews.123rf.com/images/originalwork/originalwork1608/originalwork160800373/61774180-super-sale-banner-design-you-can-use-for-super-sale-promotion-advertising-shopping-flyers-discount-b.jpg",
+    "https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/banner_pictures%2Fmeetlab_banner1.jpeg?alt=media&token=86af65a4-6207-4daa-a648-7fec440ace80",
+    "https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/banner_pictures%2Fmeetlab_banner2.jpeg?alt=media&token=bebfde6c-e696-44d5-9ff8-7e3d53a1d292",
+    "https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/banner_pictures%2Fmeetlab_banner3.jpeg?alt=media&token=e3574f8a-2736-4302-836c-f95a8caeb842",
   ];
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class _CarouselSliderState extends State<Carousel> {
         return Builder(
             builder:(BuildContext context){
               return AspectRatio(
-                aspectRatio: 2.0,
+                aspectRatio: 1.58,
                 child: Container(
                   child: Image.network(card,
                   fit: BoxFit.contain,

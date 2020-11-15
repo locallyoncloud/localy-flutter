@@ -12,9 +12,9 @@ class AuthRepository implements AuthBase {
   DatabaseType currentDatabase = DatabaseType.FireStore;
 
   @override
-  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password) async {
+  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password, String playerId) async {
     if(currentDatabase == DatabaseType.FireStore) {
-      return await getIt<AuthenticationServices>().createUserWithEmailAndPassword(mail, password);
+      return await getIt<AuthenticationServices>().createUserWithEmailAndPassword(mail, password, playerId);
     }
   }
 
@@ -40,10 +40,19 @@ class AuthRepository implements AuthBase {
   }
 
   @override
-  Future<PublicProfile> signInWithGoogle() async{
+  Future<PublicProfile> signInWithGoogle(String playerId) async{
     if(currentDatabase == DatabaseType.FireStore) {
-      return await getIt<AuthenticationServices>().signInWithGoogle();
+      return await getIt<AuthenticationServices>().signInWithGoogle(playerId);
     }
   }
+
+  @override
+  Future<void> setPlayerId(String userMail, String playerId) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AuthenticationServices>().setPlayerId(userMail, playerId);
+    }
+  }
+
+
   
 }

@@ -1,21 +1,21 @@
 import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth fAuth = FirebaseAuth.instance;
 final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 
 class AuthenticationServices implements AuthBase {
   @override
-  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password) async {
+  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password, String playerId) async {
     PublicProfile profile;
     var result = await fAuth.createUserWithEmailAndPassword(email: mail, password: password);
-    profile = PublicProfile(uid: result.user.uid, email: result.user.email, type: "user", company_id: "");
+    profile = PublicProfile(uid: result.user.uid, email: result.user.email, type: "user", company_id: "",notificationIds: [playerId]);
 
     await fireStore
         .collection("accounts")
@@ -57,7 +57,7 @@ class AuthenticationServices implements AuthBase {
     await fAuth.signOut();
   }
 
-  Future<PublicProfile> signInWithGoogle() async {
+  Future<PublicProfile> signInWithGoogle(String playerId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // Trigger the authentication flow
@@ -78,7 +78,7 @@ class AuthenticationServices implements AuthBase {
     DocumentSnapshot profiles = await fireStore.collection("accounts").doc(userCredential.user.email).get();
 
     PublicProfile profile;
-    profile = PublicProfile(uid: userCredential.user.uid, email: userCredential.user.email, type: "user", company_id: "");
+    profile = PublicProfile(uid: userCredential.user.uid, email: userCredential.user.email, type: "user", company_id: "", notificationIds: [playerId]);
 
     if(!profiles.exists) {
       await fireStore
@@ -95,9 +95,20 @@ class AuthenticationServices implements AuthBase {
     } else {
       return null;
     }
+  }
 
-
-
+  @override
+  Future<void> setPlayerId(String userMail, String playerId) async {
+   QuerySnapshot snapshot = await fireStore
+        .collection("accounts")
+        .doc(userMail)
+        .collection("public_profile")
+        .get();
+   
+   return await snapshot.docs[0].reference.update({
+     "notificationIds" : FieldValue.arrayUnion([playerId])
+   });
+        
   }
 
 }
