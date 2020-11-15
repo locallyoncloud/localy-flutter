@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/base_classes/home_base.dart';
+import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/models/product.dart';
 import 'package:locally_flutter_app/repositories/home_repository.dart';
 
@@ -60,5 +62,24 @@ class HomePageVM extends ChangeNotifier with HomeBase{
     return await getIt<HomeRepository>().getCompanyDetails(companyId);
   }
 
+  @override
+  Stream<LoyaltyProgress> getUserLoyalty(String loyaltyCardUid, String userMail) {
+    return  getIt<HomeRepository>().getUserLoyalty(loyaltyCardUid, userMail);
+  }
+
+  @override
+  Future<void> submitOrder(Order order) async {
+    return await getIt<HomeRepository>().submitOrder(order);
+  }
+
+  @override
+  Stream<List<Order>> getActiveOrders(String userMail) {
+    return  getIt<HomeRepository>().getActiveOrders(userMail);
+  }
+
+  @override
+  Future<List<Order>> getAllCustomerPreviousOrders(String userMail) async {
+    return await getIt<HomeRepository>().getAllCustomerPreviousOrders(userMail);
+  }
 
 }

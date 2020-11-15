@@ -6,6 +6,7 @@ import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
+import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -161,11 +162,11 @@ class SplashScreen extends StatelessWidget {
       onSuccess(data);
     } else {
       redirectUser(context);
-      Get.off(next,duration: transitionDuration ,transition: transition,curve: Curves.ease);
     }
   }
   redirectUser(BuildContext context) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    await context.read<NotificationsVM>().initOneSignal();
     if(prefs.get("user")==null){
       Get.off(next,duration: transitionDuration ,transition: transition,curve: Curves.ease);
     }else{

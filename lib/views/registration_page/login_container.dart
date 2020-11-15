@@ -9,6 +9,7 @@ import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/main_page.dart';
 import 'package:locally_flutter_app/views/widgets/registration_textfield.dart';
@@ -130,7 +131,7 @@ class LoginContainer extends StatelessWidget {
               context.read<RegistrationPageVM>().signinPassword);
           break;
         case LoginType.Google:
-          publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle();
+          publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle(context.read<NotificationsVM>().currentUserId);
           break;
         case LoginType.Facebook:
           // TODO: Handle this case.

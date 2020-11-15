@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_item.dart';
+import 'package:locally_flutter_app/views/cart_page/submit_cart_page.dart';
 import 'package:provider/provider.dart';
 
 class CartList extends StatelessWidget {
@@ -36,7 +38,7 @@ class CartList extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            height: 100,
+            height: 50,
             width: double.infinity,
             color: AppColors.WHITE,
             margin: EdgeInsets.only(bottom: 3),
@@ -51,7 +53,7 @@ class CartList extends StatelessWidget {
                     Text(
                       "Toplam Tutar",
                       style: AppFonts.getMainFont(
-                          fontSize: 14,
+                          fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: AppColors.DISABLED_GREY),
                     ),
@@ -61,15 +63,15 @@ class CartList extends StatelessWidget {
                     Text(
                       "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺",
                       style: AppFonts.getMainFont(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w900,
                           color: AppColors.GREY),
                     )
                   ],
                 ),
                 Container(
-                  width: 120,
-                  height: 35,
+                  width: 100,
+                  height: 30,
                   child: RaisedButton(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     color: AppColors.SECONDARY_COLOR,
@@ -83,7 +85,7 @@ class CartList extends StatelessWidget {
                         Text(
                           "Onay",
                           style: AppFonts.getMainFont(
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: AppColors.WHITE),
                         ),
@@ -94,7 +96,7 @@ class CartList extends StatelessWidget {
                       ],
                     ),
                     onPressed: () {
-                      context.read<CartPageVM>().clearCart();
+                      Get.to(SubmitCartPage());
                     },
                   ),
                 )

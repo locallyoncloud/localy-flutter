@@ -24,7 +24,7 @@ class Product {
 		rating = map["rating"],
 		size = List<String>.from(map["size"]);
 
-	/*Map<String, dynamic> toJson() {
+	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
 		data['category'] = category;
 		data['description'] = description;
@@ -35,5 +35,5 @@ class Product {
 		data['rating'] = rating;
 		data['size'] = size;
 		return data;
-	}*/
+	}
 }

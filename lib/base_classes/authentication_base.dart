@@ -2,8 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 
 abstract class AuthBase {
-  Future<PublicProfile> createUserWithEmailAndPassword(
-      String mail, String password);
+  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password, String playerId);
 
   Future<PublicProfile> signInWithEmailAndPassword(String mail, String password);
 
@@ -11,5 +10,7 @@ abstract class AuthBase {
 
   signOut();
 
-  Future<PublicProfile> signInWithGoogle();
+  Future<PublicProfile> signInWithGoogle(String playerId);
+
+  Future<void> setPlayerId(String userMail, String playerId);
 }

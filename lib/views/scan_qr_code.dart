@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -8,10 +10,11 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
+import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/company_details.dart';
-
+import 'package:supercharged/supercharged.dart';
 import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -138,6 +141,9 @@ class _QRWidgetState extends State<QRWidget> {
           } else {
             Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(
                 AppColors.ERROR, "Lütfen geçerli bir QR kod okutunuz!", context));
+            Timer(1.seconds, (){
+              count = 0;
+            });
           }
         }
       }
@@ -146,6 +152,7 @@ class _QRWidgetState extends State<QRWidget> {
 
   sendUserToMenu(String scanData) async {
     Company scannedCompany = await context.read<HomePageVM>().getCompanyDetails(scanData.split("/")[0]);
+    context.read<CartPageVM>().setCurrentSelectedTable(scanData.split("/")[1]);
     context.read<CompanyDetailsPageVM>().setCurrentCompany(scannedCompany, true);
     context.read<CompanyDetailsPageVM>().setSelectedTab(1);
     Get.off(CompanyDetails());

@@ -7,9 +7,11 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/enums/camera_of.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
+import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
+import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/company_details.dart';
 import 'package:locally_flutter_app/views/company_details_page/item_count.dart';
 import 'package:locally_flutter_app/views/scan_qr_code.dart';
@@ -75,15 +77,7 @@ class GetirBottomNavigation extends StatelessWidget {
           Positioned(
             bottom: -10,
             child: InkWell(
-              onTap: () {
-                if(context.read<CartPageVM>().productsInCartList.length>0){
-                  context.read<CompanyDetailsPageVM>().setCurrentCompany(context.read<CompanyDetailsPageVM>().currentCompany, true);
-                  context.read<CompanyDetailsPageVM>().setSelectedTab(1);
-                  Get.to(CompanyDetails());
-                }else{
-                  Get.to(ScanQRCode(CameraOf.Menu));
-                }
-              } ,
+              onTap: () => onMiddleButtonClick(context),
               child: Container(
                 width: 72,
                 height: 72,
@@ -108,11 +102,11 @@ class GetirBottomNavigation extends StatelessWidget {
                             )
                           : Pulse(
                         infinite: true,
-                              child: SvgPicture.asset(
-                              "assets/svg/continue_shopping.svg",
-                              width: 33,
-                              fit: BoxFit.contain,
-                            )),
+                              child: Icon(
+                                  MaterialCommunityIcons.shopping,
+                                  size: 35,
+                                color: Colors.black,
+                              )),
                 ),
               ),
             ),
@@ -121,6 +115,21 @@ class GetirBottomNavigation extends StatelessWidget {
       ),
     );
   }
+  onMiddleButtonClick(BuildContext context){
+    if(context.read<RegistrationPageVM>().currentUser.type == "admin") {
+      context.read<AdminPanelVM>().goToPage("QR Kod Okut");
+    }
+      else{
+      if(context.read<CartPageVM>().productsInCartList.length>0){
+        context.read<CompanyDetailsPageVM>().setCurrentCompany(context.read<CompanyDetailsPageVM>().currentCompany, true);
+        context.read<CompanyDetailsPageVM>().setSelectedTab(1);
+        Get.to(CompanyDetails());
+      }else{
+        Get.to(ScanQRCode(CameraOf.Menu));
+      }
+    }
+    }
+
 }
 
 class GrowingIcon extends StatefulWidget {

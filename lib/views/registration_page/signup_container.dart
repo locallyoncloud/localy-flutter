@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:get/get.dart';
+
 import 'package:locally_flutter_app/enums/text_type.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-import 'package:locally_flutter_app/views/main_page.dart';
+
 import 'package:locally_flutter_app/views/widgets/registration_textfield.dart';
 import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +91,7 @@ class SignUpContainer extends StatelessWidget {
   createUser(BuildContext context){
     context.read<RegistrationPageVM>().setLoadingVisibility(true);
     try {
-      context.read<RegistrationPageVM>().createUserWithEmailAndPassword(context.read<RegistrationPageVM>().signupMail, context.read<RegistrationPageVM>().signupPassword);
+      context.read<RegistrationPageVM>().createUserWithEmailAndPassword(context.read<RegistrationPageVM>().signupMail, context.read<RegistrationPageVM>().signupPassword, context.read<NotificationsVM>().currentUserId);
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
       Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Aktivasyon mailı gönderilmiştir.",context));
     } on FirebaseAuthException catch(e) {

@@ -46,9 +46,15 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     notifyListeners();
   }
 
+  checkUserPlayerId(String playerId) async{
+    if(currentUser.notificationIds.length==0 || !currentUser.notificationIds.contains(playerId)){
+      await setPlayerId(currentUser.email, playerId);
+    }
+  }
+
   @override
-  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password) async {
-    currentUser = await getIt<AuthRepository>().createUserWithEmailAndPassword(mail, password);
+  Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password, String playerId) async {
+    currentUser = await getIt<AuthRepository>().createUserWithEmailAndPassword(mail, password, playerId);
     notifyListeners();
   }
 
@@ -71,6 +77,11 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   }
 
   @override
-  Future<PublicProfile> signInWithGoogle() async {
-    return await getIt<AuthRepository>().signInWithGoogle();
+  Future<PublicProfile> signInWithGoogle(String playerId) async {
+    return await getIt<AuthRepository>().signInWithGoogle(playerId);
+  }
+
+  @override
+  Future<void> setPlayerId(String userMail, String playerId) async {
+    return await getIt<AuthRepository>().setPlayerId(userMail, playerId);
   }}

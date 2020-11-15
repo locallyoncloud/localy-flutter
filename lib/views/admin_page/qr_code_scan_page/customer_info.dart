@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
@@ -275,7 +273,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
   giveGifts(){
     context.read<AdminPanelVM>().sendGift(
       int.parse(context.read<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]) == 0 ?
-      (customerProgress.gifts -textValue) : (customerProgress.progress - textValue),
+      (customerProgress.gifts -textValue)<0 ? 0 :(customerProgress.gifts -textValue) : (customerProgress.progress - textValue),
       context.read<RegistrationPageVM>().currentUser.company_id,
       int.parse(context
         .read<AdminPanelVM>()

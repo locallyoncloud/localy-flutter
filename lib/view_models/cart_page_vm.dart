@@ -5,6 +5,12 @@ import 'package:locally_flutter_app/models/cart_product.dart';
 class CartPageVM extends ChangeNotifier{
   List<CartProduct> productsInCartList = [];
   double totalCartPrice= 0;
+  String currentSelectedTable;
+
+  setCurrentSelectedTable(String tableNumber){
+    currentSelectedTable = tableNumber;
+    notifyListeners();
+  }
 
   addToCart(CartProduct cartProduct){
     var productIndexInCart = productsInCartList.indexWhere((element) => element.product.name ==cartProduct.product.name && element.productSize == cartProduct.productSize);
