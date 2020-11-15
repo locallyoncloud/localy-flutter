@@ -70,7 +70,7 @@ class HomeServices implements HomeBase{
 
   @override
   Future<void> submitOrder(Order order) async {
-  return await fireStore.collection("orders").add(order.toJson());
+  return await fireStore.collection("orders").doc(order.uid).set(order.toJson());
   }
 
   @override
@@ -94,6 +94,16 @@ class HomeServices implements HomeBase{
     orderList.add(Order.fromJson(document.data()));
    });
    return orderList;
+  }
+
+  @override
+  Stream<List<Order>> getAllAdminSideOrders(String companyId) {
+
+    return fireStore.collection("orders")
+        .where("companyId",isEqualTo: companyId,)
+        .orderBy("orderTime",descending: true)
+        .snapshots()
+        .map((snap) => snap.docs.map((e) => Order.fromJson(e.data())).toList());
   }
 
 

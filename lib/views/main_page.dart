@@ -10,6 +10,7 @@ import 'package:locally_flutter_app/view_models/main_page_vm.dart';
 import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_panel.dart';
+import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/admin_show_orders.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_main.dart';
 import 'package:locally_flutter_app/views/info_page/info.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
@@ -32,8 +33,7 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     context.read<RegistrationPageVM>().checkUserPlayerId(context.read<NotificationsVM>().currentUserId);
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() {});
+    tabController = TabController(length:context.read<RegistrationPageVM>().currentUser.type != "admin" ? 3 : 2, vsync: this);
     super.initState();
   }
 
@@ -63,11 +63,16 @@ class _MainPageState extends State<MainPage>
                       labelPadding: EdgeInsets.all(0),
                       labelStyle: AppFonts.getMainFont(
                           fontSize: 12, fontWeight: FontWeight.w700),
-                      tabs: [
+                      tabs: context.watch<RegistrationPageVM>().currentUser.type != "admin" ? [
                           Tab(text: "Sepetim"),
                           Tab(text: "Aktif Siparişler"),
                           Tab(text: "Önceki Siparişlerim"),
-                        ])
+                        ]
+                :[
+                        Tab(text: "Aktif Siparişler"),
+                        Tab(text: "Önceki Siparişler"),
+                      ]
+              )
                   : null,
             ),
             drawer: Drawer(
@@ -108,7 +113,12 @@ class _MainPageState extends State<MainPage>
                     index: context.watch<MainPageVM>().currentSelectedIndex,
                     children: [
                       Home(),
-                      CartMain(tabController),
+                      context.watch<RegistrationPageVM>().currentUser.type != "admin"
+                          ? CartMain(tabController)
+                      : StreamProvider(
+                        create: (context) => context.read<HomePageVM>().getAllAdminSideOrders(context.read<RegistrationPageVM>().currentUser.company_id),
+                        child: AdminShowOrders(tabController),
+                      ),
                       AdminPanel(),
                       Info(),
                     ],

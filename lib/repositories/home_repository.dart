@@ -83,4 +83,11 @@ class HomeRepository implements HomeBase {
     }
   }
 
+  @override
+  Stream<List<Order>> getAllAdminSideOrders(String companyId) {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return getIt<HomeServices>().getAllAdminSideOrders(companyId);
+    }
+  }
+
 }

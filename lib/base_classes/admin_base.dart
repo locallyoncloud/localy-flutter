@@ -14,4 +14,5 @@ abstract class AdminBase {
   Stream getLoyaltyProgressStatus(String loyaltyInfo);
   Stream getAllCustomersForCard(String companyId, int cardType);
   Future<void> sendGift(int count, String companyId, int cardType, String userMail);
+  Future<void> incrementOrderStatus(String orderUid);
 }

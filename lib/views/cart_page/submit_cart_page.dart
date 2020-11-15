@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ import 'package:locally_flutter_app/views/widgets/multiline_textfield.dart';
 import 'package:locally_flutter_app/views/widgets/radio_button_group.dart';
 import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class SubmitCartPage extends StatelessWidget {
   String paymentType = "";
@@ -171,8 +173,11 @@ class SubmitCartPage extends StatelessWidget {
     if(paymentType.length==0){
       Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Lütfen bir ödeme metodu seçiniz.",context));
     }else{
+      var uuid = Uuid().v4();
+      Timestamp sad = Timestamp.now();
       context.read<RegistrationPageVM>().setLoadingVisibility(true);
       Order newOrder = Order(
+          uid: uuid,
           userMail: context.read<RegistrationPageVM>().currentUser.email,
           totalPrice: context.read<CartPageVM>().totalCartPrice,
           paymentType: paymentType,
@@ -182,7 +187,7 @@ class SubmitCartPage extends StatelessWidget {
           companyId: context.read<CompanyDetailsPageVM>().currentCompany.company_id,
           address: "Masa-${context.read<CartPageVM>().currentSelectedTable}",
           orderStatus: 0,
-          orderTime: todayDate,
+          orderTime: Timestamp.now(),
           companyName: context.read<CompanyDetailsPageVM>().currentCompany.name
       );
       await context.read<HomePageVM>().submitOrder(newOrder);

@@ -127,4 +127,10 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
     return getIt<AdminRepository>().sendGift(count, companyId, cardType, userMail);
   }
 
+  @override
+  Future<void> incrementOrderStatus(String orderUid) {
+    return getIt<AdminRepository>().incrementOrderStatus(orderUid);
+  }
+
+
 }

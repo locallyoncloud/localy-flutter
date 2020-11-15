@@ -82,4 +82,9 @@ class HomePageVM extends ChangeNotifier with HomeBase{
     return await getIt<HomeRepository>().getAllCustomerPreviousOrders(userMail);
   }
 
+  @override
+  Stream<List<Order>> getAllAdminSideOrders(String companyId) {
+    return  getIt<HomeRepository>().getAllAdminSideOrders(companyId);
+  }
+
 }
