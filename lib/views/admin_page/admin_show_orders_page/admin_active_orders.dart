@@ -188,6 +188,25 @@ class AdminActiveOrders extends StatelessWidget {
                           ]
                       ),
                       ),
+                      RichText(text: TextSpan(
+                          text: "Sipariş Notu: ",
+                          style: AppFonts.getMainFont(
+                              fontSize: 14,
+                              color: AppColors.SECONDARY_COLOR,
+                              fontWeight: FontWeight.w700
+                          ),
+                          children: [
+                            TextSpan(
+                                text: "${activeOrderList[index].extraNote}",
+                                style: AppFonts.getMainFont(
+                                    fontSize: 14,
+                                    color: AppColors.GREY,
+                                    fontWeight: FontWeight.w900
+                                )
+                            )
+                          ]
+                      ),
+                      ),
                       SizedBox(
                         height: 10,
                       ),

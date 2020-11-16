@@ -39,8 +39,8 @@ class HomePageVM extends ChangeNotifier with HomeBase{
   }
 
   @override
-  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail) async {
-    return await getIt<HomeRepository>().openLoyaltyCardForUser(loyaltyCardUid, userMail);
+  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail, List<String> notificationIds) async {
+    return await getIt<HomeRepository>().openLoyaltyCardForUser(loyaltyCardUid, userMail, notificationIds);
   }
 
   @override
@@ -85,6 +85,11 @@ class HomePageVM extends ChangeNotifier with HomeBase{
   @override
   Stream<List<Order>> getAllAdminSideOrders(String companyId) {
     return  getIt<HomeRepository>().getAllAdminSideOrders(companyId);
+  }
+
+  @override
+  Stream<List<Order>> getAllClientSideOrders(String userMail) {
+    return  getIt<HomeRepository>().getAllClientSideOrders(userMail);
   }
 
 }

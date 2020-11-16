@@ -17,9 +17,16 @@ class CartMain extends StatelessWidget {
 
   CartMain(this.tabController);
 
+  List<Order> allOrders , activeOrders = [], oldOrders = [];
+
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
+    allOrders = Provider.of<List<Order>>(context);
+    if(allOrders!=null){
+      activeOrders = allOrders.where((element) => element.orderStatus!=3).toList();
+      oldOrders = allOrders.where((element) => element.orderStatus==3).toList();
+    }
     return TabBarView(
         controller: tabController,
         physics: NeverScrollableScrollPhysics(),
@@ -58,9 +65,9 @@ class CartMain extends StatelessWidget {
           StreamProvider(
             catchError: (_, __) => null,
             create:(context) => context.read<HomePageVM>().getActiveOrders(context.read<RegistrationPageVM>().currentUser.email),
-            child: ActiveOrder(),
+            child: ActiveOrder(activeOrders),
           ),
-          PreviousOrders()
+          PreviousOrders(oldOrders)
         ]);
   }
 }

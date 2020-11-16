@@ -23,19 +23,26 @@ class NotificationsVM extends ChangeNotifier{
     //print(currentUserId);print(currentUserId);print(currentUserId);print(currentUserId);print(currentUserId);print(currentUserId);
     notifyListeners();
   }
-  postNotification(List<String> playerIds) async{
+  postNotification(List<String> playerIds, String title, String content) async{
     var status = await OneSignal.shared.getPermissionSubscriptionState();
 
     await OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: playerIds,
-        content: "Sipariş geldi!!",
-        heading: "Deneme Sipariş",
+        content: content,
+        heading: title,
         androidChannelId: "920f0531-29ca-47aa-8a25-24eca5587af9",
         iosSound: "order_notification_sound.wav",
-        buttons: [
-          OSActionButton(text: "test1", id: "id1"),
-          OSActionButton(text: "test2", id: "id2")
-        ]
+    ));
+  }
+
+  postCampaignNotification(List<String> playerIds, String title, String content) async{
+    var status = await OneSignal.shared.getPermissionSubscriptionState();
+
+    await OneSignal.shared.postNotification(OSCreateNotification(
+      playerIds: playerIds,
+      content: content,
+      heading: title,
+      androidChannelId: "de74b166-f90b-4519-b2d9-b54587b0418b",
     ));
   }
 }

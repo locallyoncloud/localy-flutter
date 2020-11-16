@@ -166,4 +166,23 @@ class AdminServices implements AdminBase {
       "orderStatus":FieldValue.increment(1)
     });
   }
+
+  @override
+  Future<List<String>> getAllNotificationIdsForCard(String companyId) async {
+    List<String> allUserIds = [];
+
+    QuerySnapshot snapshot = await fireStore.collection("loyalties")
+        .where("isActive", isEqualTo: true)
+        .where("company_id", isEqualTo:companyId ).get();
+    
+    QuerySnapshot giftCardSnapshot = await snapshot.docs[0].reference
+        .collection("gift_cards").get();
+
+    giftCardSnapshot.docs.forEach((doc) {
+      LoyaltyProgress progress = LoyaltyProgress.fromJsonMap(doc.data());
+      allUserIds += progress.notificationIdsOfUsers;
+    });
+
+    return allUserIds;
+  }
 }
