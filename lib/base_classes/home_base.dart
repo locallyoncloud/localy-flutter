@@ -17,11 +17,13 @@ abstract class HomeBase {
   Stream<LoyaltyProgress> getUserLoyalty(String loyaltyCardUid,
       String userMail);
 
-  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail);
+  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail, List<String> notificationIds);
 
   Future<List<Product>> getAllProducts(String companyId);
 
   Future<void> submitOrder(Order order);
+
+  Stream<List<Order>> getAllClientSideOrders(String userMail);
 
   Stream<List<Order>> getActiveOrders(String userMail);
 

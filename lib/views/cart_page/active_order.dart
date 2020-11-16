@@ -6,11 +6,13 @@ import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:provider/provider.dart';
 
 class ActiveOrder extends StatelessWidget {
+  List<Order> activeOrderList;
+
+  ActiveOrder(this.activeOrderList);
 
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
-    List<Order> activeOrderList = Provider.of<List<Order>>(context);
     return activeOrderList != null && activeOrderList.length!=0 ?
         Padding(
           padding: const EdgeInsets.all(8),

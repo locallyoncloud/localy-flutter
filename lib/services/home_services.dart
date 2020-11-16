@@ -38,8 +38,8 @@ class HomeServices implements HomeBase{
   }
 
   @override
-  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail) async{
-    LoyaltyProgress loyaltyProgress = LoyaltyProgress(0,0,[],userMail);
+  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail, List<String> notificationIds) async{
+    LoyaltyProgress loyaltyProgress = LoyaltyProgress(0,0,[],userMail,notificationIds);
     return await fireStore.collection("loyalties").doc(loyaltyCardUid).collection("gift_cards").doc(userMail).set(loyaltyProgress.toJson());
   }
 
@@ -102,6 +102,14 @@ class HomeServices implements HomeBase{
     return fireStore.collection("orders")
         .where("companyId",isEqualTo: companyId,)
         .orderBy("orderTime",descending: true)
+        .snapshots()
+        .map((snap) => snap.docs.map((e) => Order.fromJson(e.data())).toList());
+  }
+
+  @override
+  Stream<List<Order>> getAllClientSideOrders(String userMail) {
+    return fireStore.collection("orders")
+        .where("userMail",isEqualTo: userMail,)
         .snapshots()
         .map((snap) => snap.docs.map((e) => Order.fromJson(e.data())).toList());
   }

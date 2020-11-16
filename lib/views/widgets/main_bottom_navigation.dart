@@ -68,7 +68,7 @@ class GetirBottomNavigation extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GrowingIcon(AntDesign.user, 2),
-                    GrowingIcon(AntDesign.infocirlceo, 3),
+                    GrowingIcon(context.watch<RegistrationPageVM>().currentUser.type == "admin" ? AntDesign.notification : AntDesign.infocirlceo, 3),
                   ],
                 ),
               )

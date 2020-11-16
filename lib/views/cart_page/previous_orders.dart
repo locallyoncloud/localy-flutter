@@ -8,6 +8,10 @@ import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:provider/provider.dart';
 
 class PreviousOrders extends StatelessWidget {
+  List<Order> orderList;
+
+  PreviousOrders(this.orderList);
+
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
@@ -16,116 +20,103 @@ class PreviousOrders extends StatelessWidget {
       width: 100.wb,
       height: 100.hb,
       padding: EdgeInsets.all(10),
-      child: FutureProvider(
-          create: (_) => context.read<HomePageVM>().getAllCustomerPreviousOrders(context.read<RegistrationPageVM>().currentUser.email),
-          child: ShowAllPreviousOrders(),
-      ),
-    );
-  }
-}
-
-class ShowAllPreviousOrders extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    List<Order> orderList = Provider.of<List<Order>>(context);
-    return  orderList !=null && orderList.length!=0 ?
-        ListView.builder(
-            itemCount: orderList.length,
-          itemBuilder: (BuildContext context, int index) {
-              return Card(
-                elevation: 5,
-                margin: EdgeInsets.only(top: 20),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+      child: orderList !=null && orderList.length!=0 ?
+      ListView.builder(
+        itemCount: orderList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+            elevation: 5,
+            margin: EdgeInsets.only(top: 20),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(
+                    orderList[index].companyName,
+                    style: AppFonts.getMainFont(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.SECONDARY_COLOR
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
                     children: [
+                      Icon(
+                        Icons.local_shipping,
+                        color: AppColors.DISABLED_GREY,
+                      ),
                       Text(
-                        orderList[index].companyName,
+                        "Teslim Edildi",
                         style: AppFonts.getMainFont(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: AppColors.SECONDARY_COLOR
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.DISABLED_GREY
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.local_shipping,
-                            color: AppColors.DISABLED_GREY,
-                          ),
-                          Text(
-                            "Teslim Edildi",
-                            style: AppFonts.getMainFont(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.DISABLED_GREY
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Container(
-                        height: 100,
-                        child: ListView.builder(
-                          itemCount: orderList[index].cartProduct.length,
-                          itemBuilder: (BuildContext context, int productIndex) {
-                            return Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 59,
-                                    child: Text(
-                                        orderList[index].cartProduct[productIndex].product.name,
-                                        style: AppFonts.getMainFont(
-                                          fontSize: 14,
-                                          color: AppColors.GREY,
-                                          fontWeight: FontWeight.w700
-                                        ),
-                                    ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Container(
+                    height: 100,
+                    child: ListView.builder(
+                      itemCount: orderList[index].cartProduct.length,
+                      itemBuilder: (BuildContext context, int productIndex) {
+                        return Container(
+                          margin: EdgeInsets.only(top: 10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 59,
+                                child: Text(
+                                  orderList[index].cartProduct[productIndex].product.name,
+                                  style: AppFonts.getMainFont(
+                                      fontSize: 14,
+                                      color: AppColors.GREY,
+                                      fontWeight: FontWeight.w700
                                   ),
-                                  Expanded(
-                                    flex: 15,
-                                      child: Text(
-                                        "${orderList[index].cartProduct[productIndex].count.toString()} adt",
-                                        style: AppFonts.getMainFont(
-                                            fontSize: 14,
-                                            color: AppColors.DISABLED_GREY,
-                                            fontWeight: FontWeight.w700
-                                        ),
-                                      )
-                                  ),
-                                  Expanded(
-                                    flex: 26,
-                                      child: Text(
-                                        "${orderList[index].cartProduct[productIndex].price.toStringAsFixed(2)}₺",
-                                        style: AppFonts.getMainFont(
-                                            fontSize: 14,
-                                            color: AppColors.DISABLED_GREY,
-                                            fontWeight: FontWeight.w700
-                                        ),
-                                        textAlign: TextAlign.end,
-                                      )
-                                  )
-                                ],
+                                ),
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: RichText(
-                        text: TextSpan(
+                              Expanded(
+                                  flex: 15,
+                                  child: Text(
+                                    "${orderList[index].cartProduct[productIndex].count.toString()} adt",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        color: AppColors.DISABLED_GREY,
+                                        fontWeight: FontWeight.w700
+                                    ),
+                                  )
+                              ),
+                              Expanded(
+                                  flex: 26,
+                                  child: Text(
+                                    "${orderList[index].cartProduct[productIndex].price.toStringAsFixed(2)}₺",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        color: AppColors.DISABLED_GREY,
+                                        fontWeight: FontWeight.w700
+                                    ),
+                                    textAlign: TextAlign.end,
+                                  )
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: RichText(
+                      text: TextSpan(
                           text: "Toplam  ",
                           style: AppFonts.getMainFont(
                             fontSize: 12,
@@ -133,24 +124,24 @@ class ShowAllPreviousOrders extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: "${orderList[index].totalPrice.toStringAsFixed(2)}₺",
-                              style: AppFonts.getMainFont(
-                                fontSize: 14,
-                                color: AppColors.GREY,
-                                fontWeight: FontWeight.w700
-                              )
+                                text: "${orderList[index].totalPrice.toStringAsFixed(2)}₺",
+                                style: AppFonts.getMainFont(
+                                    fontSize: 14,
+                                    color: AppColors.GREY,
+                                    fontWeight: FontWeight.w700
+                                )
                             )
                           ]
-                        )
-                        ,),
                       )
-                    ],
-                  ),
-                ),
-              );
-          },
-            )
-        :
+                      ,),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+      )
+          :
       Center(
         child: Text(
           "Önceden Verilmiş Sipariş Bulunmamaktadır",
@@ -162,7 +153,9 @@ class ShowAllPreviousOrders extends StatelessWidget {
           ),
         ),
       )
-    ;
+      ,
+    );
   }
 }
+
 

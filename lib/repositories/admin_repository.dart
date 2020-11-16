@@ -83,4 +83,11 @@ class AdminRepository implements AdminBase {
     }
   }
 
+  @override
+  Future<List<String>> getAllNotificationIdsForCard( String companyId) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AdminServices>().getAllNotificationIdsForCard(companyId);
+    }
+  }
+
 }

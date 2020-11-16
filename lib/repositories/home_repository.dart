@@ -35,9 +35,9 @@ class HomeRepository implements HomeBase {
   }
 
   @override
-  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail) async {
+  Future<void> openLoyaltyCardForUser(String loyaltyCardUid, String userMail,List<String> notificationIds) async {
     if(currentDatabase == DatabaseType.FireStore) {
-      return await getIt<HomeServices>().openLoyaltyCardForUser(loyaltyCardUid, userMail);
+      return await getIt<HomeServices>().openLoyaltyCardForUser(loyaltyCardUid, userMail,notificationIds);
     }
   }
 
@@ -87,6 +87,13 @@ class HomeRepository implements HomeBase {
   Stream<List<Order>> getAllAdminSideOrders(String companyId) {
     if(currentDatabase == DatabaseType.FireStore) {
       return getIt<HomeServices>().getAllAdminSideOrders(companyId);
+    }
+  }
+
+  @override
+  Stream<List<Order>> getAllClientSideOrders(String userMail) {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return getIt<HomeServices>().getAllClientSideOrders(userMail);
     }
   }
 

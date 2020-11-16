@@ -13,6 +13,7 @@ import 'package:locally_flutter_app/views/admin_page/admin_panel.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/admin_show_orders.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_main.dart';
 import 'package:locally_flutter_app/views/info_page/info.dart';
+import 'package:locally_flutter_app/views/push_notification_page/push_notifications.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:locally_flutter_app/views/widgets/loading_bar.dart';
@@ -106,26 +107,41 @@ class _MainPageState extends State<MainPage>
                 ],
               ),
             ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: FadeIndexedStack(
-                    index: context.watch<MainPageVM>().currentSelectedIndex,
-                    children: [
-                      Home(),
-                      context.watch<RegistrationPageVM>().currentUser.type != "admin"
-                          ? CartMain(tabController)
-                      : StreamProvider(
-                        create: (context) => context.read<HomePageVM>().getAllAdminSideOrders(context.read<RegistrationPageVM>().currentUser.company_id),
-                        child: AdminShowOrders(tabController),
-                      ),
-                      AdminPanel(),
-                      Info(),
-                    ],
+            body: InkWell(
+                onTap: (){
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if(!currentFocus.hasPrimaryFocus){
+                    currentFocus.unfocus();
+                  }
+                },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: FadeIndexedStack(
+                      index: context.watch<MainPageVM>().currentSelectedIndex,
+                      children: [
+                        Home(),
+
+                        context.watch<RegistrationPageVM>().currentUser.type != "admin"
+                        ? StreamProvider(
+                          create: (context) => context.read<HomePageVM>().getAllClientSideOrders(context.read<RegistrationPageVM>().currentUser.email),
+                          child: CartMain(tabController))
+                        : StreamProvider(
+                          create: (context) => context.read<HomePageVM>().getAllAdminSideOrders(context.read<RegistrationPageVM>().currentUser.company_id),
+                          child: AdminShowOrders(tabController),
+                        ),
+
+                        AdminPanel(),
+
+                        context.watch<RegistrationPageVM>().currentUser.type != "admin"
+                        ? Info()
+                        : PushNotifications(),
+                      ],
+                    ),
                   ),
-                ),
-                GetirBottomNavigation()
-              ],
+                  GetirBottomNavigation()
+                ],
+              ),
             )),
       ),
     );
