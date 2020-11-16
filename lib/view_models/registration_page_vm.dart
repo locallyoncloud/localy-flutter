@@ -12,6 +12,9 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   bool isSignInSelected = true;
   bool isLoadingVisible = false;
   PublicProfile currentUser;
+  String userName;
+  String phone;
+
 
   setSelectedRegistrationContainer(bool signinStatus){
     isSignInSelected = signinStatus;
@@ -46,6 +49,16 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     notifyListeners();
   }
 
+  setPhone(String phone) {
+    this.phone = phone;
+    notifyListeners();
+  }
+
+  setUserName(String name) {
+    this.userName = name;
+    notifyListeners();
+  }
+
   @override
   Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password) async {
     currentUser = await getIt<AuthRepository>().createUserWithEmailAndPassword(mail, password);
@@ -60,6 +73,7 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   @override
   Future<PublicProfile> signInWithEmailAndPassword(String mail, String password) async {
     currentUser = await getIt<AuthRepository>().signInWithEmailAndPassword(signinMail, signinPassword);
+    notifyListeners();
     return currentUser;
   }
 
@@ -68,9 +82,15 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await getIt<AuthRepository>().signOut();
     prefs.remove("user");
+    notifyListeners();
   }
 
   @override
   Future<PublicProfile> signInWithGoogle() async {
     return await getIt<AuthRepository>().signInWithGoogle();
+  }
+
+  @override
+  Future<PublicProfile> updateUser(String name, String email, String phone) async {
+    return await getIt<AuthRepository>().updateUser(name, email, phone);
   }}

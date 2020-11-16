@@ -12,4 +12,6 @@ abstract class AuthBase {
   signOut();
 
   Future<PublicProfile> signInWithGoogle();
+
+  Future<PublicProfile> updateUser(String name, String email, String phone);
 }

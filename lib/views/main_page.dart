@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-import 'package:locally_flutter_app/views/admin_page/admin_panel.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_main.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
+import 'package:locally_flutter_app/views/user_profile_page/user_profile.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:locally_flutter_app/views/widgets/main_bottom_navigation.dart';
 import 'package:provider/provider.dart';
@@ -99,14 +98,14 @@ class _MainPageState extends State<MainPage>
                   children: [
                     Home(),
                     CartMain(tabController),
-                    AdminPanel(),
+                    ProfileScreen(),
                     Container(
                       color: Colors.red,
                     ),
                   ],
                 ),
               ),
-              GetirBottomNavigation()
+              BottomNavigation()
             ],
           )),
     );

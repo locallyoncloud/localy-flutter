@@ -130,7 +130,9 @@ class LoginContainer extends StatelessWidget {
               context.read<RegistrationPageVM>().signinPassword);
           break;
         case LoginType.Google:
-          publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle();
+
+            publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle();
+
           break;
         case LoginType.Facebook:
           // TODO: Handle this case.

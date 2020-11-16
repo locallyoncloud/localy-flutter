@@ -45,5 +45,12 @@ class AuthRepository implements AuthBase {
       return await getIt<AuthenticationServices>().signInWithGoogle();
     }
   }
+
+  @override
+  Future<PublicProfile> updateUser(String name, String email, String phone) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AuthenticationServices>().updateUser(name, email, phone);
+    }
+  }
   
 }

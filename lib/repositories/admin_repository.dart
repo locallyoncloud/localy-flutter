@@ -20,9 +20,9 @@ class AdminRepository implements AdminBase {
   }
 
   @override
-  Future<String> uploadFile(String filePath, String fileName) async {
+  Future<String> uploadFile(String filePath, String fileName, String storageReference) async {
     if(currentDatabase == DatabaseType.FireStore) {
-      return await getIt<AdminServices>().uploadFile(filePath,fileName);
+      return await getIt<AdminServices>().uploadFile(filePath,fileName, storageReference);
     }
   }
 

@@ -16,7 +16,7 @@ import 'package:locally_flutter_app/views/scan_qr_code.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
 
-class GetirBottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
