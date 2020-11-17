@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:locally_flutter_app/utilities/extensions/clone_object.dart';
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/enums/text_type.dart';
@@ -12,15 +12,17 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   bool isSignInSelected = true;
   bool isLoadingVisible = false;
   PublicProfile currentUser;
+  PublicProfile tempUser = PublicProfile(uid: "",name: "",phone: "",type: "",company_id: "",notificationIds: [],favorites: [],profilePicture: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vectorstock.com%2Froyalty-free-vectors%2Fteacher-profile-icon-avatar-vectors&psig=AOvVaw3c0yl1iAPm7aAquNIRyWS_&ust=1605695257106000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD_oqvie0CFQAAAAAdAAAAABAI");
   String userName;
   String phone;
+
 
 
   setSelectedRegistrationContainer(bool signinStatus){
     isSignInSelected = signinStatus;
     notifyListeners();
   }
-  onTextfieldChange(TextfieldType textfieldType, String value){
+  onTextfieldChange(TextfieldType textfieldType, String value) {
     switch (textfieldType){
       case TextfieldType.signinMail:
         signinMail = value;
@@ -49,21 +51,27 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     notifyListeners();
   }
 
-
-  setPhone(String phone) {
-    this.phone = phone;
+  setUser(bool isTemp2Current) {
+    if(isTemp2Current) {
+      currentUser = PublicProfile.fromJson(tempUser.toJson().clone);
+    } else {
+      tempUser = PublicProfile.fromJson(currentUser.toJson().clone);
+    }
     notifyListeners();
   }
 
-  setUserName(String name) {
-    this.userName = name;
-    notifyListeners();
+  setCredentials(String varName, String value) {
+     var tempUserMap = tempUser.toJson();
+     tempUserMap[varName] = value;
+     tempUser = PublicProfile.fromJson(tempUserMap);
+     notifyListeners();
   }
 
   checkUserPlayerId(String playerId) async{
     if(currentUser.notificationIds.length==0 || !currentUser.notificationIds.contains(playerId)){
       await setPlayerId(currentUser.email, playerId);
     }
+  }
  
   @override
   Future<PublicProfile> createUserWithEmailAndPassword(String mail, String password, String playerId) async {
@@ -92,8 +100,8 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   }
 
   @override
-  Future<PublicProfile> updateUser(String name, String email, String phone) async {
-    return await getIt<AuthRepository>().updateUser(name, email, phone);
+  Future<PublicProfile> updateUser(String name, String email, String phone, String pictureURL) async {
+    return await getIt<AuthRepository>().updateUser(name, email, phone, pictureURL);
   }
   @override
   Future<PublicProfile> signInWithGoogle(String playerId) async {
@@ -103,4 +111,6 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   @override
   Future<void> setPlayerId(String userMail, String playerId) async {
     return await getIt<AuthRepository>().setPlayerId(userMail, playerId);
-  }}
+  }
+}
+

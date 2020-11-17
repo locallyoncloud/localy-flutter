@@ -91,9 +91,18 @@ class SignUpContainer extends StatelessWidget {
   createUser(BuildContext context){
     context.read<RegistrationPageVM>().setLoadingVisibility(true);
     try {
-      context.read<RegistrationPageVM>().createUserWithEmailAndPassword(context.read<RegistrationPageVM>().signupMail, context.read<RegistrationPageVM>().signupPassword, context.read<NotificationsVM>().currentUserId);
+      String mail = context.read<RegistrationPageVM>().signupMail;
+      String signUpPassword = context.read<RegistrationPageVM>().signupPassword;
+      String confirmedPassword = context.read<RegistrationPageVM>().signupConfPassword;
+      if (mail.length <= 3) {
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Lütfen mailinizi kontrol ediniz.",context));
+      } else if (signUpPassword != confirmedPassword) {
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Şifreniz doğrulama şifresiyle aynı olmalıdır.",context));
+      } else {
+        context.read<RegistrationPageVM>().createUserWithEmailAndPassword(context.read<RegistrationPageVM>().signupMail, context.read<RegistrationPageVM>().signupPassword, context.read<NotificationsVM>().currentUserId);
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Aktivasyon mailı gönderilmiştir.",context));
+      }
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
-      Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Aktivasyon mailı gönderilmiştir.",context));
     } on FirebaseAuthException catch(e) {
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
       Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Hatalı giriş.",context));

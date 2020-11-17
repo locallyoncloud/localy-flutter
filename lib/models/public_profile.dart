@@ -6,70 +6,51 @@
 /// profile_picture : "..."
 
 class PublicProfile {
-  String _uid;
-  String _name;
-  String _email;
-  String _phone;
-  String _type;
-  String _company_id;
-  List<String> _notificationIds;
-  List<String> _favorites;
-  String _profilePicture;
+  String uid;
+  String name;
+  String email;
+  String phone;
+  String type;
+  String company_id;
+  List<String> notificationIds;
+  List<String> favorites;
+  String profilePicture;
 
-  String get uid => _uid;
-  String get name => _name;
-  String get email => _email;
-  String get phone => _phone;
-  String get type => _type;
-  String get company_id => _company_id;
-  List<String> get favorites => _favorites;
-  List<String> get notificationIds => _notificationIds;
-  String get profilePicture => _profilePicture;
 
-  PublicProfile({
-      String uid, 
-      String name, 
-      String email, 
-      String phone,
-      String type,
-      String company_id,
-      List<String> favorites,
-    List<String> notificationIds,
-    String profilePicture}){
-    _uid = uid;
-    _name = name;
-    _email = email;
-    _phone = phone;
-    _type = type;
-    _company_id = company_id;
-    _favorites = favorites;
-    _notificationIds= notificationIds;
-    _profilePicture = profilePicture;
-}
+  PublicProfile(
+      {this.uid,
+      this.name,
+      this.email,
+      this.phone,
+      this.type,
+      this.company_id,
+      this.notificationIds,
+      this.favorites,
+      this.profilePicture});
 
   PublicProfile.fromJson(dynamic json) {
-    _uid = json["uid"];
-    _name = json["name"];
-    _email = json["email"];
-    _phone = json["phone"];
-    _type = json["type"];
-    _company_id = json["company_id"];
-    _notificationIds = json["notificationIds"] != null ? json["notificationIds"].cast<String>() : [];
-    _favorites = json["favorites"] != null ? json["favorites"].cast<String>() : [];
-    _profilePicture = json["profilePicture"];
+    uid = json["uid"];
+    name = json["name"];
+    email = json["email"];
+    phone = json["phone"];
+    type = json["type"];
+    company_id = json["company_id"];
+    notificationIds = json["notificationIds"] != null ? json["notificationIds"].cast<String>() : [];
+    favorites = json["favorites"] != null ? json["favorites"].cast<String>() : [];
+    profilePicture = json["profilePicture"];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["uid"] = _uid;
-    map["name"] = _name;
-    map["email"] = _email;
-    map["phone"] = _phone;
-    map["type"] = _type;
-    map["company_id"] = _company_id;
-    map["notificationIds"] = _notificationIds;
-    map["favorites"] = _favorites;
-    map["profilePicture"] = _profilePicture;
+    map["uid"] = uid;
+    map["name"] = name;
+    map["email"] = email;
+    map["phone"] = phone;
+    map["type"] = type;
+    map["company_id"] = company_id;
+    map["notificationIds"] = notificationIds;
+    map["favorites"] = favorites;
+    map["profilePicture"] = profilePicture;
     return map;
   }
 
