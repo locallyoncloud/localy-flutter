@@ -120,7 +120,7 @@ class LoginContainer extends StatelessWidget {
     );
   }
   loginUser(BuildContext context, LoginType loginType) async{
-
+    context.read<RegistrationPageVM>().setLoadingVisibility(true);
     try {
       PublicProfile publicProfile;
       String mail = context.read<RegistrationPageVM>().signinMail;
