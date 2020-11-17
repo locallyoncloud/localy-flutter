@@ -6,7 +6,6 @@ import 'package:locally_flutter_app/base_classes/admin_base.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
-import 'package:locally_flutter_app/models/gift_cards.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
 
 final FirebaseFirestore fireStore = FirebaseFirestore.instance;
@@ -23,11 +22,11 @@ class AdminServices implements AdminBase {
   }
 
   @override
-  Future<String> uploadFile(String filePath, String fileName) async {
+  Future<String> uploadFile(String filePath, String fileName, String storageReference) async {
     File file = File(filePath);
 
     TaskSnapshot task =
-        await storage.ref('company_logos/$fileName').putFile(file);
+        await storage.ref(storageReference + '/$fileName').putFile(file);
     if (task.state == TaskState.success) {
       return await task.ref.getDownloadURL();
     }

@@ -10,6 +10,9 @@ abstract class AuthBase {
 
   signOut();
 
+
+  Future<PublicProfile> updateUser(String name, String email, String phone);
+
   Future<PublicProfile> signInWithGoogle(String playerId);
 
   Future<void> setPlayerId(String userMail, String playerId);

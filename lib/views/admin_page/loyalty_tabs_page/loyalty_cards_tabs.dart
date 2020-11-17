@@ -316,10 +316,10 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
       downloadUrl = isMiniLogoImage
           ? await context
               .read<AdminPanelVM>()
-              .uploadFile(pickedFile.path, "${loyaltyCardFromDB.uid}_mini_logo")
+              .uploadFile(pickedFile.path, "${loyaltyCardFromDB.uid}_mini_logo", 'company_logos')
           : await context
               .read<AdminPanelVM>()
-              .uploadFile(pickedFile.path, "${loyaltyCardFromDB.uid}_bg_logo");
+              .uploadFile(pickedFile.path, "${loyaltyCardFromDB.uid}_bg_logo", 'company_logos');
 
       setState(() {
         if (isMiniLogoImage) {

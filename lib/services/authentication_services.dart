@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -75,26 +74,49 @@ class AuthenticationServices implements AuthBase {
     // Once signed in, return the UserCredential
     UserCredential userCredential= await FirebaseAuth.instance.signInWithCredential(credential);
 
-    DocumentSnapshot profiles = await fireStore.collection("accounts").doc(userCredential.user.email).get();
+    QuerySnapshot profiles = await fireStore.collection("accounts").doc(userCredential.user.email).collection("public_profile").get();
 
-    PublicProfile profile;
-    profile = PublicProfile(uid: userCredential.user.uid, email: userCredential.user.email, type: "user", company_id: "", notificationIds: [playerId]);
 
-    if(!profiles.exists) {
+    if(profiles.docs.length==0) {
+      PublicProfile profile;
+      profile = PublicProfile(uid: userCredential.user.uid, email: userCredential.user.email, type: "user", company_id: "");
+
       await fireStore
           .collection("accounts")
           .doc(userCredential.user.email)
           .collection("public_profile")
           .doc(userCredential.user.uid)
           .set(profile.toJson());
-    }
-
-    if(userCredential != null) {
-      prefs.setString("user", json.encode(profile.toJson()));
       return profile;
+    } else {
+    if(userCredential != null) {
+      prefs.setString("user", json.encode(profiles.docs[0].data()));
+      return PublicProfile.fromJson(profiles.docs[0].data());
     } else {
       return null;
     }
+
+    }
+  }
+
+  @override
+  Future<PublicProfile> updateUser(String name, String email, String phone) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    QuerySnapshot snapshot = await fireStore
+        .collection("accounts")
+        .doc(email)
+        .collection("public_profile").get();
+
+    await snapshot.docs[0].reference.update({
+      "name": name,
+      "phone": phone,
+    });
+
+    prefs.setString("user", json.encode(snapshot.docs[0].data()));
+
+    return PublicProfile.fromJson(snapshot.docs[0].data());
+
   }
 
   @override

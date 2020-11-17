@@ -15,6 +15,7 @@ import 'package:locally_flutter_app/views/cart_page/cart_main.dart';
 import 'package:locally_flutter_app/views/info_page/info.dart';
 import 'package:locally_flutter_app/views/push_notification_page/push_notifications.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
+import 'package:locally_flutter_app/views/user_profile_page/user_profile.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:locally_flutter_app/views/widgets/loading_bar.dart';
 import 'package:locally_flutter_app/views/widgets/main_bottom_navigation.dart';
@@ -131,7 +132,7 @@ class _MainPageState extends State<MainPage>
                           child: AdminShowOrders(tabController),
                         ),
 
-                        AdminPanel(),
+                        ProfileScreen(),
 
                         context.watch<RegistrationPageVM>().currentUser.type != "admin"
                         ? Info()
@@ -142,8 +143,9 @@ class _MainPageState extends State<MainPage>
                   GetirBottomNavigation()
                 ],
               ),
-            )),
-      ),
+              BottomNavigation()
+            ],
+          )),
     );
   }
 

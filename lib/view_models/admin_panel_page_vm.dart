@@ -86,8 +86,8 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
 
   @override
-  Future<String> uploadFile(String filePath, String fileName) async {
-    return await getIt<AdminRepository>().uploadFile(filePath, fileName);
+  Future<String> uploadFile(String filePath, String fileName, String storageReference) async {
+    return await getIt<AdminRepository>().uploadFile(filePath, fileName, storageReference);
   }
 
   @override

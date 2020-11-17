@@ -25,7 +25,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override

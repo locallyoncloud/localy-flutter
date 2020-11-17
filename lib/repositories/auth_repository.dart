@@ -47,12 +47,16 @@ class AuthRepository implements AuthBase {
   }
 
   @override
+  Future<PublicProfile> updateUser(String name, String email, String phone) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AuthenticationServices>().updateUser(name, email, phone);
+    }
+  }
+  @override
   Future<void> setPlayerId(String userMail, String playerId) async {
     if(currentDatabase == DatabaseType.FireStore) {
       return await getIt<AuthenticationServices>().setPlayerId(userMail, playerId);
     }
   }
-
-
   
 }
