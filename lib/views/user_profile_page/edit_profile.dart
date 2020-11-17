@@ -13,6 +13,13 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<RegistrationPageVM>().setUser(false);
+    });
+  }
   final picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
@@ -57,7 +64,7 @@ class _EditProfileState extends State<EditProfile> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: AssetImage(context.watch<RegistrationPageVM>().currentUser.profilePicture != null ? context.watch<RegistrationPageVM>().currentUser.profilePicture : "assets/images/avatar.jpg"))),
+                                  image: NetworkImage( context.watch<RegistrationPageVM>().tempUser.profilePicture !=null && context.watch<RegistrationPageVM>().tempUser.profilePicture.length !=0  ? context.watch<RegistrationPageVM>().tempUser.profilePicture : 'https://media-exp1.licdn.com/dms/image/C4D0BAQGnrniDd05yNQ/company-logo_200_200/0?e=2159024400&v=beta&t=SuRkAmWNaX0Q2dfG-1WrVF8Uw67Zvkh2ctRZjYCf1k4'))),
                         ),
                       ),
                       Positioned(
@@ -78,9 +85,9 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                 ),
                 SizedBox(height: 35),
-                buildTextField("Ad ve Soyad",context.watch<RegistrationPageVM>().currentUser.name, context),
-                buildTextField("E-Posta", context.watch<RegistrationPageVM>().currentUser.email,context),
-                buildTextField("Telefon", context.watch<RegistrationPageVM>().currentUser.phone, context),
+                buildTextField("Ad ve Soyad",context.watch<RegistrationPageVM>().tempUser.name, context),
+                buildTextField("E-Posta", context.watch<RegistrationPageVM>().tempUser.email,context),
+                buildTextField("Telefon", context.watch<RegistrationPageVM>().tempUser.phone, context),
                 SizedBox(height: 35),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,8 +101,9 @@ class _EditProfileState extends State<EditProfile> {
                     ),*/
                     RaisedButton(
                         onPressed: () {
-                          context.read<RegistrationPageVM>().updateUser(context.read<RegistrationPageVM>().userName,context.read<RegistrationPageVM>().currentUser.email, context.read<RegistrationPageVM>().phone);
-                        },
+                          context.read<RegistrationPageVM>().updateUser(context.read<RegistrationPageVM>().userName,context.read<RegistrationPageVM>().currentUser.email, context.read<RegistrationPageVM>().phone, context.read<RegistrationPageVM>().tempUser.profilePicture);
+                          context.read<RegistrationPageVM>().setUser(true);
+                          },
                       color: AppColors.PRIMARY_COLOR,
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -119,10 +127,10 @@ class _EditProfileState extends State<EditProfile> {
         onChanged: (value) {
           switch(labelText) {
             case "Ad ve Soyad":
-             context.read<RegistrationPageVM>().setUserName(value);
+             context.read<RegistrationPageVM>().setCredentials("name", value);
              break;
             case "Telefon":
-              context.read<RegistrationPageVM>().setPhone(value);
+              context.read<RegistrationPageVM>().setCredentials("phone", value);
               break;
             default:
               break;
@@ -145,7 +153,9 @@ class _EditProfileState extends State<EditProfile> {
     if (pickedFile != null) {
       downloadUrl = await context
           .read<AdminPanelVM>()
-          .uploadFile(pickedFile.path, "${context.watch<RegistrationPageVM>().currentUser.email}", 'user');
+          .uploadFile(pickedFile.path, "${context.read<RegistrationPageVM>().currentUser.email}", 'user');
+      context.read<RegistrationPageVM>().setCredentials("profilePicture", downloadUrl);
+
     }
   }
 }

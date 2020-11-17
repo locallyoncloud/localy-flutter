@@ -11,7 +11,7 @@ abstract class AuthBase {
   signOut();
 
 
-  Future<PublicProfile> updateUser(String name, String email, String phone);
+  Future<PublicProfile> updateUser(String name, String email, String phone, String pictureURL);
 
   Future<PublicProfile> signInWithGoogle(String playerId);
 

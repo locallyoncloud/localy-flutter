@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -98,15 +97,15 @@ class LoginContainer extends StatelessWidget {
           ),
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(icon: Icon(
+                /*IconButton(icon: Icon(
                   AntDesign.facebook_square,
                   color: AppColors.WHITE,
                   size: 40,
                 ), onPressed: () {
-                }),
+                }),*/
                 IconButton(icon: Icon(
                   AntDesign.google,
                   color: AppColors.WHITE,
@@ -121,32 +120,40 @@ class LoginContainer extends StatelessWidget {
     );
   }
   loginUser(BuildContext context, LoginType loginType) async{
-    context.read<RegistrationPageVM>().setLoadingVisibility(true);
+
     try {
       PublicProfile publicProfile;
-      switch(loginType) {
-        case LoginType.Standard:
-          publicProfile = await context.read<RegistrationPageVM>().signInWithEmailAndPassword(
-              context.read<RegistrationPageVM>().signinMail,
-              context.read<RegistrationPageVM>().signinPassword);
-          break;
-        case LoginType.Google:
-          publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle(context.read<NotificationsVM>().currentUserId);
-          break;
-        case LoginType.Facebook:
-          // TODO: Handle this case.
-          break;
+      String mail = context.read<RegistrationPageVM>().signinMail;
+      String password = context.read<RegistrationPageVM>().signinPassword;
+
+      if (loginType == LoginType.Google) {
+        publicProfile = await context.read<RegistrationPageVM>().signInWithGoogle(context.read<NotificationsVM>().currentUserId);
       }
+      else if(!mail.isEmail || mail.length <= 3) {
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Lütfen mailinizi kontrol ediniz.",context));
+        context.read<RegistrationPageVM>().setLoadingVisibility(false);
+      } else if (password.length <= 8) {
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Şifreniz en az 8 karakter olmalıdır.",context));
+        context.read<RegistrationPageVM>().setLoadingVisibility(false);
+      } else {
+        // if(loginType == LoginType.Standard)
+        publicProfile = await context.read<RegistrationPageVM>().signInWithEmailAndPassword(
+            context.read<RegistrationPageVM>().signinMail,
+            context.read<RegistrationPageVM>().signinPassword);
+      }
+
       if(publicProfile!=null){
         context.read<RegistrationPageVM>().setCurrentUser(publicProfile);
         context.read<RegistrationPageVM>().setLoadingVisibility(false);
-        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.PRIMARY_COLOR, "Hoşgeldiniz!",context));
         Get.off(MainPage());
       }
-    } on FirebaseAuthException catch (e) {
+
+      } on FirebaseAuthException catch (e) {
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
       Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, e.message,context));
     }
+    }
+
   }
 
   resetPassword(BuildContext context) {
@@ -158,4 +165,3 @@ class LoginContainer extends StatelessWidget {
         Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Lütfen geçerli bir mail adresi giriniz",context));
       }
   }
-}

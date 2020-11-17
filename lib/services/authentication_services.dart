@@ -100,23 +100,28 @@ class AuthenticationServices implements AuthBase {
   }
 
   @override
-  Future<PublicProfile> updateUser(String name, String email, String phone) async {
+  Future<PublicProfile> updateUser(String name, String email, String phone, String pictureURL) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     QuerySnapshot snapshot = await fireStore
         .collection("accounts")
         .doc(email)
         .collection("public_profile").get();
+    PublicProfile newProfile = PublicProfile.fromJson(snapshot.docs[0].data());
 
     await snapshot.docs[0].reference.update({
       "name": name,
       "phone": phone,
+      "profilePicture": pictureURL
     });
+  newProfile
+    ..name = name
+    ..phone = phone
+    ..profilePicture = pictureURL;
 
-    prefs.setString("user", json.encode(snapshot.docs[0].data()));
+    prefs.setString("user", json.encode(newProfile));
 
     return PublicProfile.fromJson(snapshot.docs[0].data());
-
   }
 
   @override

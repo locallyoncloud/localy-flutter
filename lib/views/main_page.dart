@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:locally_flutter_app/models/order.dart';
-import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
@@ -92,7 +90,7 @@ class _MainPageState extends State<MainPage>
                       currentAccountPicture: GestureDetector(
                         child: CircleAvatar(
                           backgroundColor: AppColors.GREY,
-                          child: Icon(Icons.person, color: AppColors.WHITE),
+                          child: context.watch<RegistrationPageVM>().currentUser.profilePicture != null ? ClipOval(child: Image.network(context.watch<RegistrationPageVM>().currentUser.profilePicture)): Icon(Icons.person, color: AppColors.WHITE),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -122,7 +120,6 @@ class _MainPageState extends State<MainPage>
                       index: context.watch<MainPageVM>().currentSelectedIndex,
                       children: [
                         Home(),
-
                         context.watch<RegistrationPageVM>().currentUser.type != "admin"
                         ? StreamProvider(
                           create: (context) => context.read<HomePageVM>().getAllClientSideOrders(context.read<RegistrationPageVM>().currentUser.email),
@@ -132,7 +129,9 @@ class _MainPageState extends State<MainPage>
                           child: AdminShowOrders(tabController),
                         ),
 
-                        ProfileScreen(),
+                        context.watch<RegistrationPageVM>().currentUser.type != "admin"
+                        ? ProfileScreen()
+                        : AdminPanel(),
 
                         context.watch<RegistrationPageVM>().currentUser.type != "admin"
                         ? Info()
@@ -140,13 +139,11 @@ class _MainPageState extends State<MainPage>
                       ],
                     ),
                   ),
-                  GetirBottomNavigation()
+                  BottomNavigation()
                 ],
               ),
-              BottomNavigation()
-            ],
-          )),
-    );
+            )),
+    ));
   }
 
   buildListElement(String text, IconData icontype, Color iconColor) {
