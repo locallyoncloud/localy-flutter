@@ -10,6 +10,7 @@ import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
+import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
 import 'package:locally_flutter_app/views/widgets/splash_with_flare.dart';
@@ -41,12 +42,16 @@ class MyApp extends StatelessWidget {
       future: _initialization,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return CircularProgressIndicator();
+          return Container(
+            color: Colors.white,
+          );
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return AppStartingPoint();
         }
-        return CircularProgressIndicator();
+        return Container(
+          color: Colors.white,
+        );
       },
     );
   }
@@ -68,7 +73,10 @@ class AppStartingPoint extends StatelessWidget {
         ChangeNotifierProvider<AdminPanelVM>(
             create: (context)=>AdminPanelVM()),
         ChangeNotifierProvider<CartPageVM>(
-            create: (context)=>CartPageVM())
+            create: (context)=>CartPageVM()),
+        ChangeNotifierProvider<NotificationsVM>(
+            create: (context)=>NotificationsVM())
+
       ],
       child: GetMaterialApp(
         //locale: DevicePreview.of(context).locale, // <--- /!\ Add the locale
@@ -79,7 +87,7 @@ class AppStartingPoint extends StatelessWidget {
           backgroundColor: Colors.white,
           name: 'assets/animations/splash.flr',
           next: RegistrationPage(),
-          until: () => Future.delayed(Duration(seconds: 3)),
+          until: () => Future.delayed(Duration(seconds: 4)),
           startAnimation: 'intro',
           transitionDuration: Duration(seconds: 2),
           transition: Transition.fadeIn,

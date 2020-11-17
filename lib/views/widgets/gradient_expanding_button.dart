@@ -91,7 +91,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
          onTap:context.watch<CompanyDetailsPageVM>().currentProgress==null ? () {
              sequenceAnimationController.forward();
              Timer(0.8.seconds, () {
-                 context.read<HomePageVM>().openLoyaltyCardForUser(widget.loyaltyCard.uid, context.read<RegistrationPageVM>().currentUser.email);
+                 context.read<HomePageVM>().openLoyaltyCardForUser(widget.loyaltyCard.uid, context.read<RegistrationPageVM>().currentUser.email,context.read<RegistrationPageVM>().currentUser.notificationIds);
              });
          } : null,
          child: Container(

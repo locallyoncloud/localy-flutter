@@ -8,6 +8,7 @@ class Company {
   String mini_logo;
   String name;
   String slogan;
+  List<String> notificationIds;
   int rating;
 
 	Company.fromJsonMap(Map<String, dynamic> map):
@@ -18,7 +19,8 @@ class Company {
 		mini_logo = map["mini_logo"],
 		name = map["name"],
 		slogan = map["slogan"],
-		rating = map["rating"];
+		rating = map["rating"],
+		notificationIds = List<String>.from(map["notificationIds"]);
 
 	Map<String, dynamic> toJson() {
 		final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -30,6 +32,7 @@ class Company {
 		data['name'] = name;
 		data['slogan'] = slogan;
 		data['rating'] = rating;
+		data['notificationIds'] = notificationIds;
 		return data;
 	}
 }

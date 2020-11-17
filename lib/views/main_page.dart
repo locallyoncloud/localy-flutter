@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:locally_flutter_app/models/order.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
+import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
+import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
+import 'package:locally_flutter_app/views/admin_page/admin_panel.dart';
+import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/admin_show_orders.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_main.dart';
+import 'package:locally_flutter_app/views/info_page/info.dart';
+import 'package:locally_flutter_app/views/push_notification_page/push_notifications.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
 import 'package:locally_flutter_app/views/user_profile_page/user_profile.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
+import 'package:locally_flutter_app/views/widgets/loading_bar.dart';
 import 'package:locally_flutter_app/views/widgets/main_bottom_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
@@ -25,8 +34,8 @@ class _MainPageState extends State<MainPage>
 
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
-    tabController.addListener(() {});
+    context.read<RegistrationPageVM>().checkUserPlayerId(context.read<NotificationsVM>().currentUserId);
+    tabController = TabController(length:context.read<RegistrationPageVM>().currentUser.type != "admin" ? 3 : 2, vsync: this);
     super.initState();
   }
 
@@ -39,71 +48,100 @@ class _MainPageState extends State<MainPage>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-          backgroundColor: AppColors.BG_WHITE,
-          appBar: UtilityWidgets.CustomAppBar(
-            Image.asset("assets/png/localy_logo_transparent_bg.png",
-                fit: BoxFit.contain, width: 132, height: 40),
-            context.watch<MainPageVM>().currentSelectedIndex == 1
-                ? TabBar(
-                    indicatorColor: AppColors.SECONDARY_COLOR,
-                    indicatorPadding: EdgeInsets.symmetric(horizontal: 20),
-                    controller: tabController,
-                    unselectedLabelColor: AppColors.DISABLED_GREY,
-                    labelColor: AppColors.SECONDARY_COLOR,
-                    labelStyle: AppFonts.getMainFont(
-                        fontSize: 12, fontWeight: FontWeight.w700),
-                    tabs: [
-                        Tab(text: "Sepetim"),
-                        Tab(text: "Önceki Siparişlerim")
-                      ])
-                : null,
-          ),
-          drawer: Drawer(
-            child: ListView(
-              children: [
-                // header
-                UserAccountsDrawerHeader(
-                    accountName: Text(
-                        context.watch<RegistrationPageVM>().currentUser.name ??
-                            '',
-                        style: AppFonts.getMainFont()),
-                    accountEmail: Text(
-                        context.watch<RegistrationPageVM>().currentUser.email,
-                        style: AppFonts.getMainFont()),
-                    currentAccountPicture: GestureDetector(
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.GREY,
-                        child: Icon(Icons.person, color: AppColors.WHITE),
-                      ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.PRIMARY_COLOR,
-                    )),
-                context.watch<RegistrationPageVM>().currentUser.type == "admin"
-                    ? buildListElement(
-                        "Admin",
-                        MaterialIcons.store_mall_directory,
-                        AppColors.ADMIN_GREY)
-                    : Container(),
-                buildListElement("Çıkış", AntDesign.logout, AppColors.ERROR),
-              ],
+      child: LoadingBar(
+        isLoadingVisible: context.watch<RegistrationPageVM>().isLoadingVisible,
+        child: Scaffold(
+            backgroundColor: AppColors.BG_WHITE,
+            appBar: UtilityWidgets.CustomAppBar(
+              Image.asset("assets/png/localy_logo_transparent_bg.png",
+                  fit: BoxFit.contain, width: 132, height: 40),
+              context.watch<MainPageVM>().currentSelectedIndex == 1
+                  ? TabBar(
+                      indicatorColor: AppColors.SECONDARY_COLOR,
+                      indicatorPadding: EdgeInsets.symmetric(horizontal: 20),
+                      controller: tabController,
+                      unselectedLabelColor: AppColors.DISABLED_GREY,
+                      labelColor: AppColors.SECONDARY_COLOR,
+                      labelPadding: EdgeInsets.all(0),
+                      labelStyle: AppFonts.getMainFont(
+                          fontSize: 12, fontWeight: FontWeight.w700),
+                      tabs: context.watch<RegistrationPageVM>().currentUser.type != "admin" ? [
+                          Tab(text: "Sepetim"),
+                          Tab(text: "Aktif Siparişler"),
+                          Tab(text: "Önceki Siparişlerim"),
+                        ]
+                :[
+                        Tab(text: "Aktif Siparişler"),
+                        Tab(text: "Önceki Siparişler"),
+                      ]
+              )
+                  : null,
             ),
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: FadeIndexedStack(
-                  index: context.watch<MainPageVM>().currentSelectedIndex,
-                  children: [
-                    Home(),
-                    CartMain(tabController),
-                    ProfileScreen(),
-                    Container(
-                      color: Colors.red,
+            drawer: Drawer(
+              child: ListView(
+                children: [
+                  // header
+                  UserAccountsDrawerHeader(
+                      accountName: Text(
+                          context.watch<RegistrationPageVM>().currentUser.name ??
+                              '',
+                          style: AppFonts.getMainFont()),
+                      accountEmail: Text(
+                          context.watch<RegistrationPageVM>().currentUser.email,
+                          style: AppFonts.getMainFont()),
+                      currentAccountPicture: GestureDetector(
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.GREY,
+                          child: Icon(Icons.person, color: AppColors.WHITE),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.PRIMARY_COLOR,
+                      )),
+                  context.watch<RegistrationPageVM>().currentUser.type == "admin"
+                      ? buildListElement(
+                          "Admin",
+                          MaterialIcons.store_mall_directory,
+                          AppColors.ADMIN_GREY)
+                      : Container(),
+                  buildListElement("Çıkış", AntDesign.logout, AppColors.ERROR),
+                ],
+              ),
+            ),
+            body: InkWell(
+                onTap: (){
+                  FocusScopeNode currentFocus = FocusScope.of(context);
+                  if(!currentFocus.hasPrimaryFocus){
+                    currentFocus.unfocus();
+                  }
+                },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: FadeIndexedStack(
+                      index: context.watch<MainPageVM>().currentSelectedIndex,
+                      children: [
+                        Home(),
+
+                        context.watch<RegistrationPageVM>().currentUser.type != "admin"
+                        ? StreamProvider(
+                          create: (context) => context.read<HomePageVM>().getAllClientSideOrders(context.read<RegistrationPageVM>().currentUser.email),
+                          child: CartMain(tabController))
+                        : StreamProvider(
+                          create: (context) => context.read<HomePageVM>().getAllAdminSideOrders(context.read<RegistrationPageVM>().currentUser.company_id),
+                          child: AdminShowOrders(tabController),
+                        ),
+
+                        ProfileScreen(),
+
+                        context.watch<RegistrationPageVM>().currentUser.type != "admin"
+                        ? Info()
+                        : PushNotifications(),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  GetirBottomNavigation()
+                ],
               ),
               BottomNavigation()
             ],

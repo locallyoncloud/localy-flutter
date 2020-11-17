@@ -9,6 +9,7 @@ class AppColors {
   static const GREY = Color(0xFF303030);
   static const RED = Color(0xFFEF5350);
   static const GREEN = Color(0xFF4CAF50);
+  static const SUCCESS_GREEN = Color(0xFF2D6730);
   static const BLUE = Color(0xFF2196F3);
   static const ERROR = Color(0xFFB00020);
   static const ADMIN_GREY = Color(0xFF30333A);

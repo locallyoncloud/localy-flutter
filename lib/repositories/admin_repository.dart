@@ -76,4 +76,18 @@ class AdminRepository implements AdminBase {
     }
   }
 
+  @override
+  Future<void> incrementOrderStatus(String orderUid) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AdminServices>().incrementOrderStatus(orderUid);
+    }
+  }
+
+  @override
+  Future<List<String>> getAllNotificationIdsForCard( String companyId) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AdminServices>().getAllNotificationIdsForCard(companyId);
+    }
+  }
+
 }

@@ -22,8 +22,8 @@ class ExpandedLoyaltyCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Container(
-        width: 300,
-        height: 420,
+        width: 90.wb,
+        height: 75.hb,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: AppColors.hexToColor(loyaltyCard.backgroundColor),
@@ -31,6 +31,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 5),
         child: Column(
           mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10),
@@ -140,17 +141,16 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: QrImage(
-                    data: "${context.watch<RegistrationPageVM>().currentUser.email}/${loyaltyCard.type}/${loyaltyCard.target}/${loyaltyCard.uid}/${loyaltyCard.percentage.toString()}/localy",
-                    version: QrVersions.auto,
-                    size: 130,
-                    backgroundColor: Colors.white,
-                  ),
-                ),
+            SizedBox(
+              height: 20,
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: QrImage(
+                data: "${context.watch<RegistrationPageVM>().currentUser.email}/${loyaltyCard.type}/${loyaltyCard.target}/${loyaltyCard.uid}/${loyaltyCard.percentage.toString()}/localy",
+                version: QrVersions.auto,
+                size: 200,
+                backgroundColor: Colors.white,
               ),
             )
           ],

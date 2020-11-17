@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
@@ -11,6 +9,7 @@ import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/widgets/animated_down_arrow.dart';
 import 'package:locally_flutter_app/views/widgets/number_picker.dart';
+import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:locally_flutter_app/views/widgets/switching_button.dart';
 import 'package:provider/provider.dart';
 import 'package:supercharged/supercharged.dart';
@@ -199,22 +198,26 @@ class _CustomerInfoState extends State<CustomerInfo> {
                       SizedBox(
                         height: 10,
                       ),
-                      RaisedButton(
-                          onPressed: (){
-                            add();
-                          },
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30)
-                        ),
-                        color: AppColors.PRIMARY_COLOR,
-                        child: Text(
-                          "Onay",
-                          style: AppFonts.getMainFont(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.WHITE
-                          ),
-                        ),
+                      Builder(
+                        builder: (BuildContext context) =>
+                            RaisedButton(
+                              onPressed: (){
+                                add(context);
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)
+                              ),
+                              color: AppColors.PRIMARY_COLOR,
+                              child: Text(
+                                "Onay",
+                                style: AppFonts.getMainFont(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.WHITE
+                                ),
+                              ),
+                            )
+                        ,
                       )
                     ],
                   ),
@@ -263,19 +266,20 @@ class _CustomerInfoState extends State<CustomerInfo> {
     }
   }
 
-  add() async {
+  add(BuildContext context) async {
     await context.read<AdminPanelVM>().addLoyalty(
         context.read<AdminPanelVM>().lastReadAdminQrCode,
         context.read<RegistrationPageVM>().currentUser.company_id,
         pickedNumber,
         doubleProgress
     );
+    Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.SUCCESS_GREEN, "Müşteriye loyalty başarıyla eklendi!!!",context));
   }
 
   giveGifts(){
     context.read<AdminPanelVM>().sendGift(
       int.parse(context.read<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]) == 0 ?
-      (customerProgress.gifts -textValue) : (customerProgress.progress - textValue),
+      (customerProgress.gifts -textValue)<0 ? 0 :(customerProgress.gifts -textValue) : (customerProgress.progress - textValue),
       context.read<RegistrationPageVM>().currentUser.company_id,
       int.parse(context
         .read<AdminPanelVM>()
