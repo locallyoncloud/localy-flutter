@@ -30,8 +30,8 @@ class _EditProfileState extends State<EditProfile> {
             Text("Profil Düzenleme",
                 style: AppFonts.getMainFont(
                     color: AppColors.PRIMARY_COLOR,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w500)),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700)),
             null),
         body: Container(
           padding: EdgeInsets.only(left: 16, top: 25, right: 16),
@@ -64,7 +64,8 @@ class _EditProfileState extends State<EditProfile> {
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage( context.watch<RegistrationPageVM>().tempUser.profilePicture !=null && context.watch<RegistrationPageVM>().tempUser.profilePicture.length !=0  ? context.watch<RegistrationPageVM>().tempUser.profilePicture : 'https://media-exp1.licdn.com/dms/image/C4D0BAQGnrniDd05yNQ/company-logo_200_200/0?e=2159024400&v=beta&t=SuRkAmWNaX0Q2dfG-1WrVF8Uw67Zvkh2ctRZjYCf1k4'))),
+                                  image: NetworkImage( context.watch<RegistrationPageVM>().tempUser.profilePicture !=null && context.watch<RegistrationPageVM>().tempUser.profilePicture.length !=0  ? context.watch<RegistrationPageVM>().tempUser.profilePicture
+                                      : "https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/localy_logo_white_bg.jpg?alt=media&token=25f202fe-9bd7-402c-8269-9682a54f5505"))),
                         ),
                       ),
                       Positioned(
@@ -93,12 +94,6 @@ class _EditProfileState extends State<EditProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(),
-                    /*OutlineButton(
-                        padding: EdgeInsets.symmetric(horizontal: 50),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        onPressed: () {},
-                    child : Text("Sıfırla", style: AppFonts.getMainFont(fontSize: 14, letterSpacing: 2.2, color: Colors.black))
-                    ),*/
                     RaisedButton(
                         onPressed: () {
                           context.read<RegistrationPageVM>().updateUser(context.read<RegistrationPageVM>().userName,context.read<RegistrationPageVM>().currentUser.email, context.read<RegistrationPageVM>().phone, context.read<RegistrationPageVM>().tempUser.profilePicture);

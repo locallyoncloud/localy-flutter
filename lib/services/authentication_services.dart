@@ -79,7 +79,7 @@ class AuthenticationServices implements AuthBase {
 
     if(profiles.docs.length==0) {
       PublicProfile profile;
-      profile = PublicProfile(uid: userCredential.user.uid, email: userCredential.user.email, type: "user", company_id: "");
+      profile = PublicProfile(uid: userCredential.user.uid, email: userCredential.user.email, type: "user", company_id: "", notificationIds: [playerId]);
 
       await fireStore
           .collection("accounts")
