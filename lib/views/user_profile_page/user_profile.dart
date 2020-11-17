@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
                         margin: EdgeInsets.only(top: 30),
                         child: Stack(
                             children: [
-                              CircleAvatar(radius: 50, backgroundImage: NetworkImage(context.watch<RegistrationPageVM>().currentUser.profilePicture != null && context.watch<RegistrationPageVM>().currentUser.profilePicture.length != 0 ? context.watch<RegistrationPageVM>().currentUser.profilePicture : 'https://media-exp1.licdn.com/dms/image/C4D0BAQGnrniDd05yNQ/company-logo_200_200/0?e=2159024400&v=beta&t=SuRkAmWNaX0Q2dfG-1WrVF8Uw67Zvkh2ctRZjYCf1k4')),
+                              CircleAvatar(radius: 50, backgroundImage: NetworkImage(context.watch<RegistrationPageVM>().currentUser.profilePicture != null && context.watch<RegistrationPageVM>().currentUser.profilePicture.length != 0 ? context.watch<RegistrationPageVM>().currentUser.profilePicture : 'https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/localy_logo_white_bg.jpg?alt=media&token=25f202fe-9bd7-402c-8269-9682a54f5505')),
                             ]),
                       ),
                       SizedBox(height: 20),
@@ -52,22 +52,6 @@ class ProfileScreen extends StatelessWidget {
                   text: 'Kişisel Bilgiler',
                 ),
               ),
-              /*ProfileListItem(
-                icon: LineAwesomeIcons.user_shield,
-                text: 'Gizli Bilgiler',
-              ),
-              ProfileListItem(
-                icon: LineAwesomeIcons.history,
-                text: 'Satın Alma Geçmişi',
-              ),
-              ProfileListItem(
-                icon: LineAwesomeIcons.question_circle,
-                text: 'Yardım & Destek',
-              ),
-              ProfileListItem(
-                icon: LineAwesomeIcons.user_plus,
-                text: 'Arkadaşınızı Davet Edin',
-              ),*/
               InkWell(
                 onTap: () {
                   context.read<RegistrationPageVM>().signOut();

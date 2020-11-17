@@ -13,7 +13,7 @@ class HorizontalList extends StatelessWidget {
       height: 60,
       child: ListView(
         scrollDirection: Axis.horizontal,
-        children: List.generate(20, (index) =>
+        children: List.generate(1, (index) =>
             /*Category(icon: Icon(FontAwesome.coffee,color: AppColors.WHITE),iconCaption: "Kahve"
             ),*/
             Padding(
