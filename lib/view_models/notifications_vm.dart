@@ -20,7 +20,6 @@ class NotificationsVM extends ChangeNotifier{
     await OneSignal.shared.promptUserForPushNotificationPermission(fallbackToSettings: true);
     var subscriptionStatus = await OneSignal.shared.getPermissionSubscriptionState();
     currentUserId = subscriptionStatus.subscriptionStatus.userId;
-    //print(currentUserId);print(currentUserId);print(currentUserId);print(currentUserId);print(currentUserId);print(currentUserId);
     notifyListeners();
   }
   postNotification(List<String> playerIds, String title, String content) async{
