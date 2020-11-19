@@ -5,6 +5,7 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
+import 'package:locally_flutter_app/views/widgets/no_data_found.dart';
 import 'package:provider/provider.dart';
 
 class PreviousOrders extends StatelessWidget {
@@ -142,18 +143,7 @@ class PreviousOrders extends StatelessWidget {
         },
       )
           :
-      Center(
-        child: Text(
-          "Önceden Verilmiş Sipariş Bulunmamaktadır",
-          textAlign: TextAlign.center,
-          style: AppFonts.getMainFont(
-              fontSize: 16,
-              color: AppColors.PRIMARY_COLOR,
-              fontWeight: FontWeight.w700
-          ),
-        ),
-      )
-      ,
+      NoDataFoundPage('assets/animations/no_data_found.json', "Önceden verilmiş sipariş bulunmamaktadır.")      ,
     );
   }
 }

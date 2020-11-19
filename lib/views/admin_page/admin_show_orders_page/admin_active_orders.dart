@@ -3,6 +3,7 @@ import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/order_status_indicators.dart';
+import 'package:locally_flutter_app/views/widgets/no_data_found.dart';
 
 class AdminActiveOrders extends StatelessWidget {
 
@@ -13,19 +14,9 @@ class AdminActiveOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return activeOrderList == null || activeOrderList.length == 0 ?
-    Container(
-      child: Center(
-        child: Text(
-          "Aktif Sipariş Bulunmamaktadır.",
-          style: AppFonts.getMainFont(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: AppColors.PRIMARY_COLOR
-          ),
-        ),
-      ),
-    )
-    : Padding(
+    NoDataFoundPage('assets/animations/empty_cart_anim.json',
+        "Aktif sipariş bulunmamaktadır.")
+        : Padding(
       padding: const EdgeInsets.all(8),
       child: ListView.builder(
         itemCount: activeOrderList.length,
@@ -59,22 +50,22 @@ class AdminActiveOrders extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           RichText(text: TextSpan(
-                            text: "Ödeme Şekli: ",
-                            style: AppFonts.getMainFont(
-                                fontSize: 14,
-                                color: AppColors.SECONDARY_COLOR,
-                                fontWeight: FontWeight.w700
-                            ),
-                            children: [
-                              TextSpan(
-                                text: "${activeOrderList[index].paymentType}",
-                                  style: AppFonts.getMainFont(
-                                      fontSize: 14,
-                                      color: AppColors.GREY,
-                                      fontWeight: FontWeight.w900
-                                  )
-                              )
-                            ]
+                              text: "Ödeme Şekli: ",
+                              style: AppFonts.getMainFont(
+                                  fontSize: 14,
+                                  color: AppColors.SECONDARY_COLOR,
+                                  fontWeight: FontWeight.w700
+                              ),
+                              children: [
+                                TextSpan(
+                                    text: "${activeOrderList[index].paymentType}",
+                                    style: AppFonts.getMainFont(
+                                        fontSize: 14,
+                                        color: AppColors.GREY,
+                                        fontWeight: FontWeight.w900
+                                    )
+                                )
+                              ]
                           ),
                           ),
                           RichText(text: TextSpan(
