@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/views/widgets/no_data_found.dart';
 
 class AdminOldOrders extends StatelessWidget {
 
@@ -12,19 +13,7 @@ class AdminOldOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return oldOrderList == null || oldOrderList.length == 0 ?
-    Container(
-      child: Center(
-        child: Text(
-          "Aktif Sipariş Bulunmamaktadır.",
-          style: AppFonts.getMainFont(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: AppColors.PRIMARY_COLOR
-          ),
-        ),
-      ),
-    )
-        : Padding(
+    NoDataFoundPage('assets/animations/empty_cart_anim.json', "Sipariş bulunmamaktadır.")        : Padding(
       padding: const EdgeInsets.all(8),
       child: ListView.builder(
         itemCount: oldOrderList.length,

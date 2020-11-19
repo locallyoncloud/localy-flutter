@@ -62,11 +62,7 @@ class CartMain extends StatelessWidget {
                         ],
                       ),
                     )),
-          StreamProvider(
-            catchError: (_, __) => null,
-            create:(context) => context.read<HomePageVM>().getActiveOrders(context.read<RegistrationPageVM>().currentUser.email),
-            child: ActiveOrder(activeOrders),
-          ),
+          ActiveOrder(activeOrders),
           PreviousOrders(oldOrders)
         ]);
   }
