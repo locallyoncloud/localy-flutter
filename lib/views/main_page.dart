@@ -153,15 +153,6 @@ class _MainPageState extends State<MainPage>
     return InkWell(
       onTap: () {
         switch (text) {
-          case "Ana Sayfa":
-            if(context.read<CartPageVM>().productsInCartList.length == 0){
-              context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
-              context.read<MainPageVM>().setCurrentSelectedIndex(0);
-            }else{
-              ///Sepette ürün varsa ana sayfaya geçmeden sıfırlaması gerekiyor.
-              showClearCartDialog();
-            }
-            break;
           case "Giriş Yapın":
             context.read<MainPageVM>().setCurrentSelectedIndex(1);
             break;
@@ -178,24 +169,6 @@ class _MainPageState extends State<MainPage>
       child: ListTile(
           title: Text(text, style: TextStyle()),
           leading: Icon(icontype, color: iconColor)),
-    );
-  }
-
-  showClearCartDialog() {
-    showDialog(context: context,
-    barrierDismissible: false,
-    builder: (_)=> CustomAlertDialog(
-      title: "Sipariş Durumu",
-      content: "Mevcut alışverişinizi iptal etmek istediğinize eminmisiniz?",
-      noFunction: (){
-        Get.back();
-      },
-      yesFunction: (){
-        context.read<CartPageVM>().clearCart();
-        context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
-        context.read<MainPageVM>().setCurrentSelectedIndex(0);
-      },
-    )
     );
   }
 }

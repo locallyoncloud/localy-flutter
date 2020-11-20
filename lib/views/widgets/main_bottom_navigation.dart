@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/enums/camera_of.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
@@ -17,6 +18,8 @@ import 'package:locally_flutter_app/views/company_details_page/item_count.dart';
 import 'package:locally_flutter_app/views/scan_qr_code.dart';
 import 'package:provider/provider.dart';
 import 'package:animate_do/animate_do.dart';
+
+import 'custom_alert_dialog.dart';
 
 class BottomNavigation extends StatelessWidget {
   @override
@@ -177,13 +180,16 @@ class _GrowingIconState extends State<GrowingIcon>
           onTap: () {
             if (context.read<MainPageVM>().currentSelectedIndex !=
                 widget.normalIndex) {
-              context
-                  .read<MainPageVM>()
-                  .setCurrentSelectedIndex(widget.normalIndex);
-              controller.forward();
-              Timer(Duration(milliseconds: 300), () {
-                controller.reverse();
-              });
+              if( widget.normalIndex!=0){
+                goToPage();
+              }else{
+                if(context.read<CartPageVM>().productsInCartList.length == 0 ){
+                  goToPage();
+                }else{
+                  ///Sepette ürün varsa ana sayfaya geçmeden sıfırlaması gerekiyor.
+                  showClearCartDialog();
+                }
+              }
             }
           },
           child: Container(
@@ -202,4 +208,32 @@ class _GrowingIconState extends State<GrowingIcon>
       },
     );
   }
+
+  showClearCartDialog() {
+    showDialog(context: context,
+        barrierDismissible: false,
+        builder: (_)=> CustomAlertDialog(
+          title: "Sipariş Durumu",
+          content: "Mevcut alışverişinizi iptal etmek istediğinize eminmisiniz?",
+          noFunction: (){
+            Get.back();
+          },
+          yesFunction: (){
+            context.read<CartPageVM>().clearCart();
+            goToPage();
+            Get.back();
+          },
+        )
+    );
+  }
+
+  goToPage(){
+    context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
+    context.read<MainPageVM>().setCurrentSelectedIndex(widget.normalIndex);
+    controller.forward();
+    Timer(Duration(milliseconds: 300), () {
+      controller.reverse();
+    });
+  }
+
 }

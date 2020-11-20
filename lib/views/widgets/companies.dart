@@ -53,7 +53,7 @@ class _CompaniesState extends State<Companies> {
           return GridView.builder(
               itemCount: snapshot.data.length,
               controller: _controller,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10), itemBuilder: (BuildContext context, int index) {
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 50.wb, crossAxisSpacing: 10, mainAxisSpacing: 10), itemBuilder: (BuildContext context, int index) {
             return Hero(
               tag: "${index}",
               child: Material(
