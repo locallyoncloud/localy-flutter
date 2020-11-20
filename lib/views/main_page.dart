@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
+import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
 import 'package:locally_flutter_app/view_models/notifications_vm.dart';
@@ -14,6 +16,7 @@ import 'package:locally_flutter_app/views/info_page/info.dart';
 import 'package:locally_flutter_app/views/push_notification_page/push_notifications.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
 import 'package:locally_flutter_app/views/user_profile_page/user_profile.dart';
+import 'package:locally_flutter_app/views/widgets/custom_alert_dialog.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:locally_flutter_app/views/widgets/loading_bar.dart';
 import 'package:locally_flutter_app/views/widgets/main_bottom_navigation.dart';
@@ -61,7 +64,7 @@ class _MainPageState extends State<MainPage>
                       unselectedLabelColor: AppColors.DISABLED_GREY,
                       labelColor: AppColors.SECONDARY_COLOR,
                       labelPadding: EdgeInsets.all(0),
-                      labelStyle: AppFonts.getMainFont(
+                      labelStyle: TextStyle(
                           fontSize: 12, fontWeight: FontWeight.w700),
                       tabs: context.watch<RegistrationPageVM>().currentUser.type != "admin" ? [
                           Tab(text: "Sepetim"),
@@ -83,10 +86,10 @@ class _MainPageState extends State<MainPage>
                       accountName: Text(
                           context.watch<RegistrationPageVM>().currentUser.name ??
                               '',
-                          style: AppFonts.getMainFont()),
+                          style: TextStyle()),
                       accountEmail: Text(
                           context.watch<RegistrationPageVM>().currentUser.email,
-                          style: AppFonts.getMainFont()),
+                          style: TextStyle()),
                       currentAccountPicture: GestureDetector(
                         child: CircleAvatar(
                           backgroundColor: AppColors.GREY,
@@ -151,13 +154,20 @@ class _MainPageState extends State<MainPage>
       onTap: () {
         switch (text) {
           case "Ana Sayfa":
-            context.read<MainPageVM>().setCurrentSelectedIndex(0);
+            if(context.read<CartPageVM>().productsInCartList.length == 0){
+              context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
+              context.read<MainPageVM>().setCurrentSelectedIndex(0);
+            }else{
+              ///Sepette ürün varsa ana sayfaya geçmeden sıfırlaması gerekiyor.
+              showClearCartDialog();
+            }
             break;
           case "Giriş Yapın":
             context.read<MainPageVM>().setCurrentSelectedIndex(1);
             break;
           case "Çıkış":
             context.read<RegistrationPageVM>().signOut();
+            context.read<CartPageVM>().clearCart();
             Get.off(RegistrationPage());
             break;
           case "Admin":
@@ -166,8 +176,26 @@ class _MainPageState extends State<MainPage>
         Get.back();
       },
       child: ListTile(
-          title: Text(text, style: AppFonts.getMainFont()),
+          title: Text(text, style: TextStyle()),
           leading: Icon(icontype, color: iconColor)),
+    );
+  }
+
+  showClearCartDialog() {
+    showDialog(context: context,
+    barrierDismissible: false,
+    builder: (_)=> CustomAlertDialog(
+      title: "Sipariş Durumu",
+      content: "Mevcut alışverişinizi iptal etmek istediğinize eminmisiniz?",
+      noFunction: (){
+        Get.back();
+      },
+      yesFunction: (){
+        context.read<CartPageVM>().clearCart();
+        context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
+        context.read<MainPageVM>().setCurrentSelectedIndex(0);
+      },
+    )
     );
   }
 }

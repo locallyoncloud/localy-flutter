@@ -20,7 +20,7 @@ class NoCardFound extends StatelessWidget {
       children: [
         Text(
           "Kart Bulunamadı",
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w900,
               color: AppColors.GREY),
@@ -31,7 +31,7 @@ class NoCardFound extends StatelessWidget {
           },
           color: AppColors.GREEN,
           child: Text("Kart Oluştur",
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: AppColors.WHITE)),

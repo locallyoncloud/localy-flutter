@@ -66,7 +66,7 @@ class _AnimatedListItemState extends State<AnimatedListItem> {
                 child: Text(
                   widget.product.name,
                   overflow: TextOverflow.ellipsis,
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       fontSize: 14,
                       color: AppColors.WHITE,
                       fontWeight: FontWeight.w700),
@@ -100,7 +100,7 @@ class _AnimatedListItemState extends State<AnimatedListItem> {
                       ),
                       Text(
                         widget.product.name,
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             color: AppColors.PRIMARY_COLOR,
                             fontWeight: FontWeight.w700),

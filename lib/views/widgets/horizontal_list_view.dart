@@ -31,7 +31,7 @@ class HorizontalList extends StatelessWidget {
                   ),
                   Text(
                     "Coffee",
-                    style: AppFonts.getMainFont(
+                    style: TextStyle(
                       fontSize: 14,
                       color: Color(0xff4E4B4B),
                       fontWeight: FontWeight.w700

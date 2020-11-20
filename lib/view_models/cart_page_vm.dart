@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/models/cart_product.dart';
 
 
 class CartPageVM extends ChangeNotifier{
   List<CartProduct> productsInCartList = [];
   double totalCartPrice= 0;
-  String currentSelectedTable;
+  String currentSelectedTable = "";
+  OrderType currentOrderType = OrderType.home;
 
   setCurrentSelectedTable(String tableNumber){
     currentSelectedTable = tableNumber;
@@ -53,6 +55,11 @@ class CartPageVM extends ChangeNotifier{
   clearCart(){
     productsInCartList.clear();
     totalCartPrice = 0;
+    notifyListeners();
+  }
+
+  setCurrentOrderType(OrderType newOrderType){
+    currentOrderType = newOrderType;
     notifyListeners();
   }
 }

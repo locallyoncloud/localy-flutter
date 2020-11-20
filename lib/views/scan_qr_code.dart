@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/enums/camera_of.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
@@ -36,7 +37,6 @@ class _ScanQRCodeState extends State<ScanQRCode> {
   bool isFlashOpen;
 
 
-
   @override
   void dispose() {
     controller?.dispose();
@@ -52,7 +52,7 @@ class _ScanQRCodeState extends State<ScanQRCode> {
         appBar: UtilityWidgets.CustomAppBar(
           Text(
             "QR Kod Okut",
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w700,
                 color: AppColors.PRIMARY_COLOR),
@@ -153,7 +153,8 @@ class _QRWidgetState extends State<QRWidget> {
   sendUserToMenu(String scanData) async {
     Company scannedCompany = await context.read<HomePageVM>().getCompanyDetails(scanData.split("/")[0]);
     context.read<CartPageVM>().setCurrentSelectedTable(scanData.split("/")[1]);
-    context.read<CompanyDetailsPageVM>().setCurrentCompany(scannedCompany, true);
+    context.read<CartPageVM>().setCurrentOrderType(OrderType.table);
+    context.read<CompanyDetailsPageVM>().setCurrentCompany(scannedCompany);
     context.read<CompanyDetailsPageVM>().setSelectedTab(1);
     Get.off(CompanyDetails());
   }

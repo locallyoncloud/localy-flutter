@@ -48,7 +48,7 @@ class LoyaltyEditButton extends StatelessWidget {
             child: Text(
               text ?? "",
               textAlign: TextAlign.center,
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: AppColors.PRIMARY_COLOR

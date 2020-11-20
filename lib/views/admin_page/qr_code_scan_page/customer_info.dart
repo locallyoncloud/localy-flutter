@@ -64,8 +64,8 @@ class _CustomerInfoState extends State<CustomerInfo> {
                       children: [
                         Text(
                           "Müşteri mail adresi",
-                          style: AppFonts.getMainFont(
-                              textDecoration: TextDecoration.underline,
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
                               color: AppColors.PRIMARY_COLOR),
@@ -75,7 +75,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                               .watch<AdminPanelVM>()
                               .lastReadAdminQrCode
                               .split("/")[0]}",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
                               color: AppColors.PRIMARY_COLOR),
@@ -126,16 +126,16 @@ class _CustomerInfoState extends State<CustomerInfo> {
                             children: [
                               Text(
                                 "Tarih",
-                                style: AppFonts.getMainFont(
-                                    textDecoration: TextDecoration.underline,
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.PRIMARY_COLOR),
                               ),
                               Text(
                                 "Saat",
-                                style: AppFonts.getMainFont(
-                                    textDecoration: TextDecoration.underline,
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.PRIMARY_COLOR),
@@ -160,7 +160,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                                         customerProgress.pushDates.reversed
                                             .toList()[index]
                                             .split(" ")[0],
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w700,
                                             color: AppColors.PRIMARY_COLOR),
@@ -169,7 +169,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                                         customerProgress.pushDates.reversed
                                             .toList()[index]
                                             .split(" ")[1],
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w700,
                                             color: AppColors.PRIMARY_COLOR),
@@ -210,7 +210,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                               color: AppColors.PRIMARY_COLOR,
                               child: Text(
                                 "Onay",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.WHITE
@@ -251,7 +251,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
             decoration: InputDecoration(
               suffixIcon: Text(
                 "₺",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.PRIMARY_COLOR
@@ -298,7 +298,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
         ),
         Text(
           text,
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.PRIMARY_COLOR),

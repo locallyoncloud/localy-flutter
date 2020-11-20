@@ -121,7 +121,7 @@ class BottomNavigation extends StatelessWidget {
     }
       else{
       if(context.read<CartPageVM>().productsInCartList.length>0){
-        context.read<CompanyDetailsPageVM>().setCurrentCompany(context.read<CompanyDetailsPageVM>().currentCompany, true);
+        context.read<CompanyDetailsPageVM>().setCurrentCompany(context.read<CompanyDetailsPageVM>().currentCompany);
         context.read<CompanyDetailsPageVM>().setSelectedTab(1);
         Get.to(CompanyDetails());
       }else{

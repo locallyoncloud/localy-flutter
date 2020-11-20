@@ -53,7 +53,7 @@ class _OrderStatusIndicatorState extends State<OrderStatusIndicator> {
         child: Center(
           child: Text(
               buttonText,
-            style: AppFonts.getMainFont(
+            style: TextStyle(
               fontSize: 14,
               color: AppColors.WHITE,
               fontWeight: FontWeight.w700

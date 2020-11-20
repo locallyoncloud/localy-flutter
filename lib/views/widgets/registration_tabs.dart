@@ -59,11 +59,11 @@ class _RegistrationTabsState extends State<RegistrationTabs> {
                     child: AnimatedDefaultTextStyle(
                       duration: 0.3.seconds,
                       style: !widget.isSignInSelected
-                          ? AppFonts.getMainFont(
+                          ? TextStyle(
                           fontSize: 14,
                           color: widget.activeColor,
                           fontWeight: FontWeight.w800)
-                          : AppFonts.getMainFont(
+                          : TextStyle(
                           fontSize: 14,
                           color: widget.passiveColor,
                           fontWeight: FontWeight.w800),
@@ -91,11 +91,11 @@ class _RegistrationTabsState extends State<RegistrationTabs> {
                     child: AnimatedDefaultTextStyle(
                       duration: 0.3.seconds,
                       style: widget.isSignInSelected
-                          ? AppFonts.getMainFont(
+                          ? TextStyle(
                           fontSize: 14,
                           color: widget.activeColor,
                           fontWeight: FontWeight.w800)
-                          : AppFonts.getMainFont(
+                          : TextStyle(
                           fontSize: 14,
                           color: widget.passiveColor,
                           fontWeight: FontWeight.w800),

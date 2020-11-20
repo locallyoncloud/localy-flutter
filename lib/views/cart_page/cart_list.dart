@@ -20,7 +20,7 @@ class CartList extends StatelessWidget {
         Text(
           "Sepetinizde ${context.watch<CartPageVM>().productsInCartList.length} adet ürün bulunmaktadır.",
           textAlign: TextAlign.center,
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.GREY),
         ),
         SizedBox(
@@ -52,7 +52,7 @@ class CartList extends StatelessWidget {
                   children: [
                     Text(
                       "Toplam Tutar",
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: AppColors.DISABLED_GREY),
@@ -62,7 +62,7 @@ class CartList extends StatelessWidget {
                     ),
                     Text(
                       "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺",
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w900,
                           color: AppColors.GREY),
@@ -84,7 +84,7 @@ class CartList extends StatelessWidget {
                       children: [
                         Text(
                           "Onay",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: AppColors.WHITE),

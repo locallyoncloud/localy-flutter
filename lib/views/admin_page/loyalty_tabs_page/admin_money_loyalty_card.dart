@@ -31,7 +31,7 @@ class AdminMoneyLoyaltyCard extends StatelessWidget {
                   Image.network(loyaltyCard.miniLogo ,width: 53, height: 48,),
                   Text(
                     context.watch<AdminPanelVM>().currentSelectedCompany.category.toUpperCase(),
-                    style: AppFonts.getMainFont(
+                    style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -60,16 +60,16 @@ class AdminMoneyLoyaltyCard extends StatelessWidget {
                             children: [
                               Text(
                                 "Birikmiş Paranız:",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w900,
-                                  textDecoration: TextDecoration.underline,
+                                  decoration: TextDecoration.underline,
                                   color: AppColors.hexToColor(loyaltyCard.iconColor),
                                 ),
                               ),
                               Text(
                                 "50₺",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                   fontSize: 50,
                                   fontWeight: FontWeight.w700,
                                   color: AppColors.hexToColor(loyaltyCard.iconColor),

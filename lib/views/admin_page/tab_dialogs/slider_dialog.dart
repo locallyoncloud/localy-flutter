@@ -55,7 +55,7 @@ class _SliderDialogState extends State<SliderDialog> {
                 color: AppColors.PRIMARY_COLOR,
                 child: Text(
                   "Değiştir",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: AppColors.WHITE
@@ -80,7 +80,7 @@ class _SliderDialogState extends State<SliderDialog> {
     return [
       Text(
         "Arkaplan Resmi Opaklığı: ${opacityValue.toStringAsFixed(2)}",
-        style: AppFonts.getMainFont(
+        style: TextStyle(
             fontWeight: FontWeight.w700,
             color: AppColors.PRIMARY_COLOR,
             fontSize: 14
@@ -113,7 +113,7 @@ class _SliderDialogState extends State<SliderDialog> {
     return [
       Text(
         "Sembol Boyutu: ${iconSize.toStringAsFixed(2)}",
-        style: AppFonts.getMainFont(
+        style: TextStyle(
             fontWeight: FontWeight.w700,
             color: AppColors.PRIMARY_COLOR,
             fontSize: 14
@@ -151,7 +151,7 @@ class _SliderDialogState extends State<SliderDialog> {
     return [
       Text(
         "Kart Hedefi: ${cardTarget.round().toString()}",
-        style: AppFonts.getMainFont(
+        style: TextStyle(
             fontWeight: FontWeight.w700,
             color: AppColors.PRIMARY_COLOR,
             fontSize: 14

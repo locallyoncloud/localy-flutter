@@ -34,7 +34,7 @@ class AdminCollectionLoyaltyCard extends StatelessWidget {
                       children: [
                         Text(
                           context.watch<AdminPanelVM>().currentSelectedCompany.category.toUpperCase(),
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -42,7 +42,7 @@ class AdminCollectionLoyaltyCard extends StatelessWidget {
                         ),
                         Text(
                           "1/${loyaltyCard.target}",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)

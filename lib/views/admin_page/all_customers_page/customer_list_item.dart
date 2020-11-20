@@ -57,7 +57,7 @@ class _CustomerListItemState extends State<CustomerListItem> {
                     child: Text(
                       widget.loyaltyProgress.mail.split("@")[0],
                       overflow: TextOverflow.ellipsis,
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                           color: AppColors.PRIMARY_COLOR),
@@ -72,7 +72,7 @@ class _CustomerListItemState extends State<CustomerListItem> {
                       ),
                       Text(
                         widget.loyaltyProgress.progress.round().toString(),
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: AppColors.PRIMARY_COLOR),
@@ -88,7 +88,7 @@ class _CustomerListItemState extends State<CustomerListItem> {
                       ),
                       Text(
                         widget.loyaltyProgress.gifts.toString(),
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: AppColors.PRIMARY_COLOR),
@@ -112,7 +112,7 @@ class _CustomerListItemState extends State<CustomerListItem> {
                           onTap: () => togglePushDatesVisibility(),
                           child: Text(
                             itemHeight ==100 ? "Göster" : "Gizle",
-                            style: AppFonts.getMainFont(
+                            style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.PRIMARY_COLOR),
@@ -134,7 +134,7 @@ class _CustomerListItemState extends State<CustomerListItem> {
                       return Text(
                         list[index],
                         textAlign: TextAlign.center,
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             color: AppColors.PRIMARY_COLOR,
                             fontWeight: FontWeight.w900),

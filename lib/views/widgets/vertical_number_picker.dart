@@ -60,7 +60,7 @@ class _NumberPickerState extends State<VerticalNumberPicker> {
           ),
           Text(
             counter.toString(),
-            style: AppFonts.getMainFont(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.PRIMARY_COLOR,

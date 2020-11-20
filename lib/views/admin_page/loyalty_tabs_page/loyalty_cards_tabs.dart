@@ -18,6 +18,7 @@ import 'package:locally_flutter_app/views/admin_page/tab_dialogs/background_colo
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/percentage_setting_dialog.dart';
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/select_icon_dialog.dart';
 import 'package:locally_flutter_app/views/admin_page/tab_dialogs/slider_dialog.dart';
+import 'package:locally_flutter_app/views/widgets/custom_alert_dialog.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:supercharged/supercharged.dart';
@@ -94,7 +95,7 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
                               elevation: 15,
                               child: Text(
                                 "Sıfırla",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w900,
                                     color: AppColors.ERROR),
@@ -117,7 +118,7 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
                               elevation: 15,
                               child: Text(
                                 "Onayla",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w900,
                                     color: AppColors.GREEN),
@@ -133,7 +134,7 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
                                   loyaltyCardFromDB.isActive
                                       ? "Kart aktif"
                                       : "Kart aktif değil",
-                                  style: AppFonts.getMainFont(
+                                  style: TextStyle(
                                       fontSize: 18,
                                       color: loyaltyCardFromDB.isActive
                                           ? Color(0xff046A22)
@@ -173,7 +174,7 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
                               elevation: 15,
                               child: Text(
                                 "Düzenle",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: AppColors.PRIMARY_COLOR),
@@ -360,96 +361,24 @@ class LoyaltyCardsTabsState extends State<LoyaltyCardsTabs> {
       }
     });
   }
-
   showSimpleDialog(
-    String title,
-    String content,
-    Function yesFunction,
-    Function noFunction,
-  ) {
+      String title,
+      String content,
+      Function yesFunction,
+      Function noFunction,
+      ) {
     showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => Platform.isIOS
-            ? CupertinoAlertDialog(
-                title: Text(
-                  title,
-                  style: AppFonts.getMainFont(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.PRIMARY_COLOR),
-                ),
-                content: Text(
-                  content,
-                  style: AppFonts.getMainFont(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.PRIMARY_COLOR),
-                ),
-                actions: <Widget>[
-                  CupertinoDialogAction(
-                    onPressed: () {
-                      yesFunction();
-                      Get.back();
-                    },
-                    child: Text("Evet",
-                        style: AppFonts.getMainFont(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.GREY)),
-                  ),
-                  CupertinoDialogAction(
-                    onPressed: () {
-                      noFunction();
-                    },
-                    child: Text("Hayır",
-                        style: AppFonts.getMainFont(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.GREY)),
-                  )
-                ],
-              )
-            : AlertDialog(
-                title: Text(
-                  title,
-                  style: AppFonts.getMainFont(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.PRIMARY_COLOR),
-                ),
-                content: Text(
-                  content,
-                  style: AppFonts.getMainFont(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.PRIMARY_COLOR),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      yesFunction();
-                      Get.back();
-                    },
-                    child: Text("Evet",
-                        style: AppFonts.getMainFont(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.GREY)),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      noFunction();
-                    },
-                    child: Text("Hayır",
-                        style: AppFonts.getMainFont(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.GREY)),
-                  )
-                ],
-              )
-    );
+        builder: (_) => CustomAlertDialog(
+          title: title,
+          content: content,
+          yesFunction: (){
+            yesFunction();
+            Get.back();
+          },
+          noFunction: noFunction,
+        ));
   }
 
   changePercentage(BuildContext context) {

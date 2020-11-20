@@ -21,7 +21,7 @@ class ItemCount extends StatelessWidget {
       child: Center(
         child: Text(
           context.watch<CartPageVM>().productsInCartList.length.toString(),
-          style: AppFonts.getMainFont(
+          style: TextStyle(
             fontSize: size > 15 ? 14 : 10,
             fontWeight: FontWeight.w700,
             color: AppColors.WHITE

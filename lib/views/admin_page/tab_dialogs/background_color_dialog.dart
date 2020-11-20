@@ -36,7 +36,7 @@ class BackgroundColorDialog extends StatelessWidget {
                 color: AppColors.PRIMARY_COLOR,
                 child: Text(
                   "Değiştir",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                     color: AppColors.WHITE

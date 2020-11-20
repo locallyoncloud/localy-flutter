@@ -65,7 +65,7 @@ class _MenuTabState extends State<MenuTab> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               context.watch<HomePageVM>().categoryList[index],
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                   color: filters.contains(context.watch<HomePageVM>().categoryList[index]) ? AppColors.WHITE : AppColors.PRIMARY_COLOR,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w700),

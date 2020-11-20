@@ -58,7 +58,7 @@ class _RegistrationTextfieldState extends State<RegistrationTextfield> {
       focusNode: _textFocusNode,
       keyboardType: TextInputType.emailAddress,
       cursorColor: AppColors.WHITE,
-      style: AppFonts.getMainFont(
+      style: TextStyle(
         color: AppColors.WHITE,
         fontSize: 14,
         fontWeight: FontWeight.w700
@@ -66,7 +66,7 @@ class _RegistrationTextfieldState extends State<RegistrationTextfield> {
       obscureText: hidePassword,
       decoration: InputDecoration(
         labelText: widget.placeholder,
-        labelStyle: AppFonts.getMainFont(
+        labelStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
           color: AppColors.WHITE

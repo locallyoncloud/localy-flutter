@@ -28,7 +28,7 @@ class _PushNotificationsState extends State<PushNotifications> {
           Text(
             "Aktif loyalty kartınıza abone olmuş tüm müşterilerinize bildirim gönderin.",
             textAlign: TextAlign.center,
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 fontSize: 14,
                 color: AppColors.PRIMARY_COLOR,
                 fontWeight: FontWeight.w700),
@@ -56,11 +56,11 @@ class _PushNotificationsState extends State<PushNotifications> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(width: 2,color: AppColors.PRIMARY_COLOR)),
                   labelText: "Bildirim Başlığı",
-                  labelStyle: AppFonts.getMainFont(
+                  labelStyle: TextStyle(
                       fontSize: 14,
                       color: AppColors.PRIMARY_COLOR,
                       fontWeight: FontWeight.w700)),
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   fontSize: 14,
                   color: AppColors.GREY,
                   fontWeight: FontWeight.w700),
@@ -97,11 +97,11 @@ class _PushNotificationsState extends State<PushNotifications> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(width: 2,color: AppColors.PRIMARY_COLOR)),
                   labelText: "Bildirim İçeriği",
-                  labelStyle: AppFonts.getMainFont(
+                  labelStyle: TextStyle(
                       fontSize: 14,
                       color: AppColors.PRIMARY_COLOR,
                       fontWeight: FontWeight.w700)),
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   fontSize: 14,
                   color: AppColors.GREY,
                   fontWeight: FontWeight.w700),
@@ -126,7 +126,7 @@ class _PushNotificationsState extends State<PushNotifications> {
               onPressed: ()=>sendNotifications(context),
               child: Text(
                 "GÖNDER",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                   fontSize: 14,
                   color: AppColors.WHITE,
                   fontWeight: FontWeight.w700

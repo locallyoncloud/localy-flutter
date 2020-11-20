@@ -69,7 +69,7 @@ class SignUpContainer extends StatelessWidget {
                   children: [
                     Text(
                       "Üye Ol",
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
                           color: AppColors.WHITE),

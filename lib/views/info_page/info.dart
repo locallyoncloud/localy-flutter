@@ -27,7 +27,7 @@ class Info extends StatelessWidget {
               children: [
                 Text(
                   "Meet Lab Coffee",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w900,
                     color: AppColors.GREY,
@@ -38,7 +38,7 @@ class Info extends StatelessWidget {
                 ),
                 Text(
                   "Nitelikli kahve dükkanı",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: AppColors.GREY,
@@ -49,11 +49,11 @@ class Info extends StatelessWidget {
                 ),
                 Text(
                   "Adres: ",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w900,
                     color: AppColors.GREY,
-                    textDecoration: TextDecoration.underline
+                    decoration: TextDecoration.underline
                   ),
                 ),
                 SizedBox(
@@ -62,7 +62,7 @@ class Info extends StatelessWidget {
                 Text(
                   "Suadiye Mah, Plaj Yolu Sk. No:18, 34740, 34740 Kadıköy/İstanbul",
                   textAlign: TextAlign.center,
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.GREY,
@@ -73,11 +73,11 @@ class Info extends StatelessWidget {
                 ),
                 Text(
                   "Çalışma saatleri:",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
                       color: AppColors.GREY,
-                      textDecoration: TextDecoration.underline),
+                      decoration: TextDecoration.underline),
                 ),
                 SizedBox(
                   height: 10,
@@ -111,7 +111,7 @@ class Info extends StatelessWidget {
   renderDay(String day) {
     return Text(
       "${day} : 7:30 - 24:00",
-      style: AppFonts.getMainFont(
+      style: TextStyle(
           fontSize: 14, color: AppColors.GREY, fontWeight: FontWeight.w700),
     );
   }

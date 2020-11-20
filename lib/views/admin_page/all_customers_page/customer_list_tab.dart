@@ -42,7 +42,7 @@ class _CustomerListTabState extends State<CustomerListTab> {
               return Center(
                 child: Text(
                   "Müşteri Bulunamadı",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       fontSize: 14,
                       color: AppColors.GREY,
                       fontWeight: FontWeight.w900),

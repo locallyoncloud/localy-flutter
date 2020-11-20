@@ -68,7 +68,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     Text("Localy'e hoşgeldiniz! Devam etmek için lütfen giriş yapın veya üye olun.",
                     textAlign: TextAlign.center,
-                    style: AppFonts.getMainFont(
+                    style: TextStyle(
                       color: AppColors.WHITE,
                       fontSize: 14,
                       fontWeight: FontWeight.w900

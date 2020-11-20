@@ -28,7 +28,7 @@ class NoDataFoundPage extends StatelessWidget {
           ),
           Text(
             title,
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 fontSize: 14,
                 color: AppColors.PRIMARY_COLOR,
                 fontWeight: FontWeight.w700),

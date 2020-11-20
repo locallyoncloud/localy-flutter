@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/rendering.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:locally_flutter_app/models/company.dart';
+import 'package:locally_flutter_app/utilities/colors.dart';
+import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
+import 'package:locally_flutter_app/view_models/home_page_vm.dart';
+import 'package:provider/provider.dart';
 
 class CompanyLogo extends StatelessWidget {
-  final String imagePath;
-  final String bottomText;
   final bool isNetworkImage;
+  final Company company;
   final double width;
-  final TextStyle textStyle;
   final VoidCallback onClick;
 
   CompanyLogo(
-      {this.imagePath,
-      this.bottomText,
-      this.isNetworkImage = true,
-      this.width,
-      this.textStyle,
-      this.onClick});
+      {this.company, this.isNetworkImage = true, this.width, this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +35,14 @@ class CompanyLogo extends StatelessWidget {
         child: Stack(
           children: [
             Positioned.fill(
-                child:
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: FadeInImage.assetNetwork(
-                    placeholder: "assets/gif/loading_placeholder.gif",
-                    image: imagePath,
-                    fit: BoxFit.cover,),
-                )),
+                child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage.assetNetwork(
+                placeholder: "assets/gif/loading_placeholder.gif",
+                image: company.logo,
+                fit: BoxFit.cover,
+              ),
+            )),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -55,12 +55,79 @@ class CompanyLogo extends StatelessWidget {
                         bottomRight: Radius.circular(20))),
                 child: Center(
                   child: Text(
-                    bottomText,
-                    style: textStyle,
+                    company.name,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900, color: AppColors.GREY),
                   ),
                 ),
               ),
-            )
+            ),
+            company.orderType == "home" || company.orderType == "home/table"
+                ? Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      height: 60,
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.motorcycle,
+                            color: AppColors.GREY,
+                            size: 26,
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                  color: context
+                                          .watch<CompanyDetailsPageVM>()
+                                          .isAvailableForService(
+                                              context
+                                                  .watch<HomePageVM>()
+                                                  .currentPosition,
+                                              Position(
+                                                  latitude: double.parse(
+                                                      company.location.lat),
+                                                  longitude: double.parse(
+                                                      company.location.long)),
+                                              company.maxOrderDistance)
+                                      ? AppColors.SUCCESS_GREEN.withOpacity(0.7)
+                                      : AppColors.ERROR.withOpacity(0.7),
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(20))),
+                              child: Center(
+                                child: RichText(
+                                  text: TextSpan(
+                                      text:
+                                          "${company.maxOrderDistance / 1000}",
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppColors.WHITE,
+                                          fontWeight: FontWeight.w900),
+                                      children: [
+                                        TextSpan(
+                                            text: "km",
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: AppColors.WHITE,
+                                                fontWeight: FontWeight.w700))
+                                      ]),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),

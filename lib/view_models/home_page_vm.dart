@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:locally_flutter_app/base_classes/home_base.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
@@ -12,6 +13,7 @@ class HomePageVM extends ChangeNotifier with HomeBase{
   List<Company> companyList = [];
   List<String> categoryList = [];
   String currentFilter="";
+  Position currentPosition;
 
   setCarouselVisibility(bool carouselStatus){
     hideCarousel = carouselStatus;
@@ -21,6 +23,10 @@ class HomePageVM extends ChangeNotifier with HomeBase{
   selectFilter(String filter){
     currentFilter = filter;
     notifyListeners();
+  }
+
+  setCurrentPosition() async{
+    currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
   @override

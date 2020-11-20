@@ -33,7 +33,7 @@ class AdminOldOrders extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                           oldOrderList[index].companyName,
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.SECONDARY_COLOR
@@ -48,7 +48,7 @@ class AdminOldOrders extends StatelessWidget {
                         children: [
                           RichText(text: TextSpan(
                               text: "Ödeme Şekli: ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.SECONDARY_COLOR,
                                   fontWeight: FontWeight.w700
@@ -56,7 +56,7 @@ class AdminOldOrders extends StatelessWidget {
                               children: [
                                 TextSpan(
                                     text: "${oldOrderList[index].paymentType}",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w900
@@ -67,7 +67,7 @@ class AdminOldOrders extends StatelessWidget {
                           ),
                           RichText(text: TextSpan(
                               text: "Tarih/saat: ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.SECONDARY_COLOR,
                                   fontWeight: FontWeight.w700
@@ -75,7 +75,7 @@ class AdminOldOrders extends StatelessWidget {
                               children: [
                                 TextSpan(
                                     text: "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute}:${date.second}",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w900
@@ -102,7 +102,7 @@ class AdminOldOrders extends StatelessWidget {
                                     flex: 59,
                                     child: Text(
                                       "${oldOrderList[index].cartProduct[productIndex].product.name}(${oldOrderList[index].cartProduct[productIndex].productSize})",
-                                      style: AppFonts.getMainFont(
+                                      style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.GREY,
                                           fontWeight: FontWeight.w700
@@ -113,7 +113,7 @@ class AdminOldOrders extends StatelessWidget {
                                       flex: 15,
                                       child: Text(
                                         "${oldOrderList[index].cartProduct[productIndex].count.toString()} adt",
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.DISABLED_GREY,
                                             fontWeight: FontWeight.w700
@@ -124,7 +124,7 @@ class AdminOldOrders extends StatelessWidget {
                                       flex: 26,
                                       child: Text(
                                         "${oldOrderList[index].cartProduct[productIndex].price.toStringAsFixed(2)}₺",
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.DISABLED_GREY,
                                             fontWeight: FontWeight.w700
@@ -140,7 +140,7 @@ class AdminOldOrders extends StatelessWidget {
                       ),
                       RichText(text: TextSpan(
                           text: "Adres: ",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 14,
                               color: AppColors.SECONDARY_COLOR,
                               fontWeight: FontWeight.w700
@@ -148,7 +148,7 @@ class AdminOldOrders extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text: "${oldOrderList[index].address}",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.GREY,
                                     fontWeight: FontWeight.w900
@@ -159,7 +159,7 @@ class AdminOldOrders extends StatelessWidget {
                       ),
                       RichText(text: TextSpan(
                           text: "Müşteri Mail Adresi: ",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 14,
                               color: AppColors.SECONDARY_COLOR,
                               fontWeight: FontWeight.w700
@@ -167,7 +167,7 @@ class AdminOldOrders extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text: "${oldOrderList[index].userMail}",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.GREY,
                                     fontWeight: FontWeight.w900
@@ -184,14 +184,14 @@ class AdminOldOrders extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                               text: "Toplam  ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.DISABLED_GREY,
                               ),
                               children: [
                                 TextSpan(
                                     text: "${oldOrderList[index].totalPrice.toStringAsFixed(2)}₺",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w700

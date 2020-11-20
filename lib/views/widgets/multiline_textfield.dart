@@ -34,14 +34,14 @@ class _MultilineTextFieldState extends State<MultilineTextField> {
       controller: _controller,
       minLines: 4,
       maxLines: 4,
-      style: AppFonts.getMainFont(
+      style: TextStyle(
         fontSize: 14,
         color: AppColors.GREY,
         fontWeight: FontWeight.w700
       ),
       decoration: InputDecoration(
         labelText: widget.label,
-        labelStyle: AppFonts.getMainFont(
+        labelStyle: TextStyle(
           fontWeight: FontWeight.w700,
           fontSize: 12,
           color: AppColors.DISABLED_GREY

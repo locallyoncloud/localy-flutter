@@ -36,7 +36,7 @@ class AdminActiveOrders extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                           activeOrderList[index].companyName,
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.SECONDARY_COLOR
@@ -51,7 +51,7 @@ class AdminActiveOrders extends StatelessWidget {
                         children: [
                           RichText(text: TextSpan(
                               text: "Ödeme Şekli: ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.SECONDARY_COLOR,
                                   fontWeight: FontWeight.w700
@@ -59,7 +59,7 @@ class AdminActiveOrders extends StatelessWidget {
                               children: [
                                 TextSpan(
                                     text: "${activeOrderList[index].paymentType}",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w900
@@ -70,7 +70,7 @@ class AdminActiveOrders extends StatelessWidget {
                           ),
                           RichText(text: TextSpan(
                               text: "Tarih/saat: ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.SECONDARY_COLOR,
                                   fontWeight: FontWeight.w700
@@ -78,7 +78,7 @@ class AdminActiveOrders extends StatelessWidget {
                               children: [
                                 TextSpan(
                                     text: "${date.day}/${date.month}/${date.year}  ${date.hour}:${date.minute}:${date.second}",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w900
@@ -105,7 +105,7 @@ class AdminActiveOrders extends StatelessWidget {
                                     flex: 59,
                                     child: Text(
                                       "${activeOrderList[index].cartProduct[productIndex].product.name}(${activeOrderList[index].cartProduct[productIndex].productSize})",
-                                      style: AppFonts.getMainFont(
+                                      style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.GREY,
                                           fontWeight: FontWeight.w700
@@ -116,7 +116,7 @@ class AdminActiveOrders extends StatelessWidget {
                                       flex: 15,
                                       child: Text(
                                         "${activeOrderList[index].cartProduct[productIndex].count.toString()} adt",
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.DISABLED_GREY,
                                             fontWeight: FontWeight.w700
@@ -127,7 +127,7 @@ class AdminActiveOrders extends StatelessWidget {
                                       flex: 26,
                                       child: Text(
                                         "${activeOrderList[index].cartProduct[productIndex].price.toStringAsFixed(2)}₺",
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.DISABLED_GREY,
                                             fontWeight: FontWeight.w700
@@ -143,7 +143,7 @@ class AdminActiveOrders extends StatelessWidget {
                       ),
                       RichText(text: TextSpan(
                           text: "Adres: ",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 14,
                               color: AppColors.SECONDARY_COLOR,
                               fontWeight: FontWeight.w700
@@ -151,7 +151,7 @@ class AdminActiveOrders extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text: "${activeOrderList[index].address}",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.GREY,
                                     fontWeight: FontWeight.w900
@@ -162,7 +162,7 @@ class AdminActiveOrders extends StatelessWidget {
                       ),
                       RichText(text: TextSpan(
                           text: "Müşteri Mail Adresi: ",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 14,
                               color: AppColors.SECONDARY_COLOR,
                               fontWeight: FontWeight.w700
@@ -170,7 +170,7 @@ class AdminActiveOrders extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text: "${activeOrderList[index].userMail}",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.GREY,
                                     fontWeight: FontWeight.w900
@@ -181,7 +181,7 @@ class AdminActiveOrders extends StatelessWidget {
                       ),
                       RichText(text: TextSpan(
                           text: "Sipariş Notu: ",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 14,
                               color: AppColors.SECONDARY_COLOR,
                               fontWeight: FontWeight.w700
@@ -189,7 +189,7 @@ class AdminActiveOrders extends StatelessWidget {
                           children: [
                             TextSpan(
                                 text: "${activeOrderList[index].extraNote}",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.GREY,
                                     fontWeight: FontWeight.w900
@@ -206,14 +206,14 @@ class AdminActiveOrders extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                               text: "Toplam  ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.DISABLED_GREY,
                               ),
                               children: [
                                 TextSpan(
                                     text: "${activeOrderList[index].totalPrice.toStringAsFixed(2)}₺",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w700

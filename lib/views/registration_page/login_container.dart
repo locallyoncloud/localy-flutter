@@ -51,7 +51,7 @@ class LoginContainer extends StatelessWidget {
               onTap: ()=>resetPassword(context),
               child: Text(
                 "Şifremi Unuttum",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: AppColors.WHITE
@@ -77,7 +77,7 @@ class LoginContainer extends StatelessWidget {
                   children: [
                     Text(
                       "Giriş",
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
                           color: AppColors.WHITE),
