@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
+import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/company_logo.dart';
@@ -51,15 +53,13 @@ class _CompaniesState extends State<Companies> {
           return GridView.builder(
               itemCount: snapshot.data.length,
               controller: _controller,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, crossAxisSpacing: 10, mainAxisSpacing: 10), itemBuilder: (BuildContext context, int index) {
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 50.wb, crossAxisSpacing: 10, mainAxisSpacing: 10), itemBuilder: (BuildContext context, int index) {
             return Hero(
               tag: "${index}",
               child: Material(
                 child: CompanyLogo(
                   isNetworkImage: true,
-                  bottomText: snapshot.data[index].name,
-                  imagePath: snapshot.data[index].logo,
-                  textStyle: AppFonts.getMainFont(fontWeight: FontWeight.w900, color: AppColors.GREY),
+                  company: snapshot.data[index],
                   onClick: () => goCompanyDetails(
                     snapshot.data[index],
                     index
@@ -74,7 +74,8 @@ class _CompaniesState extends State<Companies> {
   }
   goCompanyDetails(Company company, int index){
     context.read<CompanyDetailsPageVM>().setSelectedTab(0);
-    context.read<CompanyDetailsPageVM>().setCurrentCompany(company, false);
+    context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
+    context.read<CompanyDetailsPageVM>().setCurrentCompany(company);
     Get.to(CompanyDetails(index: index,));
   }
 }

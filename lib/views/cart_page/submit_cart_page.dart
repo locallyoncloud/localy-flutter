@@ -32,7 +32,7 @@ class SubmitCartPage extends StatelessWidget {
         appBar: UtilityWidgets.CustomAppBar(
             Text(
               "Masa-${context.watch<CartPageVM>().currentSelectedTable} Sipariş",
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   color: AppColors.PRIMARY_COLOR,
                   fontSize: 17,
                   fontWeight: FontWeight.w700),
@@ -55,7 +55,7 @@ class SubmitCartPage extends StatelessWidget {
                       "Sipariş Toplamı",
                       Text(
                         "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺",
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w900,
                             color: AppColors.GREY),
@@ -105,7 +105,7 @@ class SubmitCartPage extends StatelessWidget {
                               child: Center(
                                 child: Text(
                                   "SİPARİŞİ GÖNDER",
-                                  style: AppFonts.getMainFont(
+                                  style: TextStyle(
                                     fontSize: 16,
                                     color: AppColors.WHITE,
                                     fontWeight: FontWeight.w700,
@@ -147,7 +147,7 @@ class SubmitCartPage extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppFonts.getMainFont(
+                    style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: AppColors.GREY),

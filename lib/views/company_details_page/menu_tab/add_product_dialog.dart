@@ -53,7 +53,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
             Text(
               "Sepetinize kaç adet ürün eklemek istiyorsunuz?",
               textAlign: TextAlign.center,
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: AppColors.PRIMARY_COLOR
@@ -77,7 +77,7 @@ class _AddProductDialogState extends State<AddProductDialog> {
                 onPressed: () => addProductToCart(),
                 child: Text(
                   "Ürün Ekle",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       fontSize: 14,
                       color: AppColors.WHITE,
                       fontWeight: FontWeight.w900
@@ -96,15 +96,15 @@ class _AddProductDialogState extends State<AddProductDialog> {
       children: [
         Text(
           title,
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
-              textDecoration: TextDecoration.underline,
+              decoration: TextDecoration.underline,
               color: AppColors.PRIMARY_COLOR),
         ),
         Text(
           text,
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: AppColors.PRIMARY_COLOR),

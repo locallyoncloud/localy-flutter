@@ -27,7 +27,7 @@ class LoyaltyScan extends StatelessWidget {
         backgroundColor: AppColors.BG_WHITE,
         appBar: UtilityWidgets.CustomAppBar(Text(
           "Loyalty Okut",
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w700,
               color: AppColors.WHITE),
@@ -68,7 +68,7 @@ class LoyaltyScan extends StatelessWidget {
                       child: Text(
                         "QR kod okut",
                         textAlign: TextAlign.end,
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             color: AppColors.WHITE,
                             fontWeight: FontWeight.w700),

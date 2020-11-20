@@ -21,7 +21,7 @@ class CustomSnackbar  {
       content: Text(
         text,
         textAlign: TextAlign.start,
-        style: AppFonts.getMainFont(
+        style: TextStyle(
           color: AppColors.WHITE,
           fontWeight: FontWeight.w700,
           fontSize: 14
@@ -53,7 +53,7 @@ class CustomSnackbar  {
           child: Text(
             "Deneme Snackbarı",
             textAlign: TextAlign.start,
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 color: AppColors.WHITE,
                 fontWeight: FontWeight.w700,
                 fontSize: 14

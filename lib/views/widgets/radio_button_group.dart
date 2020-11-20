@@ -30,7 +30,7 @@ class _RadioButtonGroupState extends State<RadioButtonGroup> {
                       activeColor: AppColors.PRIMARY_COLOR,
                       title: Text(
                         e,
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             color: AppColors.GREY,
                             fontWeight: FontWeight.w700),

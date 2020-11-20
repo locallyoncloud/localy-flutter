@@ -15,13 +15,13 @@ class PriceText extends StatelessWidget {
       duration: 300.milliseconds,
       child: Text("${price.toString()}₺"),
       style: selected ?
-          AppFonts.getMainFont(
+          TextStyle(
             fontSize: 14,
             color: AppColors.PRIMARY_COLOR,
             fontWeight: FontWeight.w700
           )
           :
-      AppFonts.getMainFont(
+      TextStyle(
           fontSize: 12,
           color: AppColors.DISABLED_GREY,
           fontWeight: FontWeight.w700

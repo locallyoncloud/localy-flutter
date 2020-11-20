@@ -166,7 +166,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
                              children: [
                                Text(
                                  context.watch<CompanyDetailsPageVM>().currentCompany.name,
-                                 style: AppFonts.getMainFont(
+                                 style: TextStyle(
                                      color: AppColors.WHITE,
                                      fontSize: 18,
                                      fontWeight: FontWeight.w700),
@@ -232,7 +232,7 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
           ),
           Text(
             "Hediye için ${widget.loyaltyCard.target - widget.loyaltyProgress.progress.round()} adet kaldı!",
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 color: AppColors.WHITE,
                 fontSize: 12,
                 fontWeight: FontWeight.w600),
@@ -241,14 +241,14 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
       case 1:
         return [
           RichText(text: TextSpan(
-              text: "${widget.loyaltyProgress.progress.toString()}₺" ,style: AppFonts.getMainFont(
+              text: "${widget.loyaltyProgress.progress.toString()}₺" ,style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w900,
               color: Colors.green
           ),
               children: [
                 TextSpan(
-                  text: " birikmiş paranız var!",style: AppFonts.getMainFont(
+                  text: " birikmiş paranız var!",style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     color: AppColors.WHITE
@@ -260,14 +260,14 @@ class _GradientExpandingButtonState extends State<GradientExpandingButton>
       case 2:
         return [
           RichText(text: TextSpan(
-              text: "Birikmiş puanınız:  " ,style: AppFonts.getMainFont(
+              text: "Birikmiş puanınız:  " ,style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: AppColors.WHITE
           ),
               children: [
                 TextSpan(
-                  text: "${widget.loyaltyProgress.progress.toString()}",style: AppFonts.getMainFont(
+                  text: "${widget.loyaltyProgress.progress.toString()}",style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w900,
                     color: AppColors.POINT_COLOR

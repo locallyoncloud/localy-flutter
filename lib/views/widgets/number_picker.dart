@@ -66,7 +66,7 @@ class _NumberPickerState extends State<NumberPicker> {
             child: Center(
               child: Text(
                 counter.toString(),
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     color: AppColors.PRIMARY_COLOR,
                     fontSize: 15,
                     fontWeight: FontWeight.w700),

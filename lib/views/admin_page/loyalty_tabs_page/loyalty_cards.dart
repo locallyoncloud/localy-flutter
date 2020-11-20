@@ -26,7 +26,7 @@ class _LoyaltyCardsState extends State<LoyaltyCards> {
             appBar: UtilityWidgets.CustomAppBar(
               Text(
                 "Tüm Loyalty Kartlarım",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     color: AppColors.PRIMARY_COLOR,
                     fontSize: 17,
                     fontWeight: FontWeight.w700),

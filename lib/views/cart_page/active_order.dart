@@ -30,7 +30,7 @@ class ActiveOrder extends StatelessWidget {
                     children: [
                       Text(
                         activeOrderList[index].companyName,
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
                             color: AppColors.SECONDARY_COLOR
@@ -58,7 +58,7 @@ class ActiveOrder extends StatelessWidget {
                                     flex: 59,
                                     child: Text(
                                       activeOrderList[index].cartProduct[productIndex].product.name,
-                                      style: AppFonts.getMainFont(
+                                      style: TextStyle(
                                           fontSize: 14,
                                           color: AppColors.GREY,
                                           fontWeight: FontWeight.w700
@@ -69,7 +69,7 @@ class ActiveOrder extends StatelessWidget {
                                       flex: 15,
                                       child: Text(
                                         "${activeOrderList[index].cartProduct[productIndex].count.toString()} adt",
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.DISABLED_GREY,
                                             fontWeight: FontWeight.w700
@@ -80,7 +80,7 @@ class ActiveOrder extends StatelessWidget {
                                       flex: 26,
                                       child: Text(
                                         "${activeOrderList[index].cartProduct[productIndex].price.toStringAsFixed(2)}₺",
-                                        style: AppFonts.getMainFont(
+                                        style: TextStyle(
                                             fontSize: 14,
                                             color: AppColors.DISABLED_GREY,
                                             fontWeight: FontWeight.w700
@@ -102,14 +102,14 @@ class ActiveOrder extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(
                               text: "Toplam  ",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                 fontSize: 12,
                                 color: AppColors.DISABLED_GREY,
                               ),
                               children: [
                                 TextSpan(
                                     text: "${activeOrderList[index].totalPrice.toStringAsFixed(2)}₺",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 16,
                                         color: AppColors.GREY,
                                         fontWeight: FontWeight.w700
@@ -162,7 +162,7 @@ class ActiveOrder extends StatelessWidget {
       ),
       Text(
         text,
-        style: AppFonts.getMainFont(
+        style: TextStyle(
           fontSize: 12,
           color: AppColors.DISABLED_GREY,
           fontWeight: FontWeight.w700,

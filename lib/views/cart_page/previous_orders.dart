@@ -34,7 +34,7 @@ class PreviousOrders extends StatelessWidget {
                 children: [
                   Text(
                     orderList[index].companyName,
-                    style: AppFonts.getMainFont(
+                    style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: AppColors.SECONDARY_COLOR
@@ -51,7 +51,7 @@ class PreviousOrders extends StatelessWidget {
                       ),
                       Text(
                         "Teslim Edildi",
-                        style: AppFonts.getMainFont(
+                        style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w700,
                             color: AppColors.DISABLED_GREY
@@ -75,7 +75,7 @@ class PreviousOrders extends StatelessWidget {
                                 flex: 59,
                                 child: Text(
                                   orderList[index].cartProduct[productIndex].product.name,
-                                  style: AppFonts.getMainFont(
+                                  style: TextStyle(
                                       fontSize: 14,
                                       color: AppColors.GREY,
                                       fontWeight: FontWeight.w700
@@ -86,7 +86,7 @@ class PreviousOrders extends StatelessWidget {
                                   flex: 15,
                                   child: Text(
                                     "${orderList[index].cartProduct[productIndex].count.toString()} adt",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.DISABLED_GREY,
                                         fontWeight: FontWeight.w700
@@ -97,7 +97,7 @@ class PreviousOrders extends StatelessWidget {
                                   flex: 26,
                                   child: Text(
                                     "${orderList[index].cartProduct[productIndex].price.toStringAsFixed(2)}₺",
-                                    style: AppFonts.getMainFont(
+                                    style: TextStyle(
                                         fontSize: 14,
                                         color: AppColors.DISABLED_GREY,
                                         fontWeight: FontWeight.w700
@@ -119,14 +119,14 @@ class PreviousOrders extends StatelessWidget {
                     child: RichText(
                       text: TextSpan(
                           text: "Toplam  ",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                             fontSize: 12,
                             color: AppColors.DISABLED_GREY,
                           ),
                           children: [
                             TextSpan(
                                 text: "${orderList[index].totalPrice.toStringAsFixed(2)}₺",
-                                style: AppFonts.getMainFont(
+                                style: TextStyle(
                                     fontSize: 14,
                                     color: AppColors.GREY,
                                     fontWeight: FontWeight.w700

@@ -54,7 +54,7 @@ class _InCartButtonState extends State<InCartButton> {
       waitDuration: 1.seconds,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10), color: Color(0xff0c3d17)),
-      textStyle: AppFonts.getMainFont(
+      textStyle: TextStyle(
           fontSize: 14, color: AppColors.WHITE, fontWeight: FontWeight.w600,),
       child: InkWell(
         onTap: () {

@@ -26,13 +26,13 @@ class Home extends StatelessWidget {
           Padding(
               padding: EdgeInsets.all(8.0),
               child: Text("Kategoriler",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       color: AppColors.GREY, fontWeight: FontWeight.bold))),
           HorizontalList(),
           Padding(
               padding: EdgeInsets.all(4.0),
               child: Text("Yakın Zamanda Eklenen Firmalar",
-                  style: AppFonts.getMainFont(
+                  style: TextStyle(
                       color: AppColors.GREY, fontWeight: FontWeight.bold))),
           Expanded(child: Companies())
         ],

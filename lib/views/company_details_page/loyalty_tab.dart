@@ -46,7 +46,7 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
           Text(
             context.watch<CompanyDetailsPageVM>().currentCompany.name,
             textAlign: TextAlign.center,
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: AppColors.GREY),
@@ -54,7 +54,7 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
           Text(
             context.watch<CompanyDetailsPageVM>().currentCompany.slogan,
             textAlign: TextAlign.center,
-            style: AppFonts.getMainFont(
+            style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
                 fontStyle: FontStyle.italic,
@@ -81,7 +81,7 @@ class _LoyaltyTabState extends State<LoyaltyTab> {
         child: Center(
           child: Text(
             "Loyalty Kart Bulunamadı",
-            style: AppFonts.getMainFont(
+            style: TextStyle(
               fontSize: 14,
               color: AppColors.WHITE,
               fontWeight: FontWeight.w700

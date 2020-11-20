@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:locally_flutter_app/service_locator.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
@@ -82,6 +83,9 @@ class AppStartingPoint extends StatelessWidget {
         //locale: DevicePreview.of(context).locale, // <--- /!\ Add the locale
         //builder: DevicePreview.appBuilder, // <--- /!\ Add the builder
         title: 'Localy',
+        theme: ThemeData(
+          textTheme: GoogleFonts.nunitoSansTextTheme()
+        ),
         debugShowCheckedModeBanner: false,
         home: SplashScreen.navigate(
           backgroundColor: Colors.white,

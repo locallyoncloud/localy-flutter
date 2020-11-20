@@ -53,7 +53,7 @@ class CartMain extends StatelessWidget {
                             offset: Offset(2.wb, -8.hb),
                             child: Text(
                               "Sepette şu an ürün bulunmamaktadır.",
-                              style: AppFonts.getMainFont(
+                              style: TextStyle(
                                   fontSize: 14,
                                   color: AppColors.PRIMARY_COLOR,
                                   fontWeight: FontWeight.w700),

@@ -38,7 +38,7 @@ class AdminPointLoyaltyCard extends StatelessWidget {
                         .currentSelectedCompany
                         .category
                         .toUpperCase(),
-                    style: AppFonts.getMainFont(
+                    style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
                         color: AppColors.hexToColor(loyaltyCard.textColor)),
@@ -74,7 +74,7 @@ class AdminPointLoyaltyCard extends StatelessWidget {
                         ),
                         Text(
                           "50",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w900,
                             color: AppColors.hexToColor(loyaltyCard.textColor)

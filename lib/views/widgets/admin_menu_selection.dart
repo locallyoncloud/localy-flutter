@@ -45,7 +45,7 @@ class AdminMenuSelection extends StatelessWidget {
           children: !isReverse
               ? [
                   Text(text,
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
                           color: AppColors.ADMIN_GREY)),
@@ -54,7 +54,7 @@ class AdminMenuSelection extends StatelessWidget {
               : [
                   Icon(iconData, color: AppColors.ADMIN_GREY, size: 50),
                   Text(text,
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w900,
                           color: AppColors.ADMIN_GREY)),

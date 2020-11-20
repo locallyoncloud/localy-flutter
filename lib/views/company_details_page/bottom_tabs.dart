@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
+import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/in_cart_button.dart';
 import 'package:provider/provider.dart';
 
@@ -65,7 +69,16 @@ class _BottomTabsState extends State<BottomTabs> {
             ],
           ),
         ),
-        context.watch<CompanyDetailsPageVM>().selectedTab == 1 && context.watch<CompanyDetailsPageVM>().isCartModeOn
+        context.watch<CompanyDetailsPageVM>().selectedTab == 1 && ((context
+            .watch<CompanyDetailsPageVM>().isAvailableForService(context
+                .watch<HomePageVM>()
+                .currentPosition,
+            Position(
+                latitude: double.parse(
+                    context.watch<CompanyDetailsPageVM>().currentCompany.location.lat),
+                longitude: double.parse(
+                    context.watch<CompanyDetailsPageVM>().currentCompany.location.long)),
+            context.watch<CompanyDetailsPageVM>().currentCompany.maxOrderDistance)&& context.watch<CartPageVM>().currentOrderType == OrderType.home) || context.watch<CartPageVM>().currentOrderType == OrderType.table)
             ? Positioned(
                 top: -20,
                 child: InCartButton(),
@@ -105,7 +118,7 @@ class BottomTabButton extends StatelessWidget {
                 size: 25,
                 color: _isSelected ? AppColors.PRIMARY_COLOR : AppColors.GREY),
             Text(iconText,
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     color: _isSelected ? AppColors.PRIMARY_COLOR : AppColors.GREY,
                     fontSize: 14,
                     fontWeight: FontWeight.w700))

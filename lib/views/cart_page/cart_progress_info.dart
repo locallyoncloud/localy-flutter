@@ -19,7 +19,7 @@ class CartProgressInfo extends StatelessWidget {
       child: Center(
         child: Text(
           "Bu firmanın loyalty sistemi bulunmamaktadır.",
-          style: AppFonts.getMainFont(
+          style: TextStyle(
             fontSize: 14,
             color: AppColors.ERROR,
             fontWeight: FontWeight.w700
@@ -51,10 +51,10 @@ class ShowCardText extends StatelessWidget {
       },
       child: Text(
         "Loyalty kartınızı görmek için tıklayın",
-        style: AppFonts.getMainFont(
+        style: TextStyle(
             fontSize: 14,
             color: AppColors.GREY,
-            textDecoration: TextDecoration.underline,
+            decoration: TextDecoration.underline,
             fontWeight: FontWeight.w700
         ),
       ),

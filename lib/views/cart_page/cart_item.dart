@@ -53,7 +53,7 @@ class CartItem extends StatelessWidget {
                   children: [
                     Text(
                       cartProduct.product.name,
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: AppColors.PRIMARY_COLOR,
@@ -61,7 +61,7 @@ class CartItem extends StatelessWidget {
                     ),
                     Text(
                       cartProduct.productSize.toUpperCase(),
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: AppColors.PRIMARY_COLOR,
@@ -69,7 +69,7 @@ class CartItem extends StatelessWidget {
                     ),
                     Text(
                       "${cartProduct.price} x ${cartProduct.count} = ${cartProduct.price * cartProduct.count}₺",
-                      style: AppFonts.getMainFont(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
                         color: AppColors.PRIMARY_COLOR,

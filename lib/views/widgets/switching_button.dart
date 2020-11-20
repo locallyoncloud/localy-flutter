@@ -70,7 +70,7 @@ class _ChangingButtonState extends State<ChangingButton> {
                 maxLength: 2,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(counterText: "",contentPadding: EdgeInsets.only(bottom: 8)),
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     fontSize: 14,
                     color: Colors.teal,
                     fontWeight: FontWeight.w700
@@ -120,7 +120,7 @@ class _ChangingButtonState extends State<ChangingButton> {
             child: Center(
               child: Text(
                 widget.cardType == 0 ? "Hediye ver" : widget.cardType == 1 ? "TL ver" : "Puan ver",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Colors.white),

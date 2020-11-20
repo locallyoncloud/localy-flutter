@@ -28,7 +28,7 @@ class _EditProfileState extends State<EditProfile> {
         backgroundColor: AppColors.BG_WHITE,
         appBar: UtilityWidgets.CustomAppBar(
             Text("Profil Düzenleme",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     color: AppColors.PRIMARY_COLOR,
                     fontSize: 18,
                     fontWeight: FontWeight.w700)),
@@ -103,7 +103,7 @@ class _EditProfileState extends State<EditProfile> {
                       padding: EdgeInsets.symmetric(horizontal: 50),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       elevation: 2,
-                    child: Text("Kaydet", style: AppFonts.getMainFont(fontSize: 14, letterSpacing: 2.2, color: AppColors.WHITE)),
+                    child: Text("Kaydet", style: TextStyle(fontSize: 14, letterSpacing: 2.2, color: AppColors.WHITE)),
                     )
                   ],
                 )
@@ -136,7 +136,7 @@ class _EditProfileState extends State<EditProfile> {
             labelText: labelText,
             floatingLabelBehavior: FloatingLabelBehavior.always,
             hintText: placeholder,
-            hintStyle: AppFonts.getMainFont(
+            hintStyle: TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
       ),
     );

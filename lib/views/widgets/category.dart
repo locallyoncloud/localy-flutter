@@ -42,7 +42,7 @@ class Category extends StatelessWidget {
               ),
             ),
             SizedBox(height: 4),
-            Text(iconCaption, style: AppFonts.getMainFont(color: AppColors.GREY))
+            Text(iconCaption, style: TextStyle(color: AppColors.GREY))
           ],
         ),
       ),

@@ -32,9 +32,9 @@ class ProfileScreen extends StatelessWidget {
                             ]),
                       ),
                       SizedBox(height: 20),
-                      Text(context.watch<RegistrationPageVM>().currentUser.name != null ? context.watch<RegistrationPageVM>().currentUser.name: "", style: AppFonts.getMainFont()),
+                      Text(context.watch<RegistrationPageVM>().currentUser.name != null ? context.watch<RegistrationPageVM>().currentUser.name: "", style: TextStyle()),
                       SizedBox(height: 5),
-                      Text(context.watch<RegistrationPageVM>().currentUser.email != null ? context.watch<RegistrationPageVM>().currentUser.email : "", style: AppFonts.getMainFont()),
+                      Text(context.watch<RegistrationPageVM>().currentUser.email != null ? context.watch<RegistrationPageVM>().currentUser.email : "", style: TextStyle()),
                       SizedBox(height: 20),
                     ]
                 ),
@@ -95,7 +95,7 @@ class ProfileListItem extends StatelessWidget {
             size: 25,
           ),
           SizedBox(width: 25),
-          Text(this.text, style: AppFonts.getMainFont(fontWeight: FontWeight.w500)),
+          Text(this.text, style: TextStyle(fontWeight: FontWeight.w500)),
           Spacer(),
           if(this.hasNavigation)
           Icon(

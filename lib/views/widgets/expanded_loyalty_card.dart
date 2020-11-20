@@ -44,7 +44,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                       children: [
                          Text(
                           context.watch<CompanyDetailsPageVM>().currentCompany.category.toUpperCase(),
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: loyaltyCard.type == 0 ? 10 : 14 ,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -52,7 +52,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                         ) ,
                         loyaltyCard.type == 0 ? Text(
                           "${context.watch<CompanyDetailsPageVM>().currentProgress.progress.round()}/${loyaltyCard.target}",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -95,7 +95,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                       children: [
                         Text(
                           context.watch<RegistrationPageVM>().currentUser.name !=null ? "AD SOYAD" : "E-MAIL",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -103,7 +103,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                         ),
                         Text(
                           context.watch<RegistrationPageVM>().currentUser.name ?? context.watch<RegistrationPageVM>().currentUser.email,
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -120,7 +120,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                         children: [
                           Text(
                             "HEDİYE",
-                            style: AppFonts.getMainFont(
+                            style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -128,7 +128,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
                           ),
                           Text(
                             context.watch<CompanyDetailsPageVM>().currentProgress.gifts.toString(),
-                            style: AppFonts.getMainFont(
+                            style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.hexToColor(loyaltyCard.textColor)
@@ -182,16 +182,16 @@ class ExpandedLoyaltyCard extends StatelessWidget {
           children: [
             Text(
               "Birikmiş Paranız:",
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w900,
-                textDecoration: TextDecoration.underline,
+                decoration: TextDecoration.underline,
                 color: AppColors.hexToColor(loyaltyCard.iconColor),
               ),
             ),
             Text(
               "${context.watch<CompanyDetailsPageVM>().currentProgress.progress}₺",
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.w700,
                 color: AppColors.hexToColor(loyaltyCard.iconColor),
@@ -212,7 +212,7 @@ class ExpandedLoyaltyCard extends StatelessWidget {
             ),
             Text(
               context.watch<CompanyDetailsPageVM>().currentProgress.progress.toString(),
-              style: AppFonts.getMainFont(
+              style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w900,
                   color: AppColors.hexToColor(loyaltyCard.textColor)

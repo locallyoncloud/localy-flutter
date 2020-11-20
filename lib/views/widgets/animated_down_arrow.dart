@@ -53,7 +53,7 @@ class _AnimatedDownArrowState extends State<AnimatedDownArrow>
       children: [
         Text(
           !widget.isExpanded ? widget.closedText : widget.openedText,
-          style: AppFonts.getMainFont(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w700,
             color: widget.iconColor

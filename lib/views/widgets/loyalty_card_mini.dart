@@ -87,7 +87,7 @@ class MiniLoyaltyCard extends StatelessWidget {
                       children: [
                         Text(
                           "Meet Lab Coffee",
-                          style: AppFonts.getMainFont(
+                          style: TextStyle(
                               color: AppColors.WHITE,
                               fontSize: 18,
                               fontWeight: FontWeight.w700),
@@ -147,7 +147,7 @@ class MiniLoyaltyCard extends StatelessWidget {
         ),
         Text(
           "Hediye için 3 adet kaldı!",
-          style: AppFonts.getMainFont(
+          style: TextStyle(
               color: AppColors.WHITE,
               fontSize: 12,
               fontWeight: FontWeight.w600),
@@ -156,14 +156,14 @@ class MiniLoyaltyCard extends StatelessWidget {
     case 1:
       return [
         RichText(text: TextSpan(
-          text: "36₺",style: AppFonts.getMainFont(
+          text: "36₺",style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w900,
             color: Colors.green
         ),
           children: [
             TextSpan(
-              text: " birikmiş paranız var!",style: AppFonts.getMainFont(
+              text: " birikmiş paranız var!",style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: AppColors.WHITE
@@ -174,7 +174,7 @@ class MiniLoyaltyCard extends StatelessWidget {
 /*
         Text(
           "36₺ birikmiş paranız var!",
-          style: AppFonts.getMainFont(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
             color: AppColors.WHITE

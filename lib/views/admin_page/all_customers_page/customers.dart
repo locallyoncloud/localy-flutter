@@ -15,7 +15,7 @@ class Customers extends StatelessWidget {
             appBar: UtilityWidgets.CustomAppBar(
               Text(
                 "Tüm Müşteriler",
-                style: AppFonts.getMainFont(
+                style: TextStyle(
                     color: AppColors.PRIMARY_COLOR,
                     fontSize: 17,
                     fontWeight: FontWeight.w700),
