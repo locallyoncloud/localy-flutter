@@ -24,7 +24,7 @@ class NotificationsVM extends ChangeNotifier{
   }
   postNotification(List<String> playerIds, String title, String content) async{
     var status = await OneSignal.shared.getPermissionSubscriptionState();
-
+   
     await OneSignal.shared.postNotification(OSCreateNotification(
         playerIds: playerIds,
         content: content,

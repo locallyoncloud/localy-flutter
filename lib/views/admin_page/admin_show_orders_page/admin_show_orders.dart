@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/models/order.dart';
+import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/admin_active_orders.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/admin_old_orders.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,9 @@ class _AdminShowOrdersState extends State<AdminShowOrders> {
     if(allOrders!=null){
       activeOrders = allOrders.where((element) => element.orderStatus!=3).toList();
       oldOrders = allOrders.where((element) => element.orderStatus==3).toList();
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        context.read<AdminPanelVM>().setActiveOrders(activeOrders);
+      });
     }
     return TabBarView(
         controller: widget.tabController,
