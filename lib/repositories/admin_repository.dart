@@ -4,6 +4,7 @@ import 'package:locally_flutter_app/enums/database_type.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/services/admin_services.dart';
 
 final getIt = GetIt.instance;
@@ -87,6 +88,13 @@ class AdminRepository implements AdminBase {
   Future<List<String>> getAllNotificationIdsForCard( String companyId) async {
     if(currentDatabase == DatabaseType.FireStore) {
       return await getIt<AdminServices>().getAllNotificationIdsForCard(companyId);
+    }
+  }
+
+  @override
+  Stream<PublicProfile> getPublicProfile(String mail) {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return  getIt<AdminServices>().getPublicProfile(mail);
     }
   }
 

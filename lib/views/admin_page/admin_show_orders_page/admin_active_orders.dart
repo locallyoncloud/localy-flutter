@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/order_status_indicators.dart';
 import 'package:locally_flutter_app/views/widgets/no_data_found.dart';
 
@@ -35,7 +34,7 @@ class AdminActiveOrders extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          activeOrderList[index].companyName,
+                          activeOrderList[index].deliveryType,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -198,6 +197,25 @@ class AdminActiveOrders extends StatelessWidget {
                           ]
                       ),
                       ),
+                      activeOrderList[index].deliveryTime.length>0 ? RichText(text: TextSpan(
+                          text: "Teslim zamanı: ",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: AppColors.SECONDARY_COLOR,
+                              fontWeight: FontWeight.w700
+                          ),
+                          children: [
+                            TextSpan(
+                                text: "${activeOrderList[index].deliveryTime} sonra",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: AppColors.GREY,
+                                    fontWeight: FontWeight.w900
+                                )
+                            )
+                          ]
+                      ),
+                      ) : Container(),
                       SizedBox(
                         height: 10,
                       ),

@@ -1,3 +1,5 @@
+import 'package:locally_flutter_app/models/address.dart';
+
 /// uid : "1"
 /// name : "Onur Disanlı"
 /// email : "onurdisanli@gmail.com"
@@ -12,10 +14,10 @@ class PublicProfile {
   String phone;
   String type;
   String company_id;
+  List<Address> address;
   List<String> notificationIds;
   List<String> favorites;
   String profilePicture;
-
 
   PublicProfile(
       {this.uid,
@@ -26,6 +28,7 @@ class PublicProfile {
       this.company_id,
       this.notificationIds,
       this.favorites,
+      this.address,
       this.profilePicture});
 
   PublicProfile.fromJson(dynamic json) {
@@ -35,8 +38,17 @@ class PublicProfile {
     phone = json["phone"];
     type = json["type"];
     company_id = json["company_id"];
-    notificationIds = json["notificationIds"] != null ? json["notificationIds"].cast<String>() : [];
-    favorites = json["favorites"] != null ? json["favorites"].cast<String>() : [];
+    if (json["address"] != null) {
+      address = [];
+      json["address"].forEach((v) {
+        address.add(Address.fromJson(v));
+      });
+    }
+    notificationIds = json["notificationIds"] != null
+        ? json["notificationIds"].cast<String>()
+        : [];
+    favorites =
+        json["favorites"] != null ? json["favorites"].cast<String>() : [];
     profilePicture = json["profilePicture"];
   }
 
@@ -51,8 +63,7 @@ class PublicProfile {
     map["notificationIds"] = notificationIds;
     map["favorites"] = favorites;
     map["profilePicture"] = profilePicture;
+    map["address"] = address.map((v) => v.toJson()).toList();
     return map;
   }
-
-
 }

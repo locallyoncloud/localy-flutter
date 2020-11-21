@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:locally_flutter_app/base_classes/home_base.dart';
@@ -27,6 +29,16 @@ class HomePageVM extends ChangeNotifier with HomeBase{
 
   setCurrentPosition() async{
     currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    notifyListeners();
+  }
+
+  StreamSubscription<Position> listenLocationChanges (){
+    return  Geolocator.getPositionStream(
+      distanceFilter: 50
+      ).listen((position) {
+        currentPosition = position;
+        notifyListeners();
+    });
   }
 
   @override

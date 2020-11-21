@@ -1,70 +1,63 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
+import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
+import 'package:locally_flutter_app/views/user_profile_page/addresses_profile.dart';
 import 'package:locally_flutter_app/views/user_profile_page/edit_profile.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 50),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                    children:[
-                      Container(
-                        height: 100,
-                        width: 100,
-                        margin: EdgeInsets.only(top: 30),
-                        child: Stack(
-                            children: [
-                              CircleAvatar(radius: 50, backgroundImage: NetworkImage(context.watch<RegistrationPageVM>().currentUser.profilePicture != null && context.watch<RegistrationPageVM>().currentUser.profilePicture.length != 0 ? context.watch<RegistrationPageVM>().currentUser.profilePicture : 'https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/localy_logo_white_bg.jpg?alt=media&token=25f202fe-9bd7-402c-8269-9682a54f5505')),
-                            ]),
-                      ),
-                      SizedBox(height: 20),
-                      Text(context.watch<RegistrationPageVM>().currentUser.name != null ? context.watch<RegistrationPageVM>().currentUser.name: "", style: TextStyle()),
-                      SizedBox(height: 5),
-                      Text(context.watch<RegistrationPageVM>().currentUser.email != null ? context.watch<RegistrationPageVM>().currentUser.email : "", style: TextStyle()),
-                      SizedBox(height: 20),
-                    ]
-                ),
-              ),
-            ],
+          Column(
+              children:[
+                CircleAvatar(radius: 50, backgroundImage: NetworkImage(context.watch<RegistrationPageVM>().currentUser.profilePicture != null && context.watch<RegistrationPageVM>().currentUser.profilePicture.length != 0 ? context.watch<RegistrationPageVM>().currentUser.profilePicture : 'https://firebasestorage.googleapis.com/v0/b/localy-d8280.appspot.com/o/localy_logo_white_bg.jpg?alt=media&token=25f202fe-9bd7-402c-8269-9682a54f5505')),
+                SizedBox(height: 20),
+                Text(context.watch<RegistrationPageVM>().currentUser.name != null ? context.watch<RegistrationPageVM>().currentUser.name: "", style: TextStyle()),
+                SizedBox(height: 5),
+                Text(context.watch<RegistrationPageVM>().currentUser.email != null ? context.watch<RegistrationPageVM>().currentUser.email : "", style: TextStyle()),
+                SizedBox(height: 20),
+              ]
           ),
-          Expanded(child: ListView(
-            children: [
-              InkWell(
-                onTap:()=>{
-                  Get.to(EditProfile())
-                },
-                child: ProfileListItem(
-                  icon: LineAwesomeIcons.user,
-                  text: 'Kişisel Bilgiler',
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  context.read<RegistrationPageVM>().signOut();
-                  Get.off(RegistrationPage());
-                },
-                child: ProfileListItem(
-                  icon: LineAwesomeIcons.alternate_sign_out,
-                  text: 'Oturumu Kapatın',
-                  hasNavigation: false,
-                ),
-              )
-            ],
-          ))
+          InkWell(
+            onTap:()=>{
+              Get.to(EditProfile())
+            },
+            child: ProfileListItem(
+              icon: LineAwesomeIcons.user,
+              text: 'Kişisel Bilgiler',
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              Get.to(ProfileAddresses());
+            },
+            child: ProfileListItem(
+              icon: Icons.location_on_outlined,
+              text: 'Adreslerim',
+              hasNavigation: true,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              context.read<RegistrationPageVM>().signOut();
+              Get.offAll(RegistrationPage());
+            },
+            child: ProfileListItem(
+              icon: LineAwesomeIcons.alternate_sign_out,
+              text: 'Oturumu Kapatın',
+              hasNavigation: false,
+            ),
+          ),
         ],
       ),
     );

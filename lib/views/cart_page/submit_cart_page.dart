@@ -2,15 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:locally_flutter_app/enums/order_type.dart';
+import 'package:locally_flutter_app/models/address.dart';
 import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_progress_info.dart';
+import 'package:locally_flutter_app/views/cart_page/choose_order_type.dart';
 import 'package:locally_flutter_app/views/widgets/loading_bar.dart';
 import 'package:locally_flutter_app/views/widgets/multiline_textfield.dart';
 import 'package:locally_flutter_app/views/widgets/radio_button_group.dart';
@@ -31,7 +33,9 @@ class SubmitCartPage extends StatelessWidget {
         backgroundColor: AppColors.BG_WHITE,
         appBar: UtilityWidgets.CustomAppBar(
             Text(
-              "Masa-${context.watch<CartPageVM>().currentSelectedTable} Sipariş",
+                context.watch<CartPageVM>().currentOrderType == OrderType.table
+                    ? "Masa-${context.watch<CartPageVM>().currentSelectedTable} Sipariş"
+                    : "Sipariş Detayı" ,
               style: TextStyle(
                   color: AppColors.PRIMARY_COLOR,
                   fontSize: 17,
@@ -87,10 +91,16 @@ class SubmitCartPage extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
+                 context.watch<CartPageVM>().currentOrderType == OrderType.home ? renderCard(
+                      "Sipariş Tipi", ChooseOrderType(), Icons.sticky_note_2)
+                  : Container(),
+                  context.watch<CartPageVM>().currentOrderType == OrderType.home ? SizedBox(
+                    height: 20,
+                  ) : Container(),
                   renderCard(
                       "Sipariş Notlarınız",
-                      MultilineTextField(
-                          "Sipariş Notu", (value) => takeNote(value)),
+                      MultilineTextField("Sipariş Notu",
+                          (value) => takeNote(value), AppColors.DISABLED_GREY),
                       SimpleLineIcons.note),
                   SizedBox(
                     height: 20,
@@ -179,7 +189,6 @@ class SubmitCartPage extends StatelessWidget {
           AppColors.ERROR, "Lütfen bir ödeme metodu seçiniz.", context));
     } else {
       var uuid = Uuid().v4();
-      Timestamp sad = Timestamp.now();
       context.read<RegistrationPageVM>().setLoadingVisibility(true);
       Order newOrder = Order(
           uid: uuid,
@@ -187,18 +196,23 @@ class SubmitCartPage extends StatelessWidget {
           totalPrice: context.read<CartPageVM>().totalCartPrice,
           paymentType: paymentType,
           extraNote: orderNote,
-          orderType: "MASA",
+          orderType: context.read<CartPageVM>().currentOrderType == OrderType.table ? "MASA" : context.read<CartPageVM>().orderDeliveryType,
           cartProduct: context.read<CartPageVM>().productsInCartList,
-          companyId:
-              context.read<CompanyDetailsPageVM>().currentCompany.company_id,
-          address: "Masa-${context.read<CartPageVM>().currentSelectedTable}",
+          companyId: context.read<CompanyDetailsPageVM>().currentCompany.company_id,
+          address: context.read<CartPageVM>().currentOrderType == OrderType.table ? "Masa-${context.read<CartPageVM>().currentSelectedTable}" : context.read<CartPageVM>().currentOrderAddress.openAddress,
           orderStatus: 0,
           orderTime: Timestamp.now(),
-          companyName:
-              context.read<CompanyDetailsPageVM>().currentCompany.name);
+          deliveryType: context.read<CartPageVM>().orderDeliveryType,
+          companyName: context.read<CompanyDetailsPageVM>().currentCompany.name,
+          deliveryTime: context.read<CartPageVM>().currentOrderDeliveryTime
+      );
       await context.read<HomePageVM>().submitOrder(newOrder);
       //await context.read<NotificationsVM>().postNotification(context.read<CompanyDetailsPageVM>().currentCompany.notificationIds);
       context.read<CartPageVM>().clearCart();
+      context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
+      context.read<CartPageVM>().setCurrentOrderDeliveryTime("");
+      context.read<CartPageVM>().setCurrentOrderAddress(Address(name: "",openAddress: ""));
+      context.read<CartPageVM>().setOrderDeliveryType("");
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
       Get.back();
     }

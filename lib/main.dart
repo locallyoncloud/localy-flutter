@@ -84,7 +84,10 @@ class AppStartingPoint extends StatelessWidget {
         //builder: DevicePreview.appBuilder, // <--- /!\ Add the builder
         title: 'Localy',
         theme: ThemeData(
-          textTheme: GoogleFonts.nunitoSansTextTheme()
+          textTheme: GoogleFonts.nunitoSansTextTheme(),
+          appBarTheme: AppBarTheme(
+            textTheme: GoogleFonts.nunitoSansTextTheme()
+          )
         ),
         debugShowCheckedModeBanner: false,
         home: SplashScreen.navigate(

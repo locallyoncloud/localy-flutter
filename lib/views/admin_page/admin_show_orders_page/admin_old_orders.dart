@@ -13,7 +13,7 @@ class AdminOldOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return oldOrderList == null || oldOrderList.length == 0 ?
-    NoDataFoundPage('assets/animations/empty_cart_anim.json', "Sipariş bulunmamaktadır.")        : Padding(
+    NoDataFoundPage('assets/animations/no_data_found.json', "Sipariş bulunmamaktadır.")        : Padding(
       padding: const EdgeInsets.all(8),
       child: ListView.builder(
         itemCount: oldOrderList.length,

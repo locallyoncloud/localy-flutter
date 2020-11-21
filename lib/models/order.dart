@@ -12,23 +12,28 @@ class Order {
   String companyId;
   String companyName;
   String address;
+  String deliveryTime;
+  String deliveryType;
   Timestamp orderTime;
   int orderStatus;
   List<CartProduct> cartProduct;
 
-  Order(
-      {this.uid,
-      this.userMail,
-      this.totalPrice,
-      this.paymentType,
-      this.extraNote,
-      this.orderType,
-      this.companyId,
-      this.companyName,
-      this.address,
-      this.orderTime,
-      this.orderStatus,
-      this.cartProduct});
+  Order({
+    this.uid,
+    this.userMail,
+    this.totalPrice,
+    this.paymentType,
+    this.extraNote,
+    this.orderType,
+    this.companyId,
+    this.companyName,
+    this.address,
+    this.orderTime,
+    this.orderStatus,
+    this.cartProduct,
+    this.deliveryTime,
+    this.deliveryType,
+  });
 
   Order.fromJson(dynamic json) {
     uid = json["uid"];
@@ -41,7 +46,9 @@ class Order {
     address = json["address"];
     companyName = json["companyName"];
     orderTime = json["orderTime"];
+    deliveryTime = json["deliveryTime"];
     orderStatus = json["orderStatus"];
+    deliveryType = json["deliveryType"];
     if (json["cartProduct"] != null) {
       cartProduct = [];
       json["cartProduct"].forEach((v) {
@@ -62,6 +69,8 @@ class Order {
     map["address"] = address;
     map["companyName"] = companyName;
     map["orderTime"] = orderTime;
+    map["deliveryTime"] = deliveryTime;
+    map["deliveryType"] = deliveryType;
     map["orderStatus"] = orderStatus;
     if (cartProduct != null) {
       map["cartProduct"] = cartProduct.map((v) => v.toJson()).toList();

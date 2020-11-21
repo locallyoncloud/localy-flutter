@@ -33,9 +33,7 @@ class Info extends StatelessWidget {
                     color: AppColors.GREY,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                Spacer(),
                 Text(
                   "Nitelikli kahve dükkanı",
                   style: TextStyle(
@@ -44,9 +42,7 @@ class Info extends StatelessWidget {
                     color: AppColors.GREY,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                Spacer(),
                 Text(
                   "Adres: ",
                   style: TextStyle(
@@ -56,9 +52,7 @@ class Info extends StatelessWidget {
                     decoration: TextDecoration.underline
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                Spacer(),
                 Text(
                   "Suadiye Mah, Plaj Yolu Sk. No:18, 34740, 34740 Kadıköy/İstanbul",
                   textAlign: TextAlign.center,
@@ -68,9 +62,7 @@ class Info extends StatelessWidget {
                     color: AppColors.GREY,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                Spacer(),
                 Text(
                   "Çalışma saatleri:",
                   style: TextStyle(
@@ -79,9 +71,7 @@ class Info extends StatelessWidget {
                       color: AppColors.GREY,
                       decoration: TextDecoration.underline),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                Spacer(),
                 Column(
                   children: [
                     renderDay("Pazartesi"),

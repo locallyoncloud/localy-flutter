@@ -7,6 +7,7 @@ import 'package:locally_flutter_app/base_classes/admin_base.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/repositories/admin_repository.dart';
 import 'package:locally_flutter_app/views/admin_page/all_customers_page/customers.dart';
 
@@ -134,7 +135,12 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
 
   @override
   Future<List<String>> getAllNotificationIdsForCard(String companyId) async {
-    return getIt<AdminRepository>().getAllNotificationIdsForCard(companyId);
+    return await getIt<AdminRepository>().getAllNotificationIdsForCard(companyId);
+  }
+
+  @override
+  Stream<PublicProfile> getPublicProfile(String mail) {
+    return getIt<AdminRepository>().getPublicProfile(mail);
   }
 
 
