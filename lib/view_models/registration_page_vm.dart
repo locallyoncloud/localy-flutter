@@ -75,8 +75,12 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   }
 
   checkUserPlayerId(String playerId) async{
-    if(currentUser.notificationIds.length==0 || !currentUser.notificationIds.contains(playerId)){
+    if(currentUser.notificationIds.length==0 && !currentUser.notificationIds.contains(playerId) && playerId != null && playerId.length>0){
       await setPlayerId(currentUser.email, playerId);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      PublicProfile oldCurrentUser = PublicProfile.fromJson(json.decode(prefs.getString("user")));
+      oldCurrentUser.notificationIds.add(playerId);
+      prefs.setString("user", json.encode(oldCurrentUser.toJson()));
     }
   }
  

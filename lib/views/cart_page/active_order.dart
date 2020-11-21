@@ -131,7 +131,6 @@ class ActiveOrder extends StatelessWidget {
     NoDataFoundPage('assets/animations/no_data_found.json', "Aktif siparişiniz bulunmamaktadır.");
   }
   renderOrderStatus(int orderStatus){
-    print(orderStatus);
     IconData iconData;
     String text;
     switch (orderStatus){

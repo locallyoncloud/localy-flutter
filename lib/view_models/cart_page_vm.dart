@@ -23,7 +23,6 @@ class CartPageVM extends ChangeNotifier{
   }
   setCurrentOrderAddress(Address address){
     currentOrderAddress = address;
-    print(currentOrderAddress.openAddress);
     notifyListeners();
   }
   setOrderDeliveryType(String deliveryType){

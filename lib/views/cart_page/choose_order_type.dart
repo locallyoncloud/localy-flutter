@@ -24,7 +24,6 @@ class _ChooseOrderTypeState extends State<ChooseOrderType> {
   @override
   void initState() {
     super.initState();
-    print("GİRDİ!!");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<CartPageVM>().setCurrentOrderAddress(context.read<RegistrationPageVM>().currentUser.address.length>0 ? context.read<RegistrationPageVM>().currentUser.address[0] : "");
     });

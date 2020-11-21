@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -10,6 +12,7 @@ import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
+import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/cart_page/cart_progress_info.dart';
 import 'package:locally_flutter_app/views/cart_page/choose_order_type.dart';
@@ -207,14 +210,23 @@ class SubmitCartPage extends StatelessWidget {
           deliveryTime: context.read<CartPageVM>().currentOrderDeliveryTime
       );
       await context.read<HomePageVM>().submitOrder(newOrder);
-      //await context.read<NotificationsVM>().postNotification(context.read<CompanyDetailsPageVM>().currentCompany.notificationIds);
+      ///await context.read<NotificationsVM>().postNotification(context.read<CompanyDetailsPageVM>().currentCompany.notificationIds,"Sipariş Alındı", "${context.read<RegistrationPageVM>().currentUser.email} sipariş verdi.");
       context.read<CartPageVM>().clearCart();
       context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
       context.read<CartPageVM>().setCurrentOrderDeliveryTime("");
       context.read<CartPageVM>().setCurrentOrderAddress(Address(name: "",openAddress: ""));
       context.read<CartPageVM>().setOrderDeliveryType("");
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
-      Get.back();
+      Get.showSnackbar(GetBar(
+        message: "Siparişiniz başarıyla gönderilmiştir",
+        backgroundColor: AppColors.SUCCESS_GREEN,
+        duration: 2.seconds,
+      ));
+      Timer(2.seconds, (){
+        Get.back();
+        Get.back();
+        Get.back();
+      });
     }
   }
 }

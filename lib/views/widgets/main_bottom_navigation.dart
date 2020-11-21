@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/enums/camera_of.dart';
@@ -17,7 +17,6 @@ import 'package:locally_flutter_app/views/company_details_page/company_details.d
 import 'package:locally_flutter_app/views/company_details_page/item_count.dart';
 import 'package:locally_flutter_app/views/scan_qr_code.dart';
 import 'package:provider/provider.dart';
-import 'package:animate_do/animate_do.dart';
 
 import 'custom_alert_dialog.dart';
 
@@ -52,7 +51,7 @@ class BottomNavigation extends StatelessWidget {
                           right:0,
                           top:0,
                           child: Visibility(
-                              visible: context.watch<CartPageVM>().productsInCartList.length > 0 ? true : false,
+                              visible: context.watch<CartPageVM>().productsInCartList.length > 0 || (context.watch<RegistrationPageVM>().currentUser.type == "admin" && context.watch<AdminPanelVM>().activeOrders.length>0) ? true : false,
                               child: ItemCount(size: 15,)),
                         )
                       ],

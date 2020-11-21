@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/notifications_vm.dart';
@@ -13,7 +13,21 @@ class PushNotifications extends StatefulWidget {
 }
 
 class _PushNotificationsState extends State<PushNotifications> {
-  String title = "", content="";
+  TextEditingController titleController, contentController;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController();
+    contentController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+    contentController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +54,7 @@ class _PushNotificationsState extends State<PushNotifications> {
             width: 80.wb,
             height: 44,
             child: TextField(
+              controller: titleController,
               cursorColor: AppColors.PRIMARY_COLOR,
               decoration: InputDecoration(
                 suffixIcon: Icon(
@@ -64,13 +79,6 @@ class _PushNotificationsState extends State<PushNotifications> {
                   fontSize: 14,
                   color: AppColors.GREY,
                   fontWeight: FontWeight.w700),
-              onChanged: (value){
-
-                setState(() {
-                  title = value;
-                });
-
-              },
             ),
           )
 ,
@@ -81,6 +89,7 @@ class _PushNotificationsState extends State<PushNotifications> {
             width: 80.wb,
             height: 44,
             child: TextField(
+              controller: contentController,
               cursorColor: AppColors.PRIMARY_COLOR,
               decoration: InputDecoration(
                   suffixIcon: Icon(
@@ -105,12 +114,6 @@ class _PushNotificationsState extends State<PushNotifications> {
                   fontSize: 14,
                   color: AppColors.GREY,
                   fontWeight: FontWeight.w700),
-                onChanged: (value){
-                setState(() {
-                  content = value;
-                });
-
-                }
             ),
           ),
           SizedBox(
@@ -142,8 +145,14 @@ class _PushNotificationsState extends State<PushNotifications> {
   sendNotifications(BuildContext context) async {
     context.read<RegistrationPageVM>().isLoadingVisible =true;
     List<String> allCustomerUids = await context.read<AdminPanelVM>().getAllNotificationIdsForCard(context.read<RegistrationPageVM>().currentUser.company_id);
-    dynamic notificationResponse;
-    notificationResponse = await context.read<NotificationsVM>().postCampaignNotification(allCustomerUids,title,content);
+    await context.read<NotificationsVM>().postCampaignNotification(allCustomerUids,titleController.value.text,contentController.value.text);
     context.read<RegistrationPageVM>().isLoadingVisible =false;
+    titleController.text = "";
+    contentController.text = "";
+    Get.showSnackbar(GetBar(
+      message: "Bildirimler Müşterilere Gönderildi.",
+      backgroundColor: AppColors.SUCCESS_GREEN,
+      duration: 4.seconds,
+    ));
   }
 }

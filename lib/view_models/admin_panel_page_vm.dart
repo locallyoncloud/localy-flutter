@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locally_flutter_app/base_classes/admin_base.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
+import 'package:locally_flutter_app/models/cart_product.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/repositories/admin_repository.dart';
 import 'package:locally_flutter_app/views/admin_page/all_customers_page/customers.dart';
@@ -25,6 +27,7 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   List<LoyaltyProgress> customerLoyaltyList = [];
   String lastReadAdminQrCode = "";
   String lastReadCustomerQrCode = "";
+  List<Order> activeOrders = [];
 
   goToPage(String text) {
     switch (text) {
@@ -78,6 +81,10 @@ class AdminPanelVM extends ChangeNotifier with AdminBase {
   }
   setCustomerQrCode(String newQrCode){
     lastReadCustomerQrCode = newQrCode;
+    notifyListeners();
+  }
+  setActiveOrders(List<Order> activeOrder){
+    activeOrders = activeOrder;
     notifyListeners();
   }
 
