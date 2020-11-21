@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
 
 final FirebaseFirestore fireStore = FirebaseFirestore.instance;
 firebase_storage.FirebaseStorage storage =
@@ -184,5 +185,10 @@ class AdminServices implements AdminBase {
     });
 
     return allUserIds;
+  }
+
+  @override
+  Stream<PublicProfile> getPublicProfile(String mail) {
+    return fireStore.collection("accounts").doc(mail).collection("public_profile").snapshots().map((event) => PublicProfile.fromJson(event.docs[0].data()));
   }
 }

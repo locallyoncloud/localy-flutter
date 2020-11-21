@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:locally_flutter_app/models/address.dart';
 import 'package:locally_flutter_app/utilities/extensions/clone_object.dart';
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
@@ -15,8 +18,6 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   PublicProfile tempUser = PublicProfile(uid: "",name: "",phone: "",type: "",company_id: "",notificationIds: [],favorites: [],profilePicture: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vectorstock.com%2Froyalty-free-vectors%2Fteacher-profile-icon-avatar-vectors&psig=AOvVaw3c0yl1iAPm7aAquNIRyWS_&ust=1605695257106000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD_oqvie0CFQAAAAAdAAAAABAI");
   String userName;
   String phone;
-
-
 
   setSelectedRegistrationContainer(bool signinStatus){
     isSignInSelected = signinStatus;
@@ -66,6 +67,12 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
      tempUser = PublicProfile.fromJson(tempUserMap);
      notifyListeners();
   }
+  addAddressToCurrentUser(Address address) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    currentUser.address.add(address);
+    prefs.setString("user", json.encode(currentUser.toJson()));
+    notifyListeners();
+  }
 
   checkUserPlayerId(String playerId) async{
     if(currentUser.notificationIds.length==0 || !currentUser.notificationIds.contains(playerId)){
@@ -111,6 +118,19 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   @override
   Future<void> setPlayerId(String userMail, String playerId) async {
     return await getIt<AuthRepository>().setPlayerId(userMail, playerId);
+  }
+
+  @override
+  Future<void> updateUserAddress(Address address, String userMail, bool isAdd) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(isAdd){
+      currentUser.address.add(address);
+    }else{
+      currentUser.address.removeWhere((element) => element.openAddress == address.openAddress);
+    }
+    prefs.setString("user", json.encode(currentUser.toJson()));
+    notifyListeners();
+    return await getIt<AuthRepository>().updateUserAddress(address, userMail,isAdd);
   }
 }
 

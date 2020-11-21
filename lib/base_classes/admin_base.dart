@@ -2,6 +2,7 @@
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/models/loyalty_card.dart';
+import 'package:locally_flutter_app/models/public_profile.dart';
 
 abstract class AdminBase {
 
@@ -28,4 +29,6 @@ abstract class AdminBase {
   Future<void> incrementOrderStatus(String orderUid);
 
   Future<List<String>> getAllNotificationIdsForCard(String companyId);
+
+  Stream<PublicProfile> getPublicProfile(String mail);
 }

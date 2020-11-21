@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/enums/database_type.dart';
+import 'package:locally_flutter_app/models/address.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/services/authentication_services.dart';
 
@@ -56,6 +56,13 @@ class AuthRepository implements AuthBase {
   Future<void> setPlayerId(String userMail, String playerId) async {
     if(currentDatabase == DatabaseType.FireStore) {
       return await getIt<AuthenticationServices>().setPlayerId(userMail, playerId);
+    }
+  }
+
+  @override
+  Future<void> updateUserAddress(Address address, String userMail,bool isAdd) async {
+    if(currentDatabase == DatabaseType.FireStore) {
+      return await getIt<AuthenticationServices>().updateUserAddress(address, userMail,isAdd);
     }
   }
   

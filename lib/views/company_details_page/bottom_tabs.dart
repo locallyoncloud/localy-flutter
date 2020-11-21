@@ -7,6 +7,7 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
+import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/in_cart_button.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +70,7 @@ class _BottomTabsState extends State<BottomTabs> {
             ],
           ),
         ),
-        context.watch<CompanyDetailsPageVM>().selectedTab == 1 && ((context
+        context.watch<CompanyDetailsPageVM>().selectedTab == 1 && context.watch<RegistrationPageVM>().currentUser.type != "admin" && ((context
             .watch<CompanyDetailsPageVM>().isAvailableForService(context
                 .watch<HomePageVM>()
                 .currentPosition,

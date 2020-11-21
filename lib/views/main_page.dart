@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:locally_flutter_app/enums/order_type.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
@@ -16,12 +18,11 @@ import 'package:locally_flutter_app/views/info_page/info.dart';
 import 'package:locally_flutter_app/views/push_notification_page/push_notifications.dart';
 import 'package:locally_flutter_app/views/registration_page/registration.dart';
 import 'package:locally_flutter_app/views/user_profile_page/user_profile.dart';
-import 'package:locally_flutter_app/views/widgets/custom_alert_dialog.dart';
 import 'package:locally_flutter_app/views/widgets/fade_indexed_stack.dart';
 import 'package:locally_flutter_app/views/widgets/loading_bar.dart';
 import 'package:locally_flutter_app/views/widgets/main_bottom_navigation.dart';
 import 'package:provider/provider.dart';
-import 'package:get/get.dart';
+
 import 'home.dart';
 
 class MainPage extends StatefulWidget {
@@ -32,17 +33,21 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   TabController tabController;
-
+  StreamSubscription<Position> positionStream;
   @override
   void initState() {
     context.read<RegistrationPageVM>().checkUserPlayerId(context.read<NotificationsVM>().currentUserId);
     tabController = TabController(length:context.read<RegistrationPageVM>().currentUser.type != "admin" ? 3 : 2, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      positionStream = context.read<HomePageVM>().listenLocationChanges();
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     tabController.dispose();
+    positionStream.cancel();
     super.dispose();
   }
 
@@ -159,7 +164,7 @@ class _MainPageState extends State<MainPage>
           case "Çıkış":
             context.read<RegistrationPageVM>().signOut();
             context.read<CartPageVM>().clearCart();
-            Get.off(RegistrationPage());
+            Get.offAll(RegistrationPage());
             break;
           case "Admin":
             context.read<MainPageVM>().setCurrentSelectedIndex(2);

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:locally_flutter_app/enums/order_type.dart';
+import 'package:locally_flutter_app/models/address.dart';
 import 'package:locally_flutter_app/models/cart_product.dart';
 
 
@@ -8,9 +9,25 @@ class CartPageVM extends ChangeNotifier{
   double totalCartPrice= 0;
   String currentSelectedTable = "";
   OrderType currentOrderType = OrderType.home;
+  String currentOrderDeliveryTime = "";
+  Address currentOrderAddress = Address(name: "",openAddress: "");
+  String orderDeliveryType = "";
 
   setCurrentSelectedTable(String tableNumber){
     currentSelectedTable = tableNumber;
+    notifyListeners();
+  }
+  setCurrentOrderDeliveryTime(String time){
+    currentOrderDeliveryTime = time;
+    notifyListeners();
+  }
+  setCurrentOrderAddress(Address address){
+    currentOrderAddress = address;
+    print(currentOrderAddress.openAddress);
+    notifyListeners();
+  }
+  setOrderDeliveryType(String deliveryType){
+    orderDeliveryType = deliveryType;
     notifyListeners();
   }
 

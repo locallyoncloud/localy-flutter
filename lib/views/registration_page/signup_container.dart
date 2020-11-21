@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-
 import 'package:locally_flutter_app/enums/text_type.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
-
 import 'package:locally_flutter_app/views/widgets/registration_textfield.dart';
 import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +58,7 @@ class SignUpContainer extends StatelessWidget {
                 width: 139,
                 height: 44,
                 decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.WHITE,width: 2),
+                    border: Border.all(color: AppColors.WHITE, width: 2),
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -74,38 +71,51 @@ class SignUpContainer extends StatelessWidget {
                           fontSize: 14,
                           color: AppColors.WHITE),
                     ),
-                    Padding(padding: EdgeInsets.only(left: 5),
+                    Padding(
+                      padding: EdgeInsets.only(left: 5),
                       child: Icon(
                         AntDesign.user,
                         color: AppColors.WHITE,
                       ),
                     )
                   ],
-                )
-            ),
+                )),
           ),
         ],
       ),
     );
   }
-  createUser(BuildContext context){
+
+  createUser(BuildContext context) {
     context.read<RegistrationPageVM>().setLoadingVisibility(true);
     try {
       String mail = context.read<RegistrationPageVM>().signupMail;
       String signUpPassword = context.read<RegistrationPageVM>().signupPassword;
-      String confirmedPassword = context.read<RegistrationPageVM>().signupConfPassword;
+      String confirmedPassword =
+          context.read<RegistrationPageVM>().signupConfPassword;
       if (mail.length <= 3) {
-        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Lütfen mailinizi kontrol ediniz.",context));
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(
+            AppColors.RED, "Lütfen mailinizi kontrol ediniz.", context));
       } else if (signUpPassword != confirmedPassword) {
-        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Şifreniz doğrulama şifresiyle aynı olmalıdır.",context));
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(
+            AppColors.RED,
+            "Şifreniz doğrulama şifresiyle aynı olmalıdır.",
+            context));
+      } else if(signUpPassword.length<8){
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Şifreniz en az 8 karakter olmalıdır.",context));
       } else {
-        context.read<RegistrationPageVM>().createUserWithEmailAndPassword(context.read<RegistrationPageVM>().signupMail, context.read<RegistrationPageVM>().signupPassword, context.read<NotificationsVM>().currentUserId);
-        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Aktivasyon mailı gönderilmiştir.",context));
+        context.read<RegistrationPageVM>().createUserWithEmailAndPassword(
+            context.read<RegistrationPageVM>().signupMail,
+            context.read<RegistrationPageVM>().signupPassword,
+            context.read<NotificationsVM>().currentUserId);
+        Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(
+            AppColors.ERROR, "Aktivasyon mailı gönderilmiştir.", context));
       }
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       context.read<RegistrationPageVM>().setLoadingVisibility(false);
-      Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, "Hatalı giriş.",context));
+      Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(
+          AppColors.ERROR, "Hatalı giriş.", context));
     }
   }
 }

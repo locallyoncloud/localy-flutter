@@ -132,11 +132,10 @@ class LoginContainer extends StatelessWidget {
       else if(!mail.isEmail || mail.length <= 3) {
         Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Lütfen mailinizi kontrol ediniz.",context));
         context.read<RegistrationPageVM>().setLoadingVisibility(false);
-      } else if (password.length <= 8) {
+      } else if (password.length < 8) {
         Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.RED, "Şifreniz en az 8 karakter olmalıdır.",context));
         context.read<RegistrationPageVM>().setLoadingVisibility(false);
       } else {
-        // if(loginType == LoginType.Standard)
         publicProfile = await context.read<RegistrationPageVM>().signInWithEmailAndPassword(
             context.read<RegistrationPageVM>().signinMail,
             context.read<RegistrationPageVM>().signinPassword);
