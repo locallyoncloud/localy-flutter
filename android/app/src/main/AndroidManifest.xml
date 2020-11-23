@@ -10,7 +10,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="locally_flutter_app"
+        android:label="Localy"
         android:icon="@mipmap/ic_launcher">
         android:requestLegacyExternalStorage="true"
         <activity
