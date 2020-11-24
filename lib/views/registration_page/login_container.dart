@@ -70,7 +70,7 @@ class LoginContainer extends StatelessWidget {
                 decoration: BoxDecoration(
                     /*border: Border.all(color: AppColors.WHITE,width: 2),*/
                     borderRadius: BorderRadius.circular(10),
-                    color: Color(0xFF28A745)),
+                    color: AppColors.WHITE),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -80,13 +80,13 @@ class LoginContainer extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
-                          color: AppColors.WHITE),
+                          color: AppColors.ADMIN_GREY),
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 5),
                       child: Icon(
                         Ionicons.md_log_in,
-                        color: AppColors.WHITE,
+                        color: AppColors.ADMIN_GREY,
                       ),
                     )
                   ],

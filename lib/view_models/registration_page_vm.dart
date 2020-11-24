@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:locally_flutter_app/models/address.dart';
+import 'package:locally_flutter_app/models/app_config.dart';
 import 'package:locally_flutter_app/utilities/extensions/clone_object.dart';
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
@@ -135,6 +136,11 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     prefs.setString("user", json.encode(currentUser.toJson()));
     notifyListeners();
     return await getIt<AuthRepository>().updateUserAddress(address, userMail,isAdd);
+  }
+
+  @override
+  Future<AppConfig> getAppConfig() async {
+    return await getIt<AuthRepository>().getAppConfig();
   }
 }
 
