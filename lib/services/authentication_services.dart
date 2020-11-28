@@ -160,5 +160,4 @@ class AuthenticationServices implements AuthBase {
       AppConfig appConfig = AppConfig.fromJsonMap(snapshot.data());
       return appConfig;
   }
-
 }

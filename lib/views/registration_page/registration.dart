@@ -24,13 +24,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   PageController _pageController = PageController(initialPage: 1);
 
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      config = await context.read<RegistrationPageVM>().getAppConfig();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +119,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
             ),
-            imageUrl: config.registerBackgroundURL,
+            imageUrl: context.watch<RegistrationPageVM>().backgroundImage,
           ),
         ),
       ),
