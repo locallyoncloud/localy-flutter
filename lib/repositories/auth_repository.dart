@@ -65,5 +65,12 @@ class AuthRepository implements AuthBase {
       return await getIt<AuthenticationServices>().updateUserAddress(address, userMail,isAdd);
     }
   }
+
+  @override
+  Future signInWithApple() async {
+    if(currentDatabase == DatabaseType.FireStore)  {
+      return await getIt<AuthenticationServices>().signInWithApple();
+    }
+  }
   
 }

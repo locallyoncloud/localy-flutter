@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:locally_flutter_app/models/address.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 
@@ -19,4 +18,6 @@ abstract class AuthBase {
   Future<void> setPlayerId(String userMail, String playerId);
 
   Future<void> updateUserAddress(Address address, String userMail, bool isAdd);
+
+  Future<dynamic> signInWithApple();
 }

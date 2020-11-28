@@ -48,6 +48,8 @@ dependencies:
   onesignal_flutter: ^2.6.1
   geolocator: ^6.1.7
   flutter_launcher_icons: ^0.8.1
+  sign_in_with_apple: ^2.5.4
+  http: ^0.12.2
 
 flutter_icons:
   image_path_android: "assets/images/launcher_icon.png"

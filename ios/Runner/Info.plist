@@ -18,10 +18,6 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to location when open.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app needs access to location when in the background.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -39,12 +35,19 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Used to read QR code</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need the location to track time attends when employee arriving at the company’s location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app needs access to location when in the background.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when open.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Used to read QR code</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to get images</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
