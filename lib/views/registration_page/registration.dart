@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:locally_flutter_app/models/app_config.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:locally_flutter_app/views/registration_page/signup_container.dart';
@@ -19,16 +20,14 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  AppConfig config;
 
   PageController _pageController = PageController(initialPage: 1);
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+
     ScreenSize.recalculate(context);
     return LoadingBar(
       isLoadingVisible: context.watch<RegistrationPageVM>().isLoadingVisible,
@@ -40,69 +39,87 @@ class _RegistrationPageState extends State<RegistrationPage> {
               currentFocus.unfocus();
             }
           },
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 15.wb),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(0.0, -1.0),
-                end: Alignment(0.0, 1.0),
-                colors: [
-                  const Color(0xffffffff),
-                  const Color(0xffc2c2c2),
-                  const Color(0xff6a7b83),
-                  const Color(0xff455a64)
-                ],
-                stops: [0.0, (0.18*812)/ScreenSize.screenHeight, (0.427*812)/ScreenSize.screenHeight, 1.0],
-              ),
-            ),
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset("assets/logos/localy_logo.png", width: 62.wb, height: 16.87.hb),
-                    SizedBox(
-                      height: 3.hb,
-                    ),
-                    Text("Localy'e hoşgeldiniz! Devam etmek için lütfen giriş yapın veya üye olun.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.WHITE,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w900
-                    ),
-                    ),
-                    SizedBox(
-                      height: 3.hb,
-                    ),
-                    RegistrationTabs(
-                      tabsWidth: 70.wb,
-                      passiveColor: AppColors.WHITE,
-                      activeColor: AppColors.PRIMARY_COLOR,
-                      onTabChange: changePage,
-                      isSignInSelected: context.watch<RegistrationPageVM>().isSignInSelected,
-                    ),
-                    SizedBox(
-                      height: 3.hb,
-                    ),
-                    Container(
-                      height: 50.hb,
-                      child: PageView(
-                          controller: _pageController,
-                        physics: NeverScrollableScrollPhysics(),
-                        children: [
-                          SignUpContainer(),
-                          LoginContainer()
-                        ],
-                      ),
+          child: CachedNetworkImage(
+            placeholder: (context, url) => CircularProgressIndicator(),
+            imageBuilder: (context, imageProvider) => Container(
+              width: double.infinity,
+              height: double.infinity,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover
                     )
-
-                  ],
+            ),
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 175.0,
+                        height: 175.0,
+                        decoration: BoxDecoration(
+                            color: AppColors.WHITE,
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                fit: BoxFit.contain,
+                                image: AssetImage("assets/logos/localy_logo.png")
+                            )
+                        ),),
+                      SizedBox(
+                        height: 3.hb,
+                      ),
+                      Container(
+                        height: 8.hb,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: Text("Localy'e hoşgeldiniz! Devam etmek için lütfen giriş yapın veya üye olun.",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: AppColors.WHITE,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w900
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3.hb,
+                      ),
+                      Container(
+                        height: 50.hb,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(12)
+                        ),
+                        child: PageView(
+                          controller: _pageController,
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            SignUpContainer(),
+                            LoginContainer()
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 3.hb,
+                      ),
+                      RegistrationTabs(
+                        tabsWidth: 70.wb,
+                        passiveColor: AppColors.WHITE,
+                        activeColor: AppColors.PRIMARY_COLOR,
+                        onTabChange: changePage,
+                        isSignInSelected: context.watch<RegistrationPageVM>().isSignInSelected,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
+            imageUrl: context.watch<RegistrationPageVM>().backgroundImage,
           ),
         ),
       ),

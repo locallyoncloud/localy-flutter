@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:locally_flutter_app/models/address.dart';
+import 'package:locally_flutter_app/models/app_config.dart';
 import 'package:locally_flutter_app/utilities/extensions/clone_object.dart';
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
@@ -18,6 +19,12 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   PublicProfile tempUser = PublicProfile(uid: "",name: "",phone: "",type: "",company_id: "",notificationIds: [],favorites: [],profilePicture: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vectorstock.com%2Froyalty-free-vectors%2Fteacher-profile-icon-avatar-vectors&psig=AOvVaw3c0yl1iAPm7aAquNIRyWS_&ust=1605695257106000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiD_oqvie0CFQAAAAAdAAAAABAI");
   String userName;
   String phone;
+  String backgroundImage;
+
+  setBackgroundImage(String image){
+    backgroundImage = image;
+    notifyListeners();
+  }
 
   setSelectedRegistrationContainer(bool signinStatus){
     isSignInSelected = signinStatus;
@@ -138,6 +145,10 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   }
 
   @override
+  Future<AppConfig> getAppConfig() async {
+    return await getIt<AuthRepository>().getAppConfig();
+  }
+   @override
   Future signInWithApple() async {
    return await getIt<AuthRepository>().signInWithApple();
   }

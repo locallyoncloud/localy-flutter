@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/models/address.dart';
+import 'package:locally_flutter_app/models/app_config.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -156,6 +157,13 @@ class AuthenticationServices implements AuthBase {
   }
 
   @override
+  Future<AppConfig> getAppConfig() async {
+    DocumentSnapshot snapshot = await fireStore.collection("application").doc("config").get();
+      AppConfig appConfig = AppConfig.fromJsonMap(snapshot.data());
+      return appConfig;
+  }
+  
+  @override
   Future signInWithApple() async {
     final credential = await SignInWithApple.getAppleIDCredential(
       scopes: [
@@ -180,5 +188,4 @@ class AuthenticationServices implements AuthBase {
 
     await FirebaseAuth.instance.signInWithCredential(authCredential);
   }
-
 }

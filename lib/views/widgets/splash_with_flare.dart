@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_loading/flare_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locally_flutter_app/models/app_config.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/view_models/notifications_vm.dart';
@@ -167,6 +168,8 @@ class SplashScreen extends StatelessWidget {
   }
   redirectUser(BuildContext context) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    AppConfig config = await context.read<RegistrationPageVM>().getAppConfig();
+    context.read<RegistrationPageVM>().setBackgroundImage(config.registerBackgroundURL);
     await context.read<HomePageVM>().setCurrentPosition();
     await context.read<NotificationsVM>().initOneSignal();
     if(prefs.get("user")==null){
