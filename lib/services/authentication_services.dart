@@ -1,16 +1,13 @@
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/models/address.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:http/http.dart' as http;
 
 final FirebaseAuth fAuth = FirebaseAuth.instance;
 final FirebaseFirestore fireStore = FirebaseFirestore.instance;
@@ -170,29 +167,17 @@ class AuthenticationServices implements AuthBase {
         clientId:
         'com.locallyFlutterApp.service',
         redirectUri: Uri.parse(
-          'https://fresh-gleaming-silica.glitch.me/callbacks/sign_in_with_apple',
+          'https://localy-d8280.firebaseapp.com/__/auth/handler',
         ),
       ),
     );
 
-    final signInWithAppleEndpoint = Uri(
-      scheme: 'https',
-      host: 'fresh-gleaming-silica.glitch.me',
-      path: '/sign_in_with_apple',
-      queryParameters: <String, String>{
-        'code': credential.authorizationCode,
-        'firstName': credential.givenName,
-        'lastName': credential.familyName,
-        'useBundleId':
-        Platform.isIOS  ? 'true' : 'false',
-        if (credential.state != null) 'state': credential.state,
-      },
+    final authCredential =
+    OAuthProvider('apple.com').credential(
+      idToken: credential.identityToken,
+      accessToken: credential.authorizationCode,
     );
 
-    final session = await http.Client().post(
-      signInWithAppleEndpoint,
-    );
-    final authCredential = OAuthProvider("apple.com").getCredential(accessToken: credential.identityToken,idToken: credential.identityToken);
     await FirebaseAuth.instance.signInWithCredential(authCredential);
   }
 
