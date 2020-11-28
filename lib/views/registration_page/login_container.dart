@@ -112,13 +112,18 @@ class LoginContainer extends StatelessWidget {
                   size: 40,
                 ), onPressed: () => loginUser(context,LoginType.Google)
                 ),
+                GetPlatform.isIOS ? SizedBox(
+                  width: 10,
+                ) : Container(),
+                GetPlatform.isIOS ?
                 Container(
                   width: 60,
                   height: 60,
                   child: SignInWithAppleButton(
                     onPressed: () => signInWithApple(context),
                   ),
-                )
+                ) :
+                    Container()
               ],
             ),
           )
