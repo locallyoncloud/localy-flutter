@@ -136,5 +136,10 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
     notifyListeners();
     return await getIt<AuthRepository>().updateUserAddress(address, userMail,isAdd);
   }
+
+  @override
+  Future signInWithApple() async {
+   return await getIt<AuthRepository>().signInWithApple();
+  }
 }
 
