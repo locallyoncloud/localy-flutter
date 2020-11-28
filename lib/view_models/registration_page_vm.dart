@@ -148,5 +148,9 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   Future<AppConfig> getAppConfig() async {
     return await getIt<AuthRepository>().getAppConfig();
   }
+   @override
+  Future signInWithApple() async {
+   return await getIt<AuthRepository>().signInWithApple();
+  }
 }
 

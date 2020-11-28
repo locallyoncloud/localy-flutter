@@ -6,7 +6,6 @@ import 'package:locally_flutter_app/enums/login_type.dart';
 import 'package:locally_flutter_app/enums/text_type.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/notifications_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
@@ -14,6 +13,7 @@ import 'package:locally_flutter_app/views/main_page.dart';
 import 'package:locally_flutter_app/views/widgets/registration_textfield.dart';
 import 'package:locally_flutter_app/views/widgets/snackbar.dart';
 import 'package:provider/provider.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginContainer extends StatelessWidget {
   @override
@@ -111,7 +111,19 @@ class LoginContainer extends StatelessWidget {
                   color: AppColors.WHITE,
                   size: 40,
                 ), onPressed: () => loginUser(context,LoginType.Google)
-                )
+                ),
+                GetPlatform.isIOS ? SizedBox(
+                  width: 10,
+                ) : Container(),
+                GetPlatform.isIOS ?
+                Container(
+                  width: 60,
+                  height: 60,
+                  child: SignInWithAppleButton(
+                    onPressed: () => signInWithApple(context),
+                  ),
+                ) :
+                    Container()
               ],
             ),
           )
@@ -152,6 +164,12 @@ class LoginContainer extends StatelessWidget {
       Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.ERROR, e.message,context));
     }
     }
+
+  signInWithApple(BuildContext context) async {
+    await context.read<RegistrationPageVM>().signInWithApple();
+    print("GİRDİ!!");
+    Get.off(MainPage());
+  }
 
   }
 

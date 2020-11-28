@@ -20,4 +20,7 @@ abstract class AuthBase {
   Future<void> updateUserAddress(Address address, String userMail, bool isAdd);
 
   Future<AppConfig> getAppConfig();
+
+  Future<dynamic> signInWithApple();
+
 }
