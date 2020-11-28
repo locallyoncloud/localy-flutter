@@ -11,11 +11,10 @@ class HorizontalList extends StatelessWidget {
     ScreenSize.recalculate(context);
     return Container(
       height: 60,
+      padding: EdgeInsets.symmetric(horizontal: 5),
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: List.generate(1, (index) =>
-            /*Category(icon: Icon(FontAwesome.coffee,color: AppColors.WHITE),iconCaption: "Kahve"
-            ),*/
             Padding(
               padding:  EdgeInsets.only(left: index!=0 ? 10 : 0),
               child: Column(
