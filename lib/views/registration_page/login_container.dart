@@ -93,7 +93,7 @@ class LoginContainer extends StatelessWidget {
                 )),
           ),
           SizedBox(
-            height: 3.hb,
+            height: 1.hb,
           ),
           Expanded(
             child: Row(

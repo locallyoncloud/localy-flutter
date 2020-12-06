@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
-import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
 import 'package:supercharged/supercharged.dart';
-import 'package:provider/provider.dart';
 
 class RegistrationTabs extends StatefulWidget {
   bool isSignInSelected;

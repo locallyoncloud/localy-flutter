@@ -8,6 +8,7 @@ import 'package:locally_flutter_app/base_classes/authentication_base.dart';
 import 'package:locally_flutter_app/enums/text_type.dart';
 import 'package:locally_flutter_app/models/public_profile.dart';
 import 'package:locally_flutter_app/repositories/auth_repository.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegistrationPageVM extends ChangeNotifier with AuthBase{
@@ -82,11 +83,17 @@ class RegistrationPageVM extends ChangeNotifier with AuthBase{
   }
 
   checkUserPlayerId(String playerId) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if(currentUser.notificationIds.length==0 && !currentUser.notificationIds.contains(playerId) && playerId != null && playerId.length>0){
       await setPlayerId(currentUser.email, playerId);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
       PublicProfile oldCurrentUser = PublicProfile.fromJson(json.decode(prefs.getString("user")));
       oldCurrentUser.notificationIds.add(playerId);
+      prefs.setString("user", json.encode(oldCurrentUser.toJson()));
+    }else if(playerId == null){
+      var subscriptionStatus = await OneSignal.shared.getPermissionSubscriptionState();
+      await setPlayerId(currentUser.email, subscriptionStatus.subscriptionStatus.userId);
+      PublicProfile oldCurrentUser = PublicProfile.fromJson(json.decode(prefs.getString("user")));
+      oldCurrentUser.notificationIds.add(subscriptionStatus.subscriptionStatus.userId);
       prefs.setString("user", json.encode(oldCurrentUser.toJson()));
     }
   }

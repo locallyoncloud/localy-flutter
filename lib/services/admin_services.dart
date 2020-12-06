@@ -147,6 +147,7 @@ class AdminServices implements AdminBase {
 
   @override
   Future<void> sendGift(int count, String companyId, int cardType, String userMail) async {
+
     QuerySnapshot snapshot =  await fireStore.collection("loyalties")
         .where("company_id", isEqualTo: companyId)
         .where("type", isEqualTo: cardType)
@@ -170,6 +171,7 @@ class AdminServices implements AdminBase {
   @override
   Future<List<String>> getAllNotificationIdsForCard(String companyId) async {
     List<String> allUserIds = [];
+    List<String> notNullArray = [];
 
     QuerySnapshot snapshot = await fireStore.collection("loyalties")
         .where("isActive", isEqualTo: true)
@@ -180,10 +182,10 @@ class AdminServices implements AdminBase {
 
     giftCardSnapshot.docs.forEach((doc) {
       LoyaltyProgress progress = LoyaltyProgress.fromJsonMap(doc.data());
-      List<String> notNullArray = progress.notificationIdsOfUsers.where((element) => element!=null && element.length>0).toList();
+      notNullArray = progress.notificationIdsOfUsers.where((element) => element!=null && element.length>0).toList();
       allUserIds += notNullArray;
     });
-
+    allUserIds = allUserIds.toSet().toList();
     return allUserIds;
   }
 

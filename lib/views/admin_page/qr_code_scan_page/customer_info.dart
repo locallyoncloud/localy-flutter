@@ -1,9 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/models/LoyaltyProgress.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/admin_panel_page_vm.dart';
 import 'package:locally_flutter_app/view_models/registration_page_vm.dart';
@@ -28,6 +28,8 @@ class _CustomerInfoState extends State<CustomerInfo> {
   LoyaltyProgress customerProgress;
   int pickedNumber;
   double doubleProgress;
+  bool resetPicker = false;
+
 
   @override
   void initState() {
@@ -224,6 +226,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                   ChangingButton(
                     primaryColor: AppColors.PRIMARY_COLOR,
                     isDisabled: customerProgress.gifts > 0 ? false : true,
+                    maxNumber: customerProgress.gifts,
                     approveFunction: () => giveGifts(),
                     cardType: int.parse(context.watch<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]),
                     textOnchange: (value) {
@@ -242,6 +245,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
         onChange: (value){
           pickedNumber = value;
         },
+        reset: resetPicker,
       );
     }else{
       return Container(
@@ -273,6 +277,9 @@ class _CustomerInfoState extends State<CustomerInfo> {
         pickedNumber,
         doubleProgress
     );
+    setState(() {
+      resetPicker = !resetPicker;
+    });
     Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.SUCCESS_GREEN, "Müşteriye loyalty başarıyla eklendi!!!",context));
   }
 

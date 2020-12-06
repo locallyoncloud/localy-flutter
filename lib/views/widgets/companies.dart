@@ -3,15 +3,13 @@ import 'package:get/get.dart';
 import 'package:locally_flutter_app/enums/order_type.dart';
 import 'package:locally_flutter_app/models/company.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/home_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/company_logo.dart';
-
-import 'package:locally_flutter_app/views/widgets/logo.dart';
 import 'package:provider/provider.dart';
+
 import '../company_details_page/company_details.dart';
 
 class Companies extends StatefulWidget {

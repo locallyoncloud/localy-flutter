@@ -46,21 +46,19 @@ class _ScanQRCodeState extends State<ScanQRCode> {
   @override
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.BG_WHITE,
-        appBar: UtilityWidgets.CustomAppBar(
-          Text(
-            "QR Kod Okut",
-            style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-                color: AppColors.PRIMARY_COLOR),
-          ),
-          null
+    return Scaffold(
+      backgroundColor: AppColors.BG_WHITE,
+      appBar: UtilityWidgets.CustomAppBar(
+        Text(
+          "QR Kod Okut",
+          style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w700,
+              color: AppColors.PRIMARY_COLOR),
         ),
-        body: QRWidget(widget.cameraOf,qrKey,controller),
+        null
       ),
+      body: QRWidget(widget.cameraOf,qrKey,controller),
     );
   }
 
