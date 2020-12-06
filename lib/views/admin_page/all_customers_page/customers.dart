@@ -8,32 +8,30 @@ import 'package:locally_flutter_app/views/admin_page/all_customers_page/customer
 class Customers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-            appBar: UtilityWidgets.CustomAppBar(
-              Text(
-                "Tüm Müşteriler",
-                style: TextStyle(
-                    color: AppColors.PRIMARY_COLOR,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700),
-              ),
-              TabBar(
-                tabs: [
-                  Tab(icon: Icon(AntDesign.gift,color: AppColors.PRIMARY_COLOR,)),
-                  Tab(icon: Icon(Foundation.dollar_bill,color: AppColors.PRIMARY_COLOR,)),
-                  Tab(icon: Icon(Ionicons.md_star,color: AppColors.PRIMARY_COLOR,)),
-                ],
-              ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          appBar: UtilityWidgets.CustomAppBar(
+            Text(
+              "Tüm Müşteriler",
+              style: TextStyle(
+                  color: AppColors.PRIMARY_COLOR,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700),
             ),
-            body: TabBarView(children: [
-              CustomerListTab(0),
-              CustomerListTab(1),
-              CustomerListTab(2)
-            ])),
-      ),
+            TabBar(
+              tabs: [
+                Tab(icon: Icon(AntDesign.gift,color: AppColors.PRIMARY_COLOR,)),
+                Tab(icon: Icon(Foundation.dollar_bill,color: AppColors.PRIMARY_COLOR,)),
+                Tab(icon: Icon(Ionicons.md_star,color: AppColors.PRIMARY_COLOR,)),
+              ],
+            ),
+          ),
+          body: TabBarView(children: [
+            CustomerListTab(0),
+            CustomerListTab(1),
+            CustomerListTab(2)
+          ])),
     );
   }
 }

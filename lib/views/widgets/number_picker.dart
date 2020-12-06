@@ -6,15 +6,31 @@ import 'package:locally_flutter_app/utilities/fonts.dart';
 class NumberPicker extends StatefulWidget {
   int maxCount;
   Function onChange;
+  bool reset;
 
-  NumberPicker({this.maxCount = 99999, this.onChange});
+  NumberPicker({this.maxCount = 99999, this.onChange, this.reset = false});
 
   @override
   _NumberPickerState createState() => _NumberPickerState();
 }
 
 class _NumberPickerState extends State<NumberPicker> {
-  int counter = 1;
+  int counter;
+
+  @override
+  void initState() {
+    super.initState();
+    counter = 1;
+  }
+  @override
+  void didUpdateWidget(covariant NumberPicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.reset == widget.reset){
+      setState(() {
+        counter = 1;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

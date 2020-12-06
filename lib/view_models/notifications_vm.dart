@@ -35,7 +35,7 @@ class NotificationsVM extends ChangeNotifier{
   }
 
   postCampaignNotification(List<String> playerIds, String title, String content) async{
-    var status = await OneSignal.shared.getPermissionSubscriptionState();
+    print(playerIds);
 
     await OneSignal.shared.postNotification(OSCreateNotification(
       playerIds: playerIds,

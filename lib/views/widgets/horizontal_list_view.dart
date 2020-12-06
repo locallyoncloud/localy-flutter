@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
@@ -10,7 +11,7 @@ class HorizontalList extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenSize.recalculate(context);
     return Container(
-      height: 60,
+      height: 80,
       padding: EdgeInsets.symmetric(horizontal: 5),
       child: ListView(
         scrollDirection: Axis.horizontal,
@@ -20,11 +21,12 @@ class HorizontalList extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                    Icon(
+                    /*Icon(
                         FontAwesome.coffee,
                         color: Color(0xff4E4B4B),
                       size: 30,
-                    ),
+                    )*/
+                  Image.asset("assets/png/coffee_icon.png", width: 45,),
                   SizedBox(
                     height: 5,
                   ),

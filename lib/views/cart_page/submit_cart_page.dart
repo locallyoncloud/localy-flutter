@@ -29,111 +29,110 @@ class SubmitCartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: LoadingBar(
+    return LoadingBar(
       isLoadingVisible: context.watch<RegistrationPageVM>().isLoadingVisible,
       child: Scaffold(
-        backgroundColor: AppColors.BG_WHITE,
-        appBar: UtilityWidgets.CustomAppBar(
-            Text(
-                context.watch<CartPageVM>().currentOrderType == OrderType.table
-                    ? "Masa-${context.watch<CartPageVM>().currentSelectedTable} Sipariş"
-                    : "Sipariş Detayı" ,
-              style: TextStyle(
-                  color: AppColors.PRIMARY_COLOR,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700),
-            ),
-            null),
-        body: InkWell(
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-            if (!currentFocus.hasPrimaryFocus) {
-              currentFocus.unfocus();
-            }
-          },
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  renderCard(
-                      "Sipariş Toplamı",
-                      Text(
-                        "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w900,
-                            color: AppColors.GREY),
-                      ),
-                      Ionicons.md_pricetag),
-                  SizedBox(
-                    height: 20,
+    backgroundColor: AppColors.BG_WHITE,
+    appBar: UtilityWidgets.CustomAppBar(
+        Text(
+            context.watch<CartPageVM>().currentOrderType == OrderType.table
+                ? "Masa-${context.watch<CartPageVM>().currentSelectedTable} Sipariş"
+                : "Sipariş Detayı" ,
+          style: TextStyle(
+              color: AppColors.PRIMARY_COLOR,
+              fontSize: 17,
+              fontWeight: FontWeight.w700),
+        ),
+        null),
+    body: InkWell(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              renderCard(
+                  "Sipariş Toplamı",
+                  Text(
+                    "${context.watch<CartPageVM>().totalCartPrice.toStringAsFixed(2)}₺",
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w900,
+                        color: AppColors.GREY),
                   ),
-                  renderCard(
-                      "Loyalty Durumu",
-                      FutureProvider(
-                        create: (context) => context
-                            .read<HomePageVM>()
-                            .getClientSideLoyaltyCard(context
-                                .read<CompanyDetailsPageVM>()
-                                .currentCompany
-                                .company_id),
-                        child: CartProgressInfo(),
-                      ),
-                      Icons.loyalty),
-                  SizedBox(
-                    height: 20,
+                  Ionicons.md_pricetag),
+              SizedBox(
+                height: 20,
+              ),
+              renderCard(
+                  "Loyalty Durumu",
+                  FutureProvider(
+                    create: (context) => context
+                        .read<HomePageVM>()
+                        .getClientSideLoyaltyCard(context
+                            .read<CompanyDetailsPageVM>()
+                            .currentCompany
+                            .company_id),
+                    child: CartProgressInfo(),
                   ),
-                  renderCard(
-                      "Ödeme Şekli",
-                      RadioButtonGroup(["Nakit", "Kredi Kartı"],
-                          (value) => choosePaymentMethod(value)),
-                      Icons.payment),
-                  SizedBox(
-                    height: 20,
-                  ),
-                 context.watch<CartPageVM>().currentOrderType == OrderType.home ? renderCard(
-                      "Sipariş Tipi", ChooseOrderType(), Icons.sticky_note_2)
-                  : Container(),
-                  context.watch<CartPageVM>().currentOrderType == OrderType.home ? SizedBox(
-                    height: 20,
-                  ) : Container(),
-                  renderCard(
-                      "Sipariş Notlarınız",
-                      MultilineTextField("Sipariş Notu",
-                          (value) => takeNote(value), AppColors.DISABLED_GREY),
-                      SimpleLineIcons.note),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Builder(
-                      builder: (context) => InkWell(
-                            onTap: () => submitOrder(context),
-                            child: Container(
-                              height: 60,
-                              width: double.infinity,
-                              color: AppColors.SUCCESS_GREEN,
-                              child: Center(
-                                child: Text(
-                                  "SİPARİŞİ GÖNDER",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppColors.WHITE,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
+                  Icons.loyalty),
+              SizedBox(
+                height: 20,
+              ),
+              renderCard(
+                  "Ödeme Şekli",
+                  RadioButtonGroup(["Nakit", "Kredi Kartı"],
+                      (value) => choosePaymentMethod(value)),
+                  Icons.payment),
+              SizedBox(
+                height: 20,
+              ),
+             context.watch<CartPageVM>().currentOrderType == OrderType.home ? renderCard(
+                  "Sipariş Tipi", ChooseOrderType(), Icons.sticky_note_2)
+              : Container(),
+              context.watch<CartPageVM>().currentOrderType == OrderType.home ? SizedBox(
+                height: 20,
+              ) : Container(),
+              renderCard(
+                  "Sipariş Notlarınız",
+                  MultilineTextField("Sipariş Notu",
+                      (value) => takeNote(value), AppColors.DISABLED_GREY),
+                  SimpleLineIcons.note),
+              SizedBox(
+                height: 20,
+              ),
+              Builder(
+                  builder: (context) => InkWell(
+                        onTap: () => submitOrder(context),
+                        child: Container(
+                          height: 60,
+                          width: double.infinity,
+                          color: AppColors.SUCCESS_GREEN,
+                          child: Center(
+                            child: Text(
+                              "SİPARİŞİ GÖNDER",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppColors.WHITE,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                          ))
-                ],
-              ),
-            ),
+                          ),
+                        ),
+                      ))
+            ],
           ),
         ),
       ),
-    ));
+    ),
+      ),
+    );
   }
 
   renderCard(String title, Widget child, IconData leftIcon) {

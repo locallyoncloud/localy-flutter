@@ -19,50 +19,48 @@ class LoyaltyCards extends StatefulWidget {
 class _LoyaltyCardsState extends State<LoyaltyCards> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-            appBar: UtilityWidgets.CustomAppBar(
-              Text(
-                "Tüm Loyalty Kartlarım",
-                style: TextStyle(
-                    color: AppColors.PRIMARY_COLOR,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700),
-              ),
-              TabBar(
-                tabs: [
-                  Tab(icon: Icon(AntDesign.gift,color: AppColors.PRIMARY_COLOR,)),
-                  Tab(icon: Icon(Foundation.dollar_bill,color: AppColors.PRIMARY_COLOR,)),
-                  Tab(icon: Icon(Ionicons.md_star,color: AppColors.PRIMARY_COLOR,)),
-                ],
-              ),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          appBar: UtilityWidgets.CustomAppBar(
+            Text(
+              "Tüm Loyalty Kartlarım",
+              style: TextStyle(
+                  color: AppColors.PRIMARY_COLOR,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700),
             ),
-          body: Container(
-            color: AppColors.BG_WHITE,
-            child: StreamBuilder(
-              stream: context.watch<AdminPanelVM>().getAdminSideLoyaltyCards(context.watch<RegistrationPageVM>().currentUser.company_id),
-              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if(!snapshot.hasData){
-                  return CircularProgressIndicator();
-                }else{
-                  List<LoyaltyCard> loyaltyCardList = [];
-                  snapshot.data.docs.forEach((doc) {
-                    loyaltyCardList.add(LoyaltyCard.fromJsonMap(doc.data()));
-                  });
-                  return TabBarView(
-                      children: [
-                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==0).toList(),index: 0,),
-                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==1).toList(),index: 1),
-                        LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==2).toList(),index: 2),
-                      ]
-                  );
-                }
-              },
+            TabBar(
+              tabs: [
+                Tab(icon: Icon(AntDesign.gift,color: AppColors.PRIMARY_COLOR,)),
+                Tab(icon: Icon(Foundation.dollar_bill,color: AppColors.PRIMARY_COLOR,)),
+                Tab(icon: Icon(Ionicons.md_star,color: AppColors.PRIMARY_COLOR,)),
+              ],
             ),
-          )
-        ),
+          ),
+        body: Container(
+          color: AppColors.BG_WHITE,
+          child: StreamBuilder(
+            stream: context.watch<AdminPanelVM>().getAdminSideLoyaltyCards(context.watch<RegistrationPageVM>().currentUser.company_id),
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if(!snapshot.hasData){
+                return CircularProgressIndicator();
+              }else{
+                List<LoyaltyCard> loyaltyCardList = [];
+                snapshot.data.docs.forEach((doc) {
+                  loyaltyCardList.add(LoyaltyCard.fromJsonMap(doc.data()));
+                });
+                return TabBarView(
+                    children: [
+                      LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==0).toList(),index: 0,),
+                      LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==1).toList(),index: 1),
+                      LoyaltyCardsTabs(loyaltyCardList: loyaltyCardList.where((loyaltyCard) => loyaltyCard.type==2).toList(),index: 2),
+                    ]
+                );
+              }
+            },
+          ),
+        )
       ),
     );
   }
