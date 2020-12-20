@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 import 'package:supercharged/supercharged.dart';
 
 class CustomerInfo extends StatefulWidget {
-
   @override
   _CustomerInfoState createState() => _CustomerInfoState();
 }
@@ -28,8 +27,6 @@ class _CustomerInfoState extends State<CustomerInfo> {
   LoyaltyProgress customerProgress;
   int pickedNumber;
   double doubleProgress;
-  bool resetPicker = false;
-
 
   @override
   void initState() {
@@ -73,10 +70,7 @@ class _CustomerInfoState extends State<CustomerInfo> {
                               color: AppColors.PRIMARY_COLOR),
                         ),
                         Text(
-                          "${ context
-                              .watch<AdminPanelVM>()
-                              .lastReadAdminQrCode
-                              .split("/")[0]}",
+                          "${context.watch<AdminPanelVM>().lastReadAdminQrCode.split("/")[0]}",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w700,
@@ -93,10 +87,12 @@ class _CustomerInfoState extends State<CustomerInfo> {
                                     ? Entypo.progress_two
                                     : Entypo.progress_empty,
                                 customerProgress.progress.round().toString()),
-                            renderMiniColumn(Feather.target, context
-                                .watch<AdminPanelVM>()
-                                .lastReadAdminQrCode
-                                .split("/")[2]),
+                            renderMiniColumn(
+                                Feather.target,
+                                context
+                                    .watch<AdminPanelVM>()
+                                    .lastReadAdminQrCode
+                                    .split("/")[2]),
                             renderMiniColumn(AntDesign.gift,
                                 customerProgress.gifts.toString())
                           ],
@@ -188,13 +184,18 @@ class _CustomerInfoState extends State<CustomerInfo> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10
-              ),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
+                  NumberPicker(
+                    onChange: (value) {
+                      pickedNumber = value;
+                    },
+                    onSubmitClick: (context) => add(context),
+                    hasSubmitButton: true,
+                  ),
+                  /*Column(
                     children: [
                       renderAddLoyalty(),
                       SizedBox(
@@ -222,13 +223,16 @@ class _CustomerInfoState extends State<CustomerInfo> {
                         ,
                       )
                     ],
-                  ),
+                  ),*/
                   ChangingButton(
                     primaryColor: AppColors.PRIMARY_COLOR,
                     isDisabled: customerProgress.gifts > 0 ? false : true,
                     maxNumber: customerProgress.gifts,
                     approveFunction: () => giveGifts(),
-                    cardType: int.parse(context.watch<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]),
+                    cardType: int.parse(context
+                        .watch<AdminPanelVM>()
+                        .lastReadAdminQrCode
+                        .split("/")[1]),
                     textOnchange: (value) {
                       textValue = int.parse(value);
                     },
@@ -239,15 +243,16 @@ class _CustomerInfoState extends State<CustomerInfo> {
           );
   }
 
-  renderAddLoyalty(){
-    if(int.parse(context.watch<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]) == 0){
+  renderAddLoyalty() {
+    if (int.parse(
+            context.watch<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]) ==
+        0) {
       return NumberPicker(
-        onChange: (value){
+        onChange: (value) {
           pickedNumber = value;
         },
-        reset: resetPicker,
       );
-    }else{
+    } else {
       return Container(
           width: 100,
           child: TextField(
@@ -258,15 +263,13 @@ class _CustomerInfoState extends State<CustomerInfo> {
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.PRIMARY_COLOR
-                ),
+                    color: AppColors.PRIMARY_COLOR),
               ),
             ),
-            onChanged: (value){
+            onChanged: (value) {
               doubleProgress = double.parse(value);
             },
-          )
-      );
+          ));
     }
   }
 
@@ -275,23 +278,30 @@ class _CustomerInfoState extends State<CustomerInfo> {
         context.read<AdminPanelVM>().lastReadAdminQrCode,
         context.read<RegistrationPageVM>().currentUser.company_id,
         pickedNumber,
-        doubleProgress
-    );
-    setState(() {
-      resetPicker = !resetPicker;
-    });
-    Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(AppColors.SUCCESS_GREEN, "Müşteriye loyalty başarıyla eklendi!!!",context));
+        doubleProgress);
+
+    Scaffold.of(context).showSnackBar(CustomSnackbar.buildSnackbar(
+        AppColors.SUCCESS_GREEN,
+        "Müşteriye loyalty başarıyla eklendi!!!",
+        context));
   }
 
-  giveGifts(){
+  giveGifts() {
     context.read<AdminPanelVM>().sendGift(
-      int.parse(context.read<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]) == 0 ?
-      (customerProgress.gifts -textValue)<0 ? 0 :(customerProgress.gifts -textValue) : (customerProgress.progress - textValue),
-      context.read<RegistrationPageVM>().currentUser.company_id,
-      int.parse(context
-        .read<AdminPanelVM>()
-        .lastReadAdminQrCode
-        .split("/")[1]), customerProgress.mail,);
+          int.parse(context
+                      .read<AdminPanelVM>()
+                      .lastReadAdminQrCode
+                      .split("/")[1]) ==
+                  0
+              ? (customerProgress.gifts - textValue) < 0
+                  ? 0
+                  : (customerProgress.gifts - textValue)
+              : (customerProgress.progress - textValue),
+          context.read<RegistrationPageVM>().currentUser.company_id,
+          int.parse(
+              context.read<AdminPanelVM>().lastReadAdminQrCode.split("/")[1]),
+          customerProgress.mail,
+        );
   }
 
   renderMiniColumn(IconData iconData, String text) {
