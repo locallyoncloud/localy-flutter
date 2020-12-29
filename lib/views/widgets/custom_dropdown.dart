@@ -5,8 +5,10 @@ class DropdownWidget extends StatefulWidget {
 
   Function onChange;
   List<String> dropdownList;
+  String hint;
+  Color textColor;
 
-  DropdownWidget({this.onChange, this.dropdownList});
+  DropdownWidget({this.onChange, this.dropdownList, this.hint, this.textColor = AppColors.GREY});
 
   @override
   _DropdownWidgetState createState() => _DropdownWidgetState();
@@ -18,21 +20,24 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   @override
   void initState() {
     super.initState();
-    dropdownValue = widget.dropdownList[0];
+    if(widget.hint == null){
+      dropdownValue = widget.dropdownList[0];
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: dropdownValue,
+      hint: Text(widget.hint ?? "",style: TextStyle(color: AppColors.GREY),),
       icon: Icon(Icons.arrow_downward),
       iconSize: 16,
-      iconEnabledColor: AppColors.GREY,
+      iconEnabledColor: widget.textColor,
       elevation: 16,
-      style: TextStyle(color: AppColors.GREY),
+      style: TextStyle(color: widget.textColor),
       underline: Container(
         height: 2,
-        color: AppColors.GREY,
+        color: widget.textColor,
       ),
       onChanged: (String newValue) {
         setState(() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locally_flutter_app/models/cart_product.dart';
 import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/views/admin_page/admin_show_orders_page/order_status_indicators.dart';
@@ -92,8 +93,11 @@ class AdminActiveOrders extends StatelessWidget {
                         height: 5,
                       ),
                       Container(
-                        height: 100,
+                        constraints: BoxConstraints(
+                            maxHeight: 300
+                        ),
                         child: ListView.builder(
+                          shrinkWrap: true,
                           itemCount: activeOrderList[index].cartProduct.length,
                           itemBuilder: (BuildContext context, int productIndex) {
                             return Container(
@@ -102,13 +106,18 @@ class AdminActiveOrders extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     flex: 59,
-                                    child: Text(
-                                      "${activeOrderList[index].cartProduct[productIndex].product.name}(${activeOrderList[index].cartProduct[productIndex].productSize})",
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.GREY,
-                                          fontWeight: FontWeight.w700
-                                      ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          activeOrderList[index].cartProduct[productIndex].product.name,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: AppColors.GREY,
+                                              fontWeight: FontWeight.w700
+                                          ),
+                                        ),
+                                      ] + renderProductOptions(activeOrderList[index].cartProduct[productIndex]),
                                     ),
                                   ),
                                   Expanded(
@@ -253,5 +262,16 @@ class AdminActiveOrders extends StatelessWidget {
         },
       ),
     );
+  }
+  renderProductOptions(CartProduct cartProduct){
+    return cartProduct.selectedProductOptions.map((e) {
+      return Text(e.replaceFirst(RegExp(r','), ':'),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.PRIMARY_COLOR,
+              fontStyle: FontStyle.italic
+          ));
+    }).toList();
   }
 }

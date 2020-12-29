@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/utility_widgets.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';

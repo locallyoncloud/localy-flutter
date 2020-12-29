@@ -97,7 +97,7 @@ class AdminOldOrders extends StatelessWidget {
                               margin: EdgeInsets.only(top: 10),
                               child: Row(
                                 children: [
-                                  Expanded(
+/*                                  Expanded(
                                     flex: 59,
                                     child: Text(
                                       "${oldOrderList[index].cartProduct[productIndex].product.name}(${oldOrderList[index].cartProduct[productIndex].productSize})",
@@ -107,7 +107,7 @@ class AdminOldOrders extends StatelessWidget {
                                           fontWeight: FontWeight.w700
                                       ),
                                     ),
-                                  ),
+                                  )*/
                                   Expanded(
                                       flex: 15,
                                       child: Text(

@@ -38,7 +38,7 @@ class Order {
   Order.fromJson(dynamic json) {
     uid = json["uid"];
     userMail = json["userMail"];
-    totalPrice = json["totalPrice"];
+    totalPrice = double.parse(json["totalPrice"].toString());
     paymentType = json["paymentType"];
     extraNote = json["extraNote"];
     orderType = json["orderType"];

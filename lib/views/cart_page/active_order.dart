@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/views/widgets/no_data_found.dart';
-import 'package:provider/provider.dart';
+import 'package:locally_flutter_app/models/cart_product.dart';
 
 class ActiveOrder extends StatelessWidget {
   List<Order> activeOrderList;
@@ -46,8 +45,11 @@ class ActiveOrder extends StatelessWidget {
                         height: 5,
                       ),
                       Container(
-                        height: 100,
+                        constraints: BoxConstraints(
+                          maxHeight: 300
+                        ),
                         child: ListView.builder(
+                          shrinkWrap: true,
                           itemCount: activeOrderList[index].cartProduct.length,
                           itemBuilder: (BuildContext context, int productIndex) {
                             return Container(
@@ -56,13 +58,18 @@ class ActiveOrder extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     flex: 59,
-                                    child: Text(
-                                      activeOrderList[index].cartProduct[productIndex].product.name,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: AppColors.GREY,
-                                          fontWeight: FontWeight.w700
-                                      ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          activeOrderList[index].cartProduct[productIndex].product.name,
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: AppColors.GREY,
+                                              fontWeight: FontWeight.w700
+                                          ),
+                                        ),
+                                      ] + renderProductOptions(activeOrderList[index].cartProduct[productIndex]),
                                     ),
                                   ),
                                   Expanded(
@@ -130,6 +137,19 @@ class ActiveOrder extends StatelessWidget {
         :
     NoDataFoundPage('assets/animations/no_data_found.json', "Aktif siparişiniz bulunmamaktadır.");
   }
+
+  renderProductOptions(CartProduct cartProduct){
+   return cartProduct.selectedProductOptions.map((e) {
+      return Text(e.replaceFirst(RegExp(r','), ':'),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.PRIMARY_COLOR,
+              fontStyle: FontStyle.italic
+          ));
+    }).toList();
+  }
+
   renderOrderStatus(int orderStatus){
     IconData iconData;
     String text;
@@ -169,4 +189,6 @@ class ActiveOrder extends StatelessWidget {
       )
     ];
   }
+
+
 }
