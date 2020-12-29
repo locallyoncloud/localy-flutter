@@ -109,42 +109,13 @@ class _AnimatedListItemState extends State<AnimatedListItem> {
                   ),
                 ),
                 Container(
-                  child: Row(
-                    children: [
-                      Visibility(
-                        visible: widget.product.size.length > 0 ? true : false,
-                        child: Container(
-                          child: ChooseProductSize([27,32,37],
-                            onChange:(value){
-                              setState(() {
-                                selectedIndex = value;
-                              });
-                            } ,),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4.wb,
-                      ),
-                      Container(
-                        width: 50,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            PriceText(selectedIndex == 0 ? true : false,
-                                widget.product.price[0]),
-                            widget.product.size.contains("orta")
-                                ? PriceText(selectedIndex == 1 ? true : false,
-                                    widget.product.price[1])
-                                : Container(),
-                            widget.product.size.contains("büyük")
-                                ? PriceText(selectedIndex == 2 ? true : false,
-                                    widget.product.price[2])
-                                : Container(),
-                          ],
-                        ),
-                      )
-                    ],
+                  child: Text(
+                    widget.product.price.toString(),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.GREY
+                    ),
                   ),
                 ),
               ],

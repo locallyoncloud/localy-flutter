@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:locally_flutter_app/models/cart_product.dart';
 import 'package:locally_flutter_app/models/order.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
@@ -63,8 +64,11 @@ class PreviousOrders extends StatelessWidget {
                     height: 5,
                   ),
                   Container(
-                    height: 100,
+                    constraints: BoxConstraints(
+                        maxHeight: 300
+                    ),
                     child: ListView.builder(
+                      shrinkWrap: true,
                       itemCount: orderList[index].cartProduct.length,
                       itemBuilder: (BuildContext context, int productIndex) {
                         return Container(
@@ -73,13 +77,17 @@ class PreviousOrders extends StatelessWidget {
                             children: [
                               Expanded(
                                 flex: 59,
-                                child: Text(
-                                  orderList[index].cartProduct[productIndex].product.name,
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: AppColors.GREY,
-                                      fontWeight: FontWeight.w700
-                                  ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      orderList[index].cartProduct[productIndex].product.name,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: AppColors.GREY,
+                                          fontWeight: FontWeight.w700
+                                      ),
+                                    ),
+                                  ]+ renderProductOptions(orderList[index].cartProduct[productIndex]),
                                 ),
                               ),
                               Expanded(
@@ -145,6 +153,17 @@ class PreviousOrders extends StatelessWidget {
           :
       NoDataFoundPage('assets/animations/no_data_found.json', "Önceden verilmiş sipariş bulunmamaktadır.")      ,
     );
+  }
+  renderProductOptions(CartProduct cartProduct){
+    return cartProduct.selectedProductOptions.map((e) {
+      return Text(e.replaceFirst(RegExp(r','), ':'),
+          style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.PRIMARY_COLOR,
+              fontStyle: FontStyle.italic
+          ));
+    }).toList();
   }
 }
 

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:locally_flutter_app/models/cart_product.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
-import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/utilities/screen_sizes.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
 import 'package:locally_flutter_app/views/widgets/vertical_number_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartItem extends StatelessWidget {
   CartProduct cartProduct;
@@ -55,18 +54,19 @@ class CartItem extends StatelessWidget {
                       cartProduct.product.name,
                       style: TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                         color: AppColors.PRIMARY_COLOR,
                       ),
-                    ),
-                    Text(
-                      cartProduct.productSize.toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.PRIMARY_COLOR,
-                      ),
-                    ),
+                    )]+
+                    cartProduct.selectedProductOptions.map((e) {
+                      return Text(e.replaceFirst(RegExp(r','), ':'),
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.PRIMARY_COLOR,
+                            fontStyle: FontStyle.italic
+                          ));
+                    }).toList()+[
                     Text(
                       "${cartProduct.price} x ${cartProduct.count} = ${cartProduct.price * cartProduct.count}₺",
                       style: TextStyle(

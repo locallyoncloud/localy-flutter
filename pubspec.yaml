@@ -49,6 +49,7 @@ dependencies:
   geolocator: ^6.1.7
   flutter_launcher_icons: ^0.8.1
   sign_in_with_apple: ^2.5.4
+  collection: ^1.14.13
 
 flutter_icons:
   image_path_android: "assets/images/launcher_icon.png"

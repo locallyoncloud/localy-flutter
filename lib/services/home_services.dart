@@ -48,9 +48,8 @@ class HomeServices implements HomeBase{
     QuerySnapshot snapshot =  await fireStore.collection("companies").doc(companyId).collection("products").get();
 
     List<Product> productList = [];
-
     snapshot.docs.forEach((doc) {
-      productList.add(Product.fromJsonMap(doc.data()));
+      productList.add(Product.fromJson(doc.data()));
     });
     return productList;
   }

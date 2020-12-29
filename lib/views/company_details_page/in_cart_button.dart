@@ -6,6 +6,7 @@ import 'package:locally_flutter_app/models/product.dart';
 import 'package:locally_flutter_app/utilities/colors.dart';
 import 'package:locally_flutter_app/utilities/fonts.dart';
 import 'package:locally_flutter_app/view_models/cart_page_vm.dart';
+import 'package:locally_flutter_app/view_models/company_details_page_vm.dart';
 import 'package:locally_flutter_app/view_models/main_page_vm.dart';
 import 'package:locally_flutter_app/views/company_details_page/item_count.dart';
 import 'package:locally_flutter_app/views/company_details_page/menu_tab/add_product_dialog.dart';
@@ -88,7 +89,9 @@ class _InCartButtonState extends State<InCartButton> {
               });
               showDialog(context: context,
               builder: (_) => AddProductDialog(product)
-              );
+              ).then((value) {
+                    context.read<CompanyDetailsPageVM>().clearCurrentSelectedProductOptions();
+              });
             },
             builder: (BuildContext context, List<dynamic> candidateData,
                 List<dynamic> rejectedData) {

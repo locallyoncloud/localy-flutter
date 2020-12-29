@@ -209,7 +209,7 @@ class SubmitCartPage extends StatelessWidget {
           deliveryTime: context.read<CartPageVM>().currentOrderDeliveryTime
       );
       await context.read<HomePageVM>().submitOrder(newOrder);
-      await context.read<NotificationsVM>().postNotification(context.read<CompanyDetailsPageVM>().currentCompany.notificationIds,"Sipariş Alındı", "${context.read<RegistrationPageVM>().currentUser.email} sipariş verdi.");
+      /*await context.read<NotificationsVM>().postNotification(context.read<CompanyDetailsPageVM>().currentCompany.notificationIds,"Sipariş Alındı", "${context.read<RegistrationPageVM>().currentUser.email} sipariş verdi.");*/
       context.read<CartPageVM>().clearCart();
       context.read<CartPageVM>().setCurrentOrderType(OrderType.home);
       context.read<CartPageVM>().setCurrentOrderDeliveryTime("");
